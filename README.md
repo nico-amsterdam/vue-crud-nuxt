@@ -9,4 +9,5 @@ Demo on https://codepen.io/shershen08/pen/xROOxw
 - cd frontend
 - sudo npm install -g nuxt
 - npm run dev
+- open browser http://127.0.0.1:4000/
 
