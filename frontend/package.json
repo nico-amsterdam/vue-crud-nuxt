@@ -1,0 +1,17 @@
+{
+  "name": "vue-crud",
+  "config": {
+    "nuxt": {
+      "port": "4000",
+      "host": "0.0.0.0"
+    }
+  },
+  "scripts": {
+    "dev": "nuxt"
+  },
+  "dependencies": {
+    "axios": "^0.16.2",
+    "config.json": "0.0.4",
+    "nuxt": "^1.0.0-rc11"
+  }
+}
