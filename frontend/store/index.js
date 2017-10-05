@@ -13,7 +13,7 @@ const createStore = () => {
     },
     mutations: {
       ADD_PRODUCT (state, product) {
-        console.log('add2');
+        console.log('add');
         state.products.push({
             id: Math.random().toString().split('.')[1]
           , name: product.name
@@ -23,8 +23,8 @@ const createStore = () => {
       },
       UPDATE_PRODUCT (state, product) {
         console.log('update');
-        var q = state.products.find(p => p.id === product.id);
-        q = {
+        let found = state.products.find(p => p.id === product.id);
+        found = {
             id: product.id
           , name: product.name
           , description: product.description
@@ -33,13 +33,13 @@ const createStore = () => {
       },
       DELETE_PRODUCT (state, product) {
         console.log('delete');
-        var found = state.products.find(p => p.id === product.id);
+        let found = state.products.find(p => p.id === product.id);
         state.products.splice(found, 1);
       }
     },
     actions: {
       nuxtServerInit ({ commit }, { req }) {
-        commit('ADD_PRODUCT', {id: 5, name: 'Wire cutters', description: 'Cut the wire', price: 40, features: ['Handy', 'Tool']})
+        commit('ADD_PRODUCT', {name: 'Wire cutters', description: 'Cut the wire', price: 40, features: ['Handy', 'Tool']})
       }
     }
   })
