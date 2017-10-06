@@ -24,7 +24,7 @@
       <tbody>
       <tr v-for="product in filteredProducts">
         <td>
-          <nuxt-link :to="{name: 'product-id', params: {product_id: product.id}}">{{ product.name }}</nuxt-link>
+          <nuxt-link :to="{name: 'product-id-edit', params: {id: product.id}}">{{ product.name }}</nuxt-link>
         </td>
         <td>{{ product.description }}</td>
         <td>
@@ -32,8 +32,8 @@
           <span class="glyphicon glyphicon-euro" aria-hidden="true"></span>
         </td>
         <td>
-          <nuxt-link class="btn btn-warning btn-xs" :to="{name: 'product-id-edit', params: {product_id: product.id}}">Edit</nuxt-link>
-          <nuxt-link class="btn btn-danger btn-xs" :to="{name: 'product-id-delete', params: {product_id: product.id}}">Delete</nuxt-link>
+          <nuxt-link class="btn btn-warning btn-xs" :to="{name: 'product-id-edit', params: {id: product.id}}">Edit</nuxt-link>
+          <nuxt-link class="btn btn-danger btn-xs" :to="{name: 'product-id-delete', params: {id: product.id}}">Delete</nuxt-link>
         </td>
       </tr>
       </tbody>
