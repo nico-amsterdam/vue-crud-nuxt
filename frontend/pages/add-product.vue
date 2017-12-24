@@ -20,7 +20,8 @@ export default {
   },
   methods: {
     createProduct (e) {
-      this.$store.commit('ADD_PRODUCT', this.product)
+      // normally use store.commit, but as example, if REST backend is used, call store.dispatch action.
+      this.$store.dispatch('addProduct', this.product)
       this.$router.push('/')
     }
   }
