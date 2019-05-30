@@ -16,7 +16,7 @@ export default {
   components: { ProductForm },
   layout: 'vue-crud',
   data () {
-    return {product: {id: null, name: '', description: '', price: '', features: []}}
+    return {"product": {id: null, name: '', description: '', price: '', features: []}}
   },
   methods: {
     createProduct (e) {

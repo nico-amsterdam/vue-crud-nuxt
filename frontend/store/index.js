@@ -1,8 +1,5 @@
-import Vuex from 'vuex'
 
-const createStore = () => {
-  return new Vuex.Store({
-    state: {
+export const state = () => ({
       products: [
           {id: 1, name: 'Drill', description: 'Drill it', price: 35, features: [{id: 51, name: 'Handy'}, {id:52, name: 'Tool'}]}
         , {id: 2, name: 'Hammer', description: 'Nail it', price: 10, features: [{id: 51, name: 'Handy'}, {id:52, name: 'Tool'}]}
@@ -10,8 +7,9 @@ const createStore = () => {
         , {id: 4, name: 'Scissors', description: 'Cut it', price: 5, features: [{id: 51, name: 'Handy'}, {id:52, name: 'Tool'}]}
         , {id: 5, name: 'Screwdriver', description: 'Screw it', price: 10, features: [{id: 51, name: 'Handy'}, {id:52, name: 'Tool'}]}
       ]
-    },
-    mutations: {
+})
+
+export const mutations = {
       ADD_PRODUCT (state, product) {
         console.log('add ' + product.name);
         // get the id's of all products
@@ -35,12 +33,13 @@ const createStore = () => {
         found.price = product.price
       },
       DELETE_PRODUCT (state, product) {
-        let found = state.products.findIndex(p => p.id === product.id);
+        let foundIndex = state.products.findIndex(p => p.id === product.id);
         console.log('delete ' + product.name);
-        state.products.splice(found, 1);
-      },
-    },
-    actions: {
+        if (foundIndex !== -1) state.products.splice(foundIndex, 1);
+      }
+}
+
+export const actions = {
       // to wait for the result, return a Promise.
       // You generally want this, if the (validation-) result decides the navigation.
       // You don't have to wait if add-product and list is on the same page.
@@ -54,8 +53,5 @@ const createStore = () => {
       nuxtServerInit ({ commit }, { req }) {
         commit('ADD_PRODUCT', {name: 'Wire cutters', description: 'Cut the wire', price: 40, features: [{id: 51, name: 'Handy'}, {id:52, name: 'Tool'}]})
       }
-    }
-  })
 }
 
-export default createStore

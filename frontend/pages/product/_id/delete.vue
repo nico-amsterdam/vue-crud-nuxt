@@ -14,7 +14,7 @@
 export default {
   layout: 'vue-crud',
   data () {
-    return {product: this.$store.state.products.find(product => product.id === this.$route.params.id)};
+    return {"product": this.$store.state.products.find(product => product.id === this.$route.params.id)};
   },
   methods: {
     deleteProduct (e) {
