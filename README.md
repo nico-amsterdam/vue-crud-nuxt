@@ -6,12 +6,17 @@ Demo on https://codepen.io/shershen08/pen/xROOxw
 
 - install npm
 - git clone this repostory
+- cd vue-crud-nuxt
 - cd frontend
-- sudo npm install -g nuxt
+- npm ci
 - npm run dev
 - open browser http://127.0.0.1:4000/
 
 It can also run without node on a static website:
+- ./node-modules/.bin/nuxt generate
+or install nuxt globally with
+- sudo npm install -g nuxt
+and run:
 - nuxt generate
 
   This creates everything in the dist directory.
