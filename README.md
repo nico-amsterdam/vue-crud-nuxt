@@ -14,8 +14,10 @@ Demo on https://codepen.io/shershen08/pen/xROOxw
 
 It can also run without node on a static website:
 - ./node-modules/.bin/nuxt generate
+
 or install nuxt globally with
 - sudo npm install -g nuxt
+
 and run:
 - nuxt generate
 
