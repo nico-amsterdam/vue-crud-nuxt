@@ -11,8 +11,7 @@
   },
   "dependencies": {
     "axios": "^0.19.2",
-    "config.json": "0.0.4",
-    "nuxt": "^2.12.0",
+    "nuxt": "^2.12.2",
     "vuex-i18n": "^1.13.1"
   }
 }
