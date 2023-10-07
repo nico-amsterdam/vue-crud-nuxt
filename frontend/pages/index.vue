@@ -1,10 +1,28 @@
+<script setup lang="ts">
+   import { ref, computed } from 'vue'
+   import { storeToRefs } from 'pinia'
+// auto import:   import { useProductStore } from '@stores/product'
+
+   const productStore = useProductStore()
+   const { productList } = productStore
+   const searchKey = ''
+
+   const filteredProducts = computed(() => {
+      return productList.filter(product => product.name.toLowerCase().indexOf(searchKey.toLowerCase()) !== -1)
+    })
+
+    definePageMeta({
+      layout: "vue-crud"
+    })
+</script>
+
 <template>
   <section>
     <div class="actions">
-      <nuxt-link class="btn btn-default" :to="{path: '/add-product'}">
+      <NuxtLink class="btn btn-default" to="/add-product" no-rel>
         <span class="glyphicon glyphicon-plus"></span>
         Add product
-      </nuxt-link>
+      </NuxtLink>
     </div>
     <div class="filters row">
       <div class="form-group col-sm-3">
@@ -24,7 +42,7 @@
       <tbody>
       <tr v-for="product in filteredProducts">
         <td>
-          <nuxt-link :to="{name: 'product-id-edit', params: {id: product.id}}">{{ product.name }}</nuxt-link>
+          <NuxtLink class="btn btn-warning btn-xs" :to="`/product/${product.id}/edit`" no-rel>{{ product.name }}</NuxtLink>
         </td>
         <td>{{ product.description }}</td>
         <td>
@@ -32,29 +50,14 @@
           <span class="glyphicon glyphicon-euro" aria-hidden="true"></span>
         </td>
         <td>
-          <nuxt-link class="btn btn-warning btn-xs" :to="{name: 'product-id-edit', params: {id: product.id}}">Edit</nuxt-link>
-          <nuxt-link class="btn btn-danger btn-xs" :to="{name: 'product-id-delete', params: {id: product.id}}">Delete</nuxt-link>
+          <NuxtLink class="btn btn-warning btn-xs" :to="`/product/${product.id}/edit`" no-rel>Edit</NuxtLink>
+          <NuxtLink class="btn btn-danger btn-xs" :to="`/product/${product.id}/delete`" no-rel>Delete</NuxtLink>
         </td>
       </tr>
       </tbody>
     </table>
   </section>
 </template>
-
-<script>
-
-export default {
-  layout: 'vue-crud',
-  data () {
-    return { searchKey: '', products: this.$store.state.products }
-  },
-  computed : {
-    filteredProducts () {
-      return this.products.filter(product => product.name.toLowerCase().indexOf(this.searchKey.toLowerCase()) !== -1)
-    }
-  }
-}
-</script>
 
 <style>
 .form-group {

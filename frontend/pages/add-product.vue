@@ -1,30 +1,31 @@
+<script setup>
+ // auto-import import ProductForm from '../components/product-form.vue'
+    import { ref } from 'vue'
+    import { storeToRefs } from 'pinia'
+ // auto=import   import { useProductStore } from '@stores/product'
+   
+    const productStore = useProductStore()
+    const { addProduct } = productStore
+    const product = ref({id: null, name: '', description: '', price: '', features: []})
+
+    function createProduct (e) {
+      addProduct(product)
+      navigateTo('/')
+    }
+
+    definePageMeta({
+      layout: "vue-crud",
+    })
+
+</script>
+
 <template>
     <section>
     <h2>Add new product</h2>
     <form v-on:submit.prevent="createProduct">
-      <product-form :the-product="product"></product-form>
+      <ProductForm v-model:the-product="product"></ProductForm>
       <button type="submit" class="btn btn-primary">Create</button>
-      <nuxt-link to="/" class="btn btn-default">Cancel</nuxt-link>
+      <NuxtLink to="/" class="btn btn-default">Cancel</NuxtLink>
     </form>
   </section>
 </template>
-
-<script>
- import ProductForm from '../components/product-form.vue'
-
-export default {
-  components: { ProductForm },
-  layout: 'vue-crud',
-  data () {
-    return {"product": {id: null, name: '', description: '', price: '', features: []}}
-  },
-  methods: {
-    createProduct (e) {
-      // normally use store.commit, but as example, if REST backend is used, call store.dispatch action.
-      this.$store.dispatch('addProduct', this.product)
-      this.$router.push('/')
-    }
-  }
-}
-</script>
-

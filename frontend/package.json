@@ -1,17 +1,18 @@
 {
   "name": "vue-crud",
-  "config": {
-    "nuxt": {
-      "port": "4000",
-      "host": "0.0.0.0"
-    }
-  },
+  "private": true,
   "scripts": {
-    "dev": "nuxt"
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "devDependencies": {
+    "nuxt": "^3.1.2"
   },
   "dependencies": {
-    "axios": "^0.21.2",
-    "nuxt": "^3.0.0",
-    "vuex-i18n": "^1.13.1"
+    "@pinia/nuxt": "^0.4.6",
+    "pinia": "^2.0.30"
   }
 }

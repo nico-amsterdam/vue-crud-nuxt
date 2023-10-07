@@ -6,7 +6,7 @@
         <h1>Vue CRUD</h1>
       </div>
     </header>
-    <nuxt/>
+    <slot />
   </div>
 </template>
 

@@ -1,3 +1,7 @@
+<script setup>
+  defineProps(['theProduct'])
+</script>
+
 <template>
   <span>
     <div class="form-group">
@@ -14,10 +18,3 @@
     </div>
   </span>
 </template>
-
-<script>
-  export default {
-     name: 'ProductForm',
-    props: ['theProduct']
-  }
-</script>
