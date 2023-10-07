@@ -5,10 +5,10 @@
 
    const productStore = useProductStore()
    const { productList } = productStore
-   const searchKey = ''
+   const searchKey = ref('')
 
    const filteredProducts = computed(() => {
-      return productList.filter(product => product.name.toLowerCase().indexOf(searchKey.toLowerCase()) !== -1)
+      return productList.filter(product => product.name.toLowerCase().indexOf(searchKey.value.toLowerCase()) !== -1)
     })
 
     definePageMeta({

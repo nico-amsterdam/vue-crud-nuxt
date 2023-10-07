@@ -17,7 +17,7 @@ type ProductType = {
 
 export const useProductStore = defineStore('productStore', () => {
 
-  const productList = ref<Array<ProductType>>([
+  const productList = ref<ProductType[]>([
     {id: 1, name: 'Drill', description: 'Drill it', price: 35, features: [{id: 51, name: 'Handy'}, {id:52, name: 'Tool'}]}
     , {id: 2, name: 'Hammer', description: 'Nail it', price: 10, features: [{id: 51, name: 'Handy'}, {id:52, name: 'Tool'}]}
     , {id: 3, name: 'Handsaw', description: 'Saw it', price: 55, features: [{id: 51, name: 'Handy'}, {id:52, name: 'Tool'}]}
@@ -28,12 +28,12 @@ export const useProductStore = defineStore('productStore', () => {
   function addProduct(product: ProductType) {
     console.log('add ' + product.name)
     // get the id's of all products
-    let ids: number[] = productList.map( (prod) => prod.id )
+    let ids: number[] = productList.value.map( (prod) => prod.id )
     // when there are no id's yet, 0 is the max.
     ids.push(0)
     // calculate new id
     let newId = Math.max(...ids) + 1
-    productList.push({
+    productList.value.push({
         id: newId
       , name: product.name
       , description: product.description
@@ -43,7 +43,7 @@ export const useProductStore = defineStore('productStore', () => {
   }
 
   function updateProduct(product: ProductType) {
-    let found = productList.find(p => p.id === product.id)
+    let found = productList.value.find(p => p.id === product.id)
     if (found) {
       console.log('update '  + found.name)
       found.name = product.name
@@ -53,9 +53,9 @@ export const useProductStore = defineStore('productStore', () => {
   }
 
   function deleteProduct(product: ProductType) {
-    let foundIndex = productList.findIndex(p => p.id === product.id);
+    let foundIndex = productList.value.findIndex(p => p.id === product.id);
     console.log('delete ' + product.name)
-    if (foundIndex !== -1) productList.splice(foundIndex, 1)
+    if (foundIndex !== -1) productList.value.splice(foundIndex, 1)
   }
 
   /*
