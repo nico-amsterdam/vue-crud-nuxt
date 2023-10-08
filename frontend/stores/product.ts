@@ -29,9 +29,9 @@ export const useProductStore = defineStore('productStore', () => {
     console.log('add ' + product.name)
     // get the id's of all products
     const ids: (number | null)[] = productList.value.map( (prod) => prod.id )
-    const idsNoNulls = ids.filter(x => x != null) as number[];
     // when there are no id's yet, 0 is the max.
     ids.push(0)
+    const idsNoNulls = ids.filter(x => x != null) as number[];
     // calculate new id
     let newId = Math.max(...idsNoNulls) + 1
     productList.value.push({
