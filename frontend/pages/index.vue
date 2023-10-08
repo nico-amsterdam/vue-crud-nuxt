@@ -42,7 +42,7 @@
       <tbody>
       <tr v-for="product in filteredProducts">
         <td>
-          <NuxtLink class="btn btn-warning btn-xs" :to="`/product/${product.id}/edit`" no-rel>{{ product.name }}</NuxtLink>
+          <NuxtLink :to="`/product/${product.id}/edit`" no-rel>{{ product.name }}</NuxtLink>
         </td>
         <td>{{ product.description }}</td>
         <td>
