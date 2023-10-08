@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
     // auto import import { useProductStore } from '@stores/product'
     import { useRoute } from 'vue-router'
 
@@ -10,7 +10,7 @@
     // deep-clone the product to prevent that changes are applied directly.
     // Direct manipulation goes wrong when validation error occurs and user cancels.
     // Only change via mutations.
-    const product = JSON.parse(JSON.stringify(productList.find((p) => p.id == route.params.id) ?? null))
+    const product = JSON.parse(JSON.stringify(productList.find((p) => '' + p.id === route.params.id) ?? null))
     // Alternative:
     // const product = structuredClone(toRaw(productList.find((p) => p.id == route.params.id)));
 

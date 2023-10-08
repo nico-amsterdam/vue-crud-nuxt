@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
     // auto-import import { useProductStore } from '@stores/product'
     import { useRoute } from 'vue-router'
 
@@ -6,10 +6,12 @@
     const { productList } = productStore
     const { deleteProduct } = productStore
     const route = useRoute()
-    const product = productList.find((p) => p.id == route.params.id);
+    const product = productList.find((p) => '' + p.id === route.params.id) ?? null;
 
     function remove() {
-      deleteProduct(product)
+      if (product) {
+         deleteProduct(product)
+      }
       navigateTo('/')
     }
 
