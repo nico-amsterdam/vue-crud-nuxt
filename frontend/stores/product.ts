@@ -7,10 +7,10 @@ type FeatureType = {
 }
 
 type ProductType = {
-  id: number;
+  id: number | null;
   name: string;
   description: string;
-  price: number;
+  price: number | null;
   features: Array<FeatureType>;
 }
 
@@ -28,11 +28,12 @@ export const useProductStore = defineStore('productStore', () => {
   function addProduct(product: ProductType) {
     console.log('add ' + product.name)
     // get the id's of all products
-    let ids: number[] = productList.value.map( (prod) => prod.id )
+    const ids: (number | null)[] = productList.value.map( (prod) => prod.id )
+    const idsNoNulls = ids.filter(x => x != null) as number[];
     // when there are no id's yet, 0 is the max.
     ids.push(0)
     // calculate new id
-    let newId = Math.max(...ids) + 1
+    let newId = Math.max(...idsNoNulls) + 1
     productList.value.push({
         id: newId
       , name: product.name

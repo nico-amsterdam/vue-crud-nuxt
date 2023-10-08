@@ -1,20 +1,19 @@
-<script setup>
+<script setup lang="ts">
  // auto-import import ProductForm from '../components/product-form.vue'
+ // auto=import import { useProductStore } from '@stores/product'
     import { ref } from 'vue'
-    import { storeToRefs } from 'pinia'
- // auto=import   import { useProductStore } from '@stores/product'
    
     const productStore = useProductStore()
     const { addProduct } = productStore
-    const product = ref({id: null, name: '', description: '', price: '', features: []})
+    const product = {id: null, name: '', description: '', price: null, features: []}
 
-    function createProduct (e) {
+    function createProduct () {
       addProduct(product)
       navigateTo('/')
     }
 
     definePageMeta({
-      layout: "vue-crud",
+      layout: "vue-crud"
     })
 
 </script>

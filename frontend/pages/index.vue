@@ -1,14 +1,14 @@
 <script setup lang="ts">
+   // auto import:   import { useProductStore } from '@stores/product'
    import { ref, computed } from 'vue'
    import { storeToRefs } from 'pinia'
-// auto import:   import { useProductStore } from '@stores/product'
 
    const productStore = useProductStore()
-   const { productList } = productStore
+   const { productList } = storeToRefs(productStore)
    const searchKey = ref('')
 
    const filteredProducts = computed(() => {
-      return productList.filter(product => product.name.toLowerCase().indexOf(searchKey.value.toLowerCase()) !== -1)
+      return productList.value.filter(product => product.name.toLowerCase().indexOf(searchKey.value.toLowerCase()) !== -1)
     })
 
     definePageMeta({
