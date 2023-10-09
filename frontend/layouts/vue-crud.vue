@@ -18,4 +18,7 @@
   margin-right: 15px;
 }
 
+.btn {
+  margin-right: 5px
+}
 </style>
