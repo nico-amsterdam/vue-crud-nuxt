@@ -13,7 +13,8 @@ Demo on https://codepen.io/shershen08/pen/xROOxw
 - open browser http://127.0.0.1:3000/
 
 It can also run without node on a static website:
-- ./node-modules/.bin/nuxt generate
+- yarn nuxt generate
+which runs: ./node-modules/.bin/nuxt generate
 
 or install nuxt globally with
 - sudo npm install -g nuxt
