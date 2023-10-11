@@ -59,11 +59,5 @@ export const useProductStore = defineStore('productStore', () => {
     if (foundIndex !== -1) productList.value.splice(foundIndex, 1)
   }
 
-  /*
-  async boot() { // replacement for nuxtServerInit 
-    addProduct({name: 'Wire cutters', description: 'Cut the wire', price: 40, features: [{id: 51, name: 'Handy'}, {id:52, name: 'Tool'}]})
-  }
-  */
-
   return { addProduct, updateProduct, deleteProduct, productList }
 })
