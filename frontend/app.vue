@@ -15,6 +15,6 @@
    // example replacement for NuxtServerInit
    onServerPrefetch(async () => {
       console.log(process.server)
-      addProduct({name: 'Wire cutters', description: 'Cut the wire', price: 40, features: [{id: 51, name: 'Handy'}, {id:52, name: 'Tool'}]})
+      addProduct({id: null, name: 'Wire cutters', description: 'Cut the wire', price: 40, features: [{id: 51, name: 'Handy'}, {id:52, name: 'Tool'}]})
    })
 </script>
