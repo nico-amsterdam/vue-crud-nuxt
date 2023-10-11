@@ -42,7 +42,7 @@
       <tbody>
       <tr v-for="product in filteredProducts">
         <td>
-          <NuxtLink :to="`/product/${product.id}/edit`" no-rel>{{ product.name }}</NuxtLink>
+          <NuxtLink :to="`/product/${product.id}/edit`" no-rel no-prefetch>{{ product.name }}</NuxtLink>
         </td>
         <td>{{ product.description }}</td>
         <td>
@@ -50,8 +50,8 @@
           <span class="glyphicon glyphicon-euro" aria-hidden="true"></span>
         </td>
         <td>
-          <NuxtLink class="btn btn-warning btn-xs" :to="`/product/${product.id}/edit`" no-rel>Edit</NuxtLink>
-          <NuxtLink class="btn btn-danger btn-xs" :to="`/product/${product.id}/delete`" no-rel>Delete</NuxtLink>
+          <NuxtLink class="btn btn-warning btn-xs" :to="`/product/${product.id}/edit`" no-rel no-prefetch>Edit</NuxtLink>
+          <NuxtLink class="btn btn-danger btn-xs" :to="`/product/${product.id}/delete`" no-rel no-prefetch>Delete</NuxtLink>
         </td>
       </tr>
       </tbody>
