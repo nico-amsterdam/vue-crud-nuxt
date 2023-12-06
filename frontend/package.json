@@ -9,10 +9,10 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
-    "nuxt": "^3.1.2"
+    "nuxt": "^3.8.2"
   },
   "dependencies": {
-    "@pinia/nuxt": "^0.4.6",
-    "pinia": "^2.0.30"
+    "@pinia/nuxt": "^0.5.1",
+    "pinia": "^2.1.7"
   }
 }
