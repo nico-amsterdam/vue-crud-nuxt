@@ -4,6 +4,7 @@ Demo on https://codepen.io/shershen08/pen/xROOxw
 
 ## Instructions
 
+- install node v20 or newer (https://nodejs.org/)
 - install yarn (or pnpm)
 - git clone this repostory
 - cd vue-crud-nuxt
@@ -14,7 +15,7 @@ Demo on https://codepen.io/shershen08/pen/xROOxw
 
 It can also run without node on a static website:
 - yarn nuxt generate
-which runs: ./node-modules/.bin/nuxt generate
+which runs: ./node_modules/.bin/nuxt generate
 
 or install nuxt globally with
 - sudo npm install -g nuxt
