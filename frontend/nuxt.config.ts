@@ -2,6 +2,7 @@ export default defineNuxtConfig({
   typescript: {
     strict: true
   },
+
   modules: [
     [
       "@pinia/nuxt",
@@ -15,6 +16,7 @@ export default defineNuxtConfig({
       },
     ],
   ],
+
   app: {
     /*
     ** Headers of the page
@@ -37,7 +39,10 @@ export default defineNuxtConfig({
       ]
     }    
   },
+
   imports: {
     dirs: ['stores']
-  }
+  },
+
+  compatibilityDate: '2024-09-17'
 });
