@@ -4,28 +4,34 @@ Demo on https://codepen.io/shershen08/pen/xROOxw
 
 ## Instructions
 
-- install node v20 or newer (https://nodejs.org/)
-- install yarn (or pnpm)
+- install node v23 or newer (https://nodejs.org/). This also installs npx
+- install pnpm
 - git clone this repostory
 - cd vue-crud-nuxt
 - cd frontend
-- yarn install --frozen-lockfile
-- yarn run dev
+- pnpm install
+- pnpm run dev
 - open browser http://127.0.0.1:3000/
 
+Run with nuxthub:
+- run locally with:
+  - npx nuxthub preview
+- deploy on cloudflare:
+  - npx nuxthub deploy
+
 It can also run without node on a static website:
-- yarn nuxt generate
+- pnpm nuxt generate
 which runs: ./node_modules/.bin/nuxt generate
 
 or install nuxt globally with
-- sudo npm install -g nuxt
+- sudo pnpm install -g nuxt
 
 and run:
 - nuxt generate
 
   This creates everything in the .output/public directory.
   Put it in the document root directory of your webserver, or test it for example with live-server
-  - sudo npm install -g live-server
+  - sudo pnpm install -g live-server
   - cd .output/public
   - live-server
   - open browser http://127.0.0.1:8080/

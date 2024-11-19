@@ -9,10 +9,13 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
-    "nuxt": "^3.12.4"
+    "@nuxthub/core": "^0.8.7",
+    "nuxt": "^3.12.4",
+    "wrangler": "^3.88.0"
   },
   "dependencies": {
     "@pinia/nuxt": "^0.5.1",
     "pinia": "^2.1.7"
-  }
+  },
+  "packageManager": "pnpm@9.13.2+sha512.88c9c3864450350e65a33587ab801acf946d7c814ed1134da4a924f6df5a2120fd36b46aab68f7cd1d413149112d53c7db3a4136624cfd00ff1846a0c6cef48a"
 }
