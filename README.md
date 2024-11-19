@@ -1,6 +1,6 @@
 
 Rebuild of [Vue CRUD application](https://github.com/shershen08/vue.js-v2-crud-application) with [Nuxt 3](https://nuxtjs.org) and [Pinia](https://pinia.vuejs.org).
-Demo on https://codepen.io/shershen08/pen/xROOxw
+Demo on https://vue-crud-nuxt.nuxt.dev/
 
 ## Instructions
 
