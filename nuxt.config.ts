@@ -1,4 +1,8 @@
 export default defineNuxtConfig({
+  srcDir: 'app',
+  devtools: {
+    enabled: true
+  },
   typescript: {
     strict: true
   },
@@ -7,10 +11,10 @@ export default defineNuxtConfig({
     "@pinia/nuxt",
     {
       autoImports: [
-    // automatically imports `defineStore`
-    'defineStore', // import { defineStore } from 'pinia'
-    // automatically imports `defineStore` as `definePiniaStore`
-    ['defineStore', 'definePiniaStore'], // import { defineStore as definePiniaStore } from 'pinia'        
+        // automatically imports `defineStore`
+        'defineStore', // import { defineStore } from 'pinia'
+        // automatically imports `defineStore` as `definePiniaStore`
+        ['defineStore', 'definePiniaStore'], // import { defineStore as definePiniaStore } from 'pinia'        
       ],
     },
   ], '@nuxthub/core'],

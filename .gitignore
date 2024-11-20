@@ -1,5 +1,7 @@
-/frontend/node_modules/
-/frontend/.nuxt/
-/frontend/.env
-/frontend/dist/
-/frontend/.data
+node_modules/
+.nuxt/
+.env
+dist/
+.data
+
+.wrangler

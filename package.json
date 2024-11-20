@@ -4,18 +4,24 @@
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
-    "generate": "nuxt generate",
-    "preview": "nuxt preview",
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
+    "@nuxt/devtools": "^1.6.0",
     "@nuxthub/core": "^0.8.7",
-    "nuxt": "^3.12.4",
+    "nuxt": "^3.14.1592",
     "wrangler": "^3.88.0"
   },
   "dependencies": {
-    "@pinia/nuxt": "^0.5.1",
-    "pinia": "^2.1.7"
+    "@pinia/nuxt": "^0.5.5",
+    "@simplewebauthn/browser": "^11.0.0",
+    "@simplewebauthn/server": "^11.0.0",
+    "drizzle-kit": "^0.28.1",
+    "drizzle-orm": "^0.36.3",
+    "h3-zod": "^0.5.3",
+    "nuxt-auth-utils": "^0.5.5",
+    "pinia": "^2.2.6",
+    "zod": "^3.23.8"
   },
   "packageManager": "pnpm@9.13.2+sha512.88c9c3864450350e65a33587ab801acf946d7c814ed1134da4a924f6df5a2120fd36b46aab68f7cd1d413149112d53c7db3a4136624cfd00ff1846a0c6cef48a"
 }
