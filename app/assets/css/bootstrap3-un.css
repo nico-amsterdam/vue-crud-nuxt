@@ -429,8 +429,6 @@ textarea.form-control {
     background-color: #fff;
     text-shadow: 0 1px 0 #fff;
     background-image: linear-gradient(to bottom,#fff 0,#e0e0e0 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffe0e0e0', GradientType=0);
-    filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
     background-repeat: repeat-x;
     border-color: #dbdbdb;
     outline-color: #dbdbdb
@@ -454,8 +452,6 @@ textarea.form-control {
     color: #fff;
     background-color: #337ab7;
     background-image: linear-gradient(to bottom,#337ab7 0,#265a88 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff337ab7', endColorstr='#ff265a88', GradientType=0);
-    filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
     background-repeat: repeat-x;
     border-color: #245580;
     outline-color: #245580
@@ -479,8 +475,6 @@ textarea.form-control {
     color: #fff;
     background-color: #f0ad4e;
     background-image: linear-gradient(to bottom,#f0ad4e 0,#eb9316 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff0ad4e', endColorstr='#ffeb9316', GradientType=0);
-    filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
     background-repeat: repeat-x;
     border-color: #e38d13;
     outline-color: #e38d13
@@ -504,8 +498,6 @@ textarea.form-control {
     color: #fff;
     background-color: #d9534f;
     background-image: linear-gradient(to bottom,#d9534f 0,#c12e2a 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffd9534f', endColorstr='#ffc12e2a', GradientType=0);
-    filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
     background-repeat: repeat-x;
     border-color: #b92c28;
     outline-color: #b92c28
