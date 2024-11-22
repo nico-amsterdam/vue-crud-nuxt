@@ -39,10 +39,10 @@ export default defineNuxtConfig({
     // bootstrap3 + theme via uncss
     '~/assets/css/bootstrap3-un.css'
   ],
+
   experimental: {
     inlineSSRStyles: true
   },
-
   addMeta: true,
 
   imports: {

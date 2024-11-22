@@ -2,6 +2,7 @@
    // auto import:   import { useProductStore } from '@stores/product'
    import { ref, computed } from 'vue'
    import { storeToRefs } from 'pinia'
+   import { Icon } from '@iconify/vue'
 
    const productStore = useProductStore()
    const { productList } = storeToRefs(productStore)
@@ -20,7 +21,7 @@
   <section>
     <div class="actions">
       <NuxtLink class="btn btn-default" to="/add-product" no-rel>
-        <span class="glyphicon glyphicon-plus"></span>
+        <Icon icon="mdi:add" :ssr="true" title="+" class="plussign" />
         Add product
       </NuxtLink>
     </div>
@@ -47,7 +48,7 @@
         <td>{{ product.description }}</td>
         <td>
           {{ product.price }}
-          <span class="glyphicon glyphicon-euro" aria-hidden="true"></span>
+          <Icon icon="mdi:euro" :ssr="true" title="€" class="euro" />
         </td>
         <td>
           <NuxtLink class="btn btn-warning btn-xs" :to="`/product/${product.id}/edit`" no-rel no-prefetch>Edit</NuxtLink>
@@ -68,7 +69,13 @@
   padding: 10px 0;
 }
 
-.glyphicon-euro {
-  font-size: 12px;
+.euro {
+  vertical-align: text-bottom;
+  margin-bottom: 1px
+}
+
+.plussign {
+  vertical-align: bottom;
+  font-size: 24px
 }
 </style>
