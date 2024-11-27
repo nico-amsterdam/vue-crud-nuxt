@@ -17,7 +17,8 @@ export default defineNuxtConfig({
         ['defineStore', 'definePiniaStore'], // import { defineStore as definePiniaStore } from 'pinia'        
       ],
     },
-  ], '@nuxthub/core'],
+  ], '@nuxthub/core'
+   , 'nuxt-auth-utils'],
 
   app: {
     /*
@@ -35,10 +36,9 @@ export default defineNuxtConfig({
       ]
     }    
   },
-  css: [
-    // bootstrap3 + theme via uncss
-    '~/assets/css/bootstrap3-un.css'
-  ],
+  auth: {
+    webAuthn: true
+  },
 
   experimental: {
     inlineSSRStyles: true

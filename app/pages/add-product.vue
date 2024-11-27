@@ -1,7 +1,7 @@
 <script setup lang="ts">
  // auto-import import ProductForm from '../components/product-form.vue'
  // auto-import import { useProductStore } from '@stores/product'
-   
+
     const productStore = useProductStore()
     const { addProduct } = productStore
     let   product = {id: null, name: '', description: '', price: null, features: []}
@@ -15,6 +15,7 @@
       layout: "vue-crud"
     })
 
+    useHead({ link: [{rel: 'stylesheet', href: '/_nuxt/assets/css/bootstrap3-un.css'}] })
 </script>
 
 <template>

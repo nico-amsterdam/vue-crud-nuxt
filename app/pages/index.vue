@@ -1,5 +1,5 @@
 <script setup lang="ts">
-   // auto import:   import { useProductStore } from '@stores/product'
+ // auto import:   import { useProductStore } from '@stores/product'
    import { ref, computed } from 'vue'
    import { storeToRefs } from 'pinia'
    import { Icon } from '@iconify/vue'
@@ -12,16 +12,19 @@
       return productList.value.filter(product => product.name.toLowerCase().indexOf(searchKey.value.toLowerCase()) !== -1)
     })
 
-    definePageMeta({
-      layout: "vue-crud"
-    })
+   definePageMeta({
+    //  middleware: 'auth',
+      layout: 'vue-crud'
+   })
+
+   useHead({ link: [{rel: 'stylesheet', href: '/_nuxt/assets/css/bootstrap3-un.css'}] })
 </script>
 
 <template>
   <section>
     <div class="actions">
       <NuxtLink class="btn btn-default" to="/add-product" no-rel>
-        <Icon icon="mdi:add" :ssr="true" title="+" class="plussign" />
+        <Icon icon="tabler:plus" :ssr="true" title="+" class="plussign" />
         Add product
       </NuxtLink>
     </div>
@@ -47,8 +50,7 @@
         </td>
         <td>{{ product.description }}</td>
         <td>
-          {{ product.price }}
-          <Icon icon="mdi:euro" :ssr="true" title="€" class="euro" />
+          {{ product.price }} €
         </td>
         <td>
           <NuxtLink class="btn btn-warning btn-xs" :to="`/product/${product.id}/edit`" no-rel no-prefetch>Edit</NuxtLink>

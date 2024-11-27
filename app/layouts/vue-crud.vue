@@ -11,7 +11,6 @@
 </template>
 
 <style>
-
 .logo {
   width: 50px;
   float: left;
