@@ -1,8 +1,42 @@
 <script setup lang="ts">
 import { Icon } from '@iconify/vue'
 
+type ErrorType = {
+  message: string;
+  details: string;
+}
+
 const username = ref(''), name = ref('')
-const errors = ref([{ message: 'Foo' }, { message: 'Bar' }])
+const errors = ref<ErrorType[]>([])
+const { fetch } = useUserSession()
+const { register, authenticate } = useWebAuthn()
+
+async function signUp() {
+  await register({
+    userName: username.value,
+    displayName: name.value
+  })
+    .then(fetch)
+    .then(async () => await navigateTo('/'))
+    .catch((error) => {
+      errors.value.push({
+        message: error.data?.message || error.message,
+        details: error.data?.data
+      })
+    })
+}
+
+async function signIn() {
+  await authenticate(username.value)
+    .then(fetch)
+    .then(async () => await navigateTo('/'))
+    .catch((error) => {
+      errors.value.push({
+        message: error.data?.message || error.message,
+        details: error.data?.data
+      })
+    })
+}
 
 useHead({
     bodyAttrs: { class: 'auth' }
@@ -25,7 +59,7 @@ useHead({
             <div class="row signup_or_signin">
                 <article class="column signup">
                     <h2>Sign Up</h2>
-                    <form>
+                    <form @submit.prevent="signUp">
                         <div class="input-group">
                             <input type="text" v-model="username" placeholder="Username" id="signup-username" required>
                         </div>
@@ -42,7 +76,7 @@ useHead({
 
                 <article class="column signin">
                     <h2>Sign In</h2>
-                    <form>
+                    <form @submit.prevent="signIn">
                         <div class="input-group">
                             <input type="text" v-model="username" placeholder="Username" id="signin-username" required>
                         </div>

@@ -36,7 +36,6 @@ body.auth {
        display: flex;
    }
 
-
    .titlebar svg {
        flex-shrink: 0;
    }
@@ -69,7 +68,7 @@ body.auth {
 
    .divider::before {
        top: 0;
-}
+   }
 
    .divider::after {
        bottom: 0;
@@ -120,6 +119,10 @@ body.auth {
 
    button:hover {
        background-color: #357abd;
+   }
+
+   ul.errors {
+       color: red
    }
 
    @media (max-width: 768px) {

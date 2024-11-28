@@ -11,6 +11,13 @@
 
    const productStore = useProductStore()
    const { addProduct } = productStore
+   const { loggedIn } = useUserSession()
+
+   watch(loggedIn, () => {
+     if (!loggedIn.value) {
+       navigateTo('/auth')
+     }
+   })
 
    // example replacement for NuxtServerInit
    onServerPrefetch(async () => {

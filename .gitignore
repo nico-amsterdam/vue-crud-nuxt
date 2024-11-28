@@ -3,5 +3,5 @@ node_modules/
 .env
 dist/
 .data
-
 .wrangler
+server/database/migrations

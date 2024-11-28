@@ -13,7 +13,7 @@
     })
 
    definePageMeta({
-    //  middleware: 'auth',
+      middleware: 'auth',
       layout: 'vue-crud'
    })
 

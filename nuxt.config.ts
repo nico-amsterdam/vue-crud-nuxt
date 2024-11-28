@@ -3,6 +3,7 @@ export default defineNuxtConfig({
   devtools: {
     enabled: true
   },
+  future: { compatibilityVersion: 4 },
   typescript: {
     strict: true
   },
@@ -39,7 +40,10 @@ export default defineNuxtConfig({
   auth: {
     webAuthn: true
   },
-
+  hub: {
+    database: true,
+    kv: true
+  },
   experimental: {
     inlineSSRStyles: true
   },
