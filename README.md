@@ -12,7 +12,6 @@ Demo on https://vue-crud-nuxt.nuxt.dev/
 - pnpm run db:generate
 - pnpm run dev
 - open browser http://127.0.0.1:3000/
-- npx nuxthub database migrations mark-all-applied
 
 Run with nuxthub:
 - run locally with:
