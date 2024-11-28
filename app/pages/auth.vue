@@ -2,8 +2,7 @@
 import { Icon } from '@iconify/vue'
 
 type ErrorType = {
-  message: string;
-  details: string;
+  message: string
 }
 
 const username = ref(''), name = ref('')
@@ -12,6 +11,7 @@ const { fetch } = useUserSession()
 const { register, authenticate } = useWebAuthn()
 
 async function signUp() {
+  errors.value = []
   await register({
     userName: username.value,
     displayName: name.value
@@ -20,20 +20,19 @@ async function signUp() {
     .then(async () => await navigateTo('/'))
     .catch((error) => {
       errors.value.push({
-        message: error.data?.message || error.message,
-        details: error.data?.data
+        message: error.data?.message || error.message
       })
     })
 }
 
 async function signIn() {
+  errors.value = []
   await authenticate(username.value)
     .then(fetch)
     .then(async () => await navigateTo('/'))
     .catch((error) => {
       errors.value.push({
-        message: error.data?.message || error.message,
-        details: error.data?.data
+        message: error.data?.message || error.message
       })
     })
 }
