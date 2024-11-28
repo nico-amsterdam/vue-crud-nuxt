@@ -43,8 +43,8 @@ importers:
         specifier: ^1.6.1
         version: 1.6.1(rollup@4.27.4)(vite@5.4.11(@types/node@22.10.0)(terser@5.36.0))(vue@3.5.13(typescript@5.6.3))
       '@nuxthub/core':
-        specifier: ^0.8.7
-        version: 0.8.7(ioredis@5.4.1)(magicast@0.3.5)(rollup@4.27.4)(vite@5.4.11(@types/node@22.10.0)(terser@5.36.0))
+        specifier: ^0.7.37
+        version: 0.7.37(ioredis@5.4.1)(magicast@0.3.5)(rollup@4.27.4)(vite@5.4.11(@types/node@22.10.0)(terser@5.36.0))
       nuxt:
         specifier: ^3.14.1592
         version: 3.14.1592(@parcel/watcher@2.5.0)(@types/node@22.10.0)(drizzle-orm@0.36.4(@cloudflare/workers-types@4.20241112.0)(@libsql/client-wasm@0.14.0)(@opentelemetry/api@1.9.0))(encoding@0.1.13)(eslint@9.13.0(jiti@2.4.0))(ioredis@5.4.1)(magicast@0.3.5)(optionator@0.9.4)(rollup@4.27.4)(terser@5.36.0)(typescript@5.6.3)(vite@5.4.11(@types/node@22.10.0)(terser@5.36.0))
@@ -1144,8 +1144,8 @@ packages:
     peerDependencies:
       vue: ^3.3.4
 
-  '@nuxthub/core@0.8.7':
-    resolution: {integrity: sha512-XPP+H/pdr3ubWY/V+EkAdqnBeNAP97Q0TtOXFebksP9yZ1LfMCXX/vjxdh747SWxMQVzY8HyandllJ3+6BNrkg==}
+  '@nuxthub/core@0.7.37':
+    resolution: {integrity: sha512-SOAGUsW+XGA9oghwItTYjx3CtPyKuc7OhBONeGpUMGJ26xs2dKdEW7DV+My2woW2PXBWL4N5YLfV+m5e60yfAg==}
 
   '@opentelemetry/api@1.9.0':
     resolution: {integrity: sha512-3giAOQvZiH5F9bMlMiv8+GSPMeqg0dbaeo58/0SlA9sxSqZhnUtxzX9/2FzyhS9sWQf5S0GJE0AKBrFqjpeYcg==}
@@ -5207,7 +5207,7 @@ snapshots:
       - vti
       - vue-tsc
 
-  '@nuxthub/core@0.8.7(ioredis@5.4.1)(magicast@0.3.5)(rollup@4.27.4)(vite@5.4.11(@types/node@22.10.0)(terser@5.36.0))':
+  '@nuxthub/core@0.7.37(ioredis@5.4.1)(magicast@0.3.5)(rollup@4.27.4)(vite@5.4.11(@types/node@22.10.0)(terser@5.36.0))':
     dependencies:
       '@cloudflare/workers-types': 4.20241112.0
       '@nuxt/devtools-kit': 1.6.1(magicast@0.3.5)(rollup@4.27.4)(vite@5.4.11(@types/node@22.10.0)(terser@5.36.0))
