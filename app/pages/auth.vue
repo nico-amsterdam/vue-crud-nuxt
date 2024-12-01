@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { Icon } from '@iconify/vue'
+import { useMediaQuery } from '@vueuse/core'
 
 type ErrorType = {
   message: string
 }
 
-const username = ref(''), name = ref(''), darkmode = ref(false)
+const isPreferredDark = useMediaQuery('(prefers-color-scheme: dark)')
+const username = ref(''), name = ref(''), darkmode = ref(isPreferredDark)
 const errors = ref<ErrorType[]>([])
 const { fetch } = useUserSession()
 const { register, authenticate } = useWebAuthn()

@@ -34,7 +34,7 @@ export const useProductStore = defineStore('productStore', () => {
     // when there are no id's yet, 0 is the max.
     ids.push(0)
     // calculate new id
-    let newId = Math.max(...ids) + 1
+    const newId = Math.max(...ids) + 1
     productList.value.push({
         id: newId
       , name: product.name
@@ -45,7 +45,7 @@ export const useProductStore = defineStore('productStore', () => {
   }
 
   function updateProduct(product: ProductType) {
-    let found = productList.value.find(p => p.id === product.id)
+    const found = productList.value.find(p => p.id === product.id)
     if (found) {
       console.log('update '  + found.name)
       found.name = product.name
@@ -55,7 +55,7 @@ export const useProductStore = defineStore('productStore', () => {
   }
 
   function deleteProduct(product: ProductType) {
-    let foundIndex = productList.value.findIndex(p => p.id === product.id);
+    const foundIndex = productList.value.findIndex(p => p.id === product.id);
     console.log('delete ' + product.name)
     if (foundIndex !== -1) productList.value.splice(foundIndex, 1)
   }

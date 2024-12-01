@@ -22,6 +22,7 @@
     "@pinia/nuxt": "^0.7.0",
     "@simplewebauthn/browser": "^11.0.0",
     "@simplewebauthn/server": "^11.0.0",
+    "@vueuse/core": "^12.0.0",
     "drizzle-kit": "^0.28.1",
     "drizzle-orm": "^0.36.4",
     "h3-zod": "^0.5.3",
