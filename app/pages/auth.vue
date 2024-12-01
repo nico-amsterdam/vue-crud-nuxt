@@ -5,7 +5,7 @@ type ErrorType = {
   message: string
 }
 
-const username = ref(''), name = ref('')
+const username = ref(''), name = ref(''), darkmode = ref(false)
 const errors = ref<ErrorType[]>([])
 const { fetch } = useUserSession()
 const { register, authenticate } = useWebAuthn()
@@ -37,6 +37,10 @@ async function signIn() {
     })
 }
 
+function toggleDark() {
+  darkmode.value = !darkmode.value
+}
+
 useHead({
     bodyAttrs: { class: 'auth' }
   , link: [{ rel: 'stylesheet', href: '/_nuxt/assets/css/auth.css' }]
@@ -44,11 +48,12 @@ useHead({
 </script>
 
 <template>
-    <main>
+    <main :class="{ dark: darkmode }">
         <section class="authenticate">
             <header class="row titlebar">
                 <h1 class="column">Vue crud Nuxt demo</h1>
-                <Icon icon="tabler:sun" :ssr="true" title="Dark mode swith" class="darkmode" />
+                <Icon v-if="!darkmode" icon="tabler:sun" :ssr="true" title="Dark mode swith" class="darkmode" @click="toggleDark"/>
+                <Icon v-if="darkmode" icon="tabler:moon" :ssr="true" title="Dark mode swith" class="darkmode" @click="toggleDark"/>
             </header>
             <ul class="errors flash">
                 <li v-for="error in errors">
