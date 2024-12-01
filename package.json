@@ -4,7 +4,10 @@
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
+    "preview": "npx nuxthub preview",
+    "deploy": "npx nuxthub deploy",
     "postinstall": "nuxt prepare",
+    "typecheck": "nuxt typecheck",
     "db:generate": "drizzle-kit generate"
   },
   "devDependencies": {
@@ -12,6 +15,7 @@
     "@nuxt/devtools": "^1.6.1",
     "@nuxthub/core": "^0.7.37",
     "nuxt": "^3.14.1592",
+    "vue-tsc": "^2.1.10",
     "wrangler": "^3.91.0"
   },
   "dependencies": {

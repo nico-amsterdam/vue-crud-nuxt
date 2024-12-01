@@ -5,19 +5,32 @@
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
-body.auth {
-    display: flex;
-    min-height: 100vh;
-    align-items: center;
-    justify-content: center;
-    background-color: #f5f5f5;
-}
-
 .auth {
 
    #__nuxt {
       max-width: 900px;
       width: 90%;
+   }
+
+   body {
+      display: flex;
+      min-height: 100vh;
+      align-items: center;
+      justify-content: center;
+      background-color: #f5f5f5;
+   }
+
+   body.dark section, body.dark input, body.dark .divider span {
+      background-color: black;
+      color: white;
+   }
+
+   body.dark button {
+      background-color: #0970e8
+   }
+
+   body.dark {
+      background-color: darkgray
    }
 
    main .authenticate {

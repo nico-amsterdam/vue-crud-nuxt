@@ -44,10 +44,6 @@ export default defineNuxtConfig({
     database: true,
     kv: true
   },
-  experimental: {
-    inlineSSRStyles: true
-  },
-  addMeta: true,
 
   imports: {
     dirs: ['stores']

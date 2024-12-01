@@ -42,13 +42,17 @@ function toggleDark() {
 }
 
 useHead({
-    bodyAttrs: { class: 'auth' }
+  htmlAttrs: { class: 'auth' },
+  bodyAttrs: { class: computed(() => {
+        return darkmode.value ? 'dark' : '';
+    })
+  }
   , link: [{ rel: 'stylesheet', href: '/_nuxt/assets/css/auth.css' }]
 })
 </script>
 
 <template>
-    <main :class="{ dark: darkmode }">
+    <main>
         <section class="authenticate">
             <header class="row titlebar">
                 <h1 class="column">Vue crud Nuxt demo</h1>
