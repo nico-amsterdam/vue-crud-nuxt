@@ -7,7 +7,6 @@ export default defineNuxtConfig({
   typescript: {
     strict: true
   },
-
   modules: [[
     "@pinia/nuxt",
     {
@@ -15,7 +14,7 @@ export default defineNuxtConfig({
         // automatically imports `defineStore`
         'defineStore', // import { defineStore } from 'pinia'
         // automatically imports `defineStore` as `definePiniaStore`
-        ['defineStore', 'definePiniaStore'], // import { defineStore as definePiniaStore } from 'pinia'        
+        ['defineStore', 'definePiniaStore'], // import { defineStore as definePiniaStore } from 'pinia'
       ],
     },
   ], '@nuxthub/core'
@@ -35,7 +34,7 @@ export default defineNuxtConfig({
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
         { hid: 'description', name: 'description', content: 'Vue CRUD Nuxt.js project' }
       ]
-    }    
+    }
   },
   auth: {
     webAuthn: true

@@ -6,7 +6,7 @@
   <span>
     <div class="form-group">
       <label for="edit-name">Name</label>
-      <input class="form-control" id="edit-name" v-model="theProduct.name" required/>
+      <input class="form-control" id="edit-name" v-model="theProduct.productName" required/>
     </div>
     <div class="form-group">
       <label for="edit-description">Description</label>

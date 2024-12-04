@@ -8,7 +8,8 @@
     "deploy": "npx nuxthub deploy",
     "postinstall": "nuxt prepare",
     "typecheck": "nuxt typecheck",
-    "db:generate": "drizzle-kit generate"
+    "db:generate": "drizzle-kit generate",
+    "db:studio": "drizzle-kit studio"
   },
   "devDependencies": {
     "@iconify/vue": "^4.1.2",
@@ -19,6 +20,7 @@
     "wrangler": "^3.91.0"
   },
   "dependencies": {
+    "@libsql/client": "^0.14.0",
     "@pinia/nuxt": "^0.7.0",
     "@simplewebauthn/browser": "^11.0.0",
     "@simplewebauthn/server": "^11.0.0",
@@ -26,6 +28,7 @@
     "drizzle-kit": "^0.28.1",
     "drizzle-orm": "^0.36.4",
     "h3-zod": "^0.5.3",
+    "mande": "^2.0.9",
     "nuxt-auth-utils": "^0.5.5",
     "pinia": "^2.2.7",
     "zod": "^3.23.8"

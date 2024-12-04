@@ -4,7 +4,7 @@
 
     const productStore = useProductStore()
     const { addProduct } = productStore
-    let   product = {id: null, name: '', description: '', price: null, features: []}
+    let   product = {id: null, productName: '', description: '', price: null}
 
     function createProduct () {
       addProduct(product)

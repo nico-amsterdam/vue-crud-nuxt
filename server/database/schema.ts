@@ -1,5 +1,5 @@
 import { sqliteTable, text, integer, unique } from 'drizzle-orm/sqlite-core'
-import { relations } from 'drizzle-orm'
+import { relations, sql } from 'drizzle-orm'
 import type { WebAuthnCredential } from '#auth-utils'
 
 export const users = sqliteTable('users', {
@@ -20,6 +20,17 @@ export const credentials = sqliteTable('credentials', {
 }, table => ({
   pk: unique().on(table.userId, table.id)
 }))
+
+export const products = sqliteTable('products', {
+  id: integer('id').primaryKey(),
+  productName: text('name').notNull().unique(),
+  description: text('description').notNull(),
+  price: integer('price'),
+  createdBy: text('created_by').notNull(),
+  createdAt: integer('created_at', { mode: 'timestamp' }).notNull().defaultNow(),
+  modifiedBy: text('modified_by'),
+  modifiedAt: integer('modified_at', { mode: 'timestamp' })
+})
 
 /**
  * Relations (useful for queries)

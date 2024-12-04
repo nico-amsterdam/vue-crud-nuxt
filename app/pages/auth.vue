@@ -44,11 +44,11 @@ function toggleDark() {
 }
 
 useHead({
-  htmlAttrs: { class: 'auth' },
-  bodyAttrs: { class: computed(() => {
-        return darkmode.value ? 'dark' : '';
-    })
-  }
+    htmlAttrs: { class: 'auth' }
+  , bodyAttrs: { class: computed(() => {
+                          return darkmode.value ? 'dark' : ''
+                        })
+    }
   , link: [{ rel: 'stylesheet', href: '/_nuxt/assets/css/auth.css' }]
 })
 </script>

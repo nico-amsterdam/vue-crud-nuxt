@@ -3,10 +3,9 @@
     import { useRoute } from 'vue-router'
 
     const productStore = useProductStore()
-    const { productList } = productStore
-    const { deleteProduct } = productStore
+    const { productList, deleteProduct } = productStore
     const route = useRoute()
-    const product = productList.find((p) => '' + p.id === route.params.id) ?? null;
+    const product = productList.find(p => '' + p.id === route.params.id) ?? null;
 
     function remove() {
       if (product) {
@@ -25,10 +24,10 @@
 
 <template>
   <section>
-    <h2>Delete product {{product?.name}}</h2>
+    <h2>Delete product {{product?.productName}}</h2>
     <form v-on:submit.prevent="remove">
       <p>The action cannot be undone.</p>
-      <button type="submit" class="btn btn-danger" v-if="!!product">Delete</button>
+      <button type="submit" class="btn btn-danger" v-if="!!product && product.id >= 0">Delete</button>
       <NuxtLink to="/" class="btn btn-default">Cancel</NuxtLink>
     </form>
   </section>
