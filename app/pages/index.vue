@@ -31,7 +31,7 @@
     </div>
     <div class="actions">
       <NuxtLink class="btn btn-default" to="/add-product" no-rel>
-        <Icon icon="tabler:plus" :ssr="true" title="+" class="plussign" />
+        <Icon icon="tabler:plus" title="+" class="plussign" />
         Add product
       </NuxtLink>
     </div>

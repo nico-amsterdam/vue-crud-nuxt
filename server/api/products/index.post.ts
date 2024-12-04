@@ -18,9 +18,12 @@ export default eventHandler(async (event) => {
   }
 
   // Insert product
-  const product = await useDB().insert(tables.products).values(newProduct).returning().get()
-
-  // TODO: return the sql errors instead of 'internal server error'. For example for unique constraint error.
+  const product = await useDB().insert(tables.products).values(newProduct).returning().get().catch(() => {
+    throw createError({
+      statusCode: 400,
+      message: 'Product already exists'
+    })
+  })
 
   return product
 })
