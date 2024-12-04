@@ -57,7 +57,7 @@ useHead({
     <main>
         <section class="authenticate">
             <header class="row titlebar">
-                <h1 class="column">Vue crud Nuxt demo</h1>
+                <h1 class="column">Vue CRUD Nuxt demo</h1>
                 <Icon v-if="!darkmode" icon="tabler:sun" :ssr="true" title="Dark mode swith" class="darkmode" @click="toggleDark"/>
                 <Icon v-if="darkmode" icon="tabler:moon" :ssr="true" title="Dark mode swith" class="darkmode" @click="toggleDark"/>
             </header>

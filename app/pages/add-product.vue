@@ -3,17 +3,21 @@
  // auto-import import { useProductStore } from '@stores/product'
 
     const productStore = useProductStore()
-    const { addProduct } = productStore
-    let   product = {id: null, productName: '', description: '', price: null}
+    const { addProduct, productList } = productStore
+    const product = ref({id: null, productName: '', description: '', price: null})
+
+    const productAlreadyExists = computed(() => {
+      return productList.findIndex(p => p.productName === product.value.productName) >= 0
+    })
 
     function createProduct () {
-      addProduct(product)
+      addProduct(product.value)
       navigateTo('/')
     }
 
     definePageMeta({
       middleware: 'auth',
-      layout: "vue-crud"
+      layout: 'vue-crud'
     })
 
     useHead({ link: [{rel: 'stylesheet', href: '/_nuxt/assets/css/bootstrap3-un.css'}] })
@@ -24,7 +28,7 @@
     <h2>Add new product</h2>
     <form v-on:submit.prevent="createProduct">
       <ProductForm v-model:the-product="product"></ProductForm>
-      <button type="submit" class="btn btn-primary">Create</button>
+      <button type="submit" :disabled="productAlreadyExists" class="btn btn-primary">Create</button>
       <NuxtLink to="/" class="btn btn-default">Cancel</NuxtLink>
     </form>
   </section>

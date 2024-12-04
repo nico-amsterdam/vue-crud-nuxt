@@ -16,7 +16,7 @@
 
     definePageMeta({
       middleware: 'auth',
-      layout: "vue-crud"
+      layout: 'vue-crud'
     })
 
     useHead({ link: [{rel: 'stylesheet', href: '/_nuxt/assets/css/bootstrap3-un.css'}] })

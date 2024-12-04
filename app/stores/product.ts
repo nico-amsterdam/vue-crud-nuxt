@@ -71,7 +71,7 @@ export const useProductStore = defineStore('productStore', () => {
     }
   }
 
-  function getProductIndex(product: ProductType): integer {
+  function getProductIndex(product: ProductType): number {
     return productList.value.findIndex(p => p.id === product.id)
   }
 
@@ -81,7 +81,7 @@ export const useProductStore = defineStore('productStore', () => {
 
     let productIndex = getProductIndex(product)
     if (productIndex === -1) return; // cannot change deleted product
-    const oldProduct = productList.value[productIndex]
+    const oldProduct = productList.value[productIndex] as ProductType
     try {
       productList.value.splice(productIndex, 1, product) // optimistic change
       const changedProduct = await api.patch<ProductType>(product.id, product)

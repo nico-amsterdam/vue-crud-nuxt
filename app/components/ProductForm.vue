@@ -10,7 +10,7 @@
     </div>
     <div class="form-group">
       <label for="edit-description">Description</label>
-      <textarea class="form-control" id="edit-description" rows="3" v-model="theProduct.description"></textarea>
+      <textarea class="form-control" id="edit-description" rows="3" v-model="theProduct.description" required></textarea>
     </div>
     <div class="form-group">
       <label for="edit-price">Price €</label>

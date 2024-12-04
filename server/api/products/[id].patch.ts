@@ -10,7 +10,7 @@ export default eventHandler(async (event) => {
   const { productName, description, price } = await useValidatedBody(event, {
     productName: z.string().min(1).max(20),
     description: z.string().min(1).max(300),
-    price: z.number().positive()
+    price: z.union([z.literal("").transform(() => null), z.number().positive()]).nullable()
   })
 
   const { user } = await requireUserSession(event)

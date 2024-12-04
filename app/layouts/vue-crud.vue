@@ -1,9 +1,14 @@
+<script setup lang="ts">
+const { loggedIn, user, clear } = useUserSession()
+</script>
+
 <template>
   <div class="container">
     <header class="page-header">
       <div class="branding">
         <img src="https://vuejs.org/images/logo.png" alt="Logo" title="Home page" class="logo"/>
-        <h1>Vue CRUD</h1>
+        <button v-if="loggedIn" @click="clear" :title="user?.name" class="btn btn-default logout">Logout</button>
+        <h1>Vue CRUD Nuxt</h1>
       </div>
     </header>
     <slot />
@@ -19,5 +24,9 @@
 
 .btn {
   margin-right: 5px
+}
+
+.logout {
+  float:right
 }
 </style>

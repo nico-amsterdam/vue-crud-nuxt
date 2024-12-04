@@ -3,7 +3,7 @@
 ## About this project
 
 Rebuild of this [Vue CRUD application](https://github.com/shershen08/vue.js-v2-crud-application) with [Nuxt 3](https://nuxtjs.org), [Pinia](https://pinia.vuejs.org) and [NuxtHub](https://hub.nuxt.com/).
-There is a demo on https://vue-crud-nuxt.nuxt.dev/. This online demo does not require authentication and does not store changes.
+There is a demo on https://vue-crud-nuxt.nuxt.dev/. This online demo does not require authentication and does not store changes. The change to NuxtHub was inspired by this [NuxtHub todo app](https://github.com/atinux/nuxt-todo-passkeys).
 
 You can use this project as a starter and for demo's.
 Download, clone or fork the source from https://github.com/nico-amsterdam/vue-crud-nuxt.
@@ -12,9 +12,9 @@ For authentication webauthn passwordless access is used. Currently the signup on
 
 [Sqlite](https://www.sqlite.org/index.html) is the central database.
 
-Thanks to NuxtHub you can easily deploy to Cloudflare with the [D1](https://developers.cloudflare.com/d1/) database, so everything can run in the cloud.
+Thanks to NuxtHub you can easily deploy to Cloudflare with the [D1](https://developers.cloudflare.com/d1/) database, so everything can run on the edge in the cloud.
 
-Remove `middleware: 'auth'` from the vue pages if you don't want authentication.
+Remove `middleware: 'auth'` from the Vue pages if you don't want authentication.
 
 Remove the api calls in the Pinia store if you don't want database persistence.
 
