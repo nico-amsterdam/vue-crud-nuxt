@@ -1,6 +1,8 @@
-import { defineStore, acceptHMRUpdate } from 'pinia'
+import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import { mande } from 'mande'
+import type { MandeError } from 'mande'
+
 
 const api = mande('/api/products')
 
@@ -15,7 +17,11 @@ type AddProductType = {id: number | null} & ProductBaseType
 
 function convertErrorToMessage(error: any): string {
   let errorMessage = 'An unknown error occurred'
-  if (error instanceof Error) {
+  if ('body' in error) {
+    let mandeErr = (error as MandeError)
+    // body.data may contain a ZodError
+    errorMessage = mandeErr.body?.data?.issues[0]?.message || mandeErr.body?.message || error.message
+  } else if (error instanceof Error) {
     errorMessage = error.message
   } else {
     errorMessage = String(error)
@@ -38,7 +44,7 @@ export const useProductStore = defineStore('productStore', () => {
     try {
       productList.value = await api.get<ProductType[]>()
     } catch (error) {
-      console.log('Get error: ' + error)
+      console.log('Get error: ' + JSON.stringify(error, null, 2))
       lastErrorMessage.value = convertErrorToMessage(error)
     } finally {
       loading.value = false
@@ -64,7 +70,7 @@ export const useProductStore = defineStore('productStore', () => {
       productList.value.push(newProduct) // new product with the new id
     } catch (error) {
       revertOptimisticAdd(product)
-      console.log('Post error: ' + error)
+      console.log('Post error: ' + JSON.stringify(error, null, 2))
       lastErrorMessage.value = convertErrorToMessage(error)
     } finally {
       loading.value = false
@@ -93,7 +99,7 @@ export const useProductStore = defineStore('productStore', () => {
       // lookup index again, situation may have changed while waiting.
       productIndex = getProductIndex(product)
       if (productIndex !== -1) productList.value.splice(productIndex, 1, oldProduct) // revert optimistic change
-      console.log('Patch error: ' + error)
+      console.log('Patch error: ' + JSON.stringify(error, null, 2))
       lastErrorMessage.value = convertErrorToMessage(error)
     } finally {
       loading.value = false
@@ -112,8 +118,8 @@ export const useProductStore = defineStore('productStore', () => {
       lastErrorMessage.value = ''
     } catch (error) {
       productList.value.splice(productIndex, 0, product) // revert optimistic delete
+      console.log('Delete error: ' + JSON.stringify(error, null, 2))
       lastErrorMessage.value = convertErrorToMessage(error)
-      console.log('Delete error: ' + lastErrorMessage.value)
     } finally {
       loading.value = false
     }
