@@ -18,9 +18,9 @@ type AddProductType = {id: number | null} & ProductBaseType
 function convertErrorToMessage(error: any): string {
   let errorMessage = 'An unknown error occurred'
   if ('body' in error) {
-    let mandeErr = (error as MandeError)
+    let mandeErrorBody = (error as MandeError).body
     // body.data may contain a ZodError
-    errorMessage = mandeErr.body?.data?.issues[0]?.message || mandeErr.body?.message || error.message
+    errorMessage = mandeErrorBody?.data?.issues[0]?.message || mandeErrorBody?.message || error.message
   } else if (error instanceof Error) {
     errorMessage = error.message
   } else {
@@ -33,97 +33,133 @@ function convertErrorToMessage(error: any): string {
 export const useProductStore = defineStore('productStore', () => {
 
   const productList = ref<ProductType[]>([])
-  const loading = ref(false)
-  const lastErrorMessage = ref('')
-  let   uniqueId = -1;
+  const writing = ref(false)
+  const reading = ref(false)
+  const lastWriteErrorMsg = ref('')
+  const lastReadErrorMsg = ref('')
+  let   uniqueId   = -1;
+  let   deferFetch = false;
 
   async function fetchProducts() {
     // I did not provide the full url in the .env, which is needed to do api calls during SSR
     if (process.server) return; // during SSR, no api calls. Wait for client-side rending
-    loading.value = true
+    if (reading.value) return;
+    // do not interfere with the optimistic write actions. They changed the product list, keep it unchanged.
+    if (writing.value) {
+      deferFetch = true;
+      return;
+    }
+    reading.value = true
+    deferFetch = false
+    lastReadErrorMsg.value = ''
     try {
-      productList.value = await api.get<ProductType[]>()
+      let newProductList = await api.get<ProductType[]>()
+      if (writing.value) {
+        // again, do not change the list if there are optimistic changes in it
+        deferFetch = true
+      } else {
+        productList.value = newProductList
+      }
     } catch (error) {
       console.log('Get error: ' + JSON.stringify(error, null, 2))
-      lastErrorMessage.value = convertErrorToMessage(error)
+      lastReadErrorMsg.value = convertErrorToMessage(error)
     } finally {
-      loading.value = false
+      reading.value = false
     }
   }
 
   function revertOptimisticAdd(product: AddProductType) {
       // revert optimistic update
       const popProduct = productList.value.pop()
-      // but not if the list was fetched again. Check if the reverted product was the added product.
+      // To be sure, check if the reverted product was the added product.
       if (popProduct && popProduct.productName !== product.productName) productList.value.push(popProduct)
   }
 
   async function addProduct(product: AddProductType) {
     if (process.server) return; // during SSR, no api calls. Wait for client-side rendering
-    loading.value = true
+    if (writing.value) {
+      // user has to wait until previous write action is ready
+      lastWriteErrorMsg.value = 'System is busy'
+      return
+    }
+    writing.value = true
+    lastWriteErrorMsg.value = ''
+    // optimistic update
+    productList.value.push({...product, id: uniqueId--})
     try {
-       // optimistic update
-      productList.value.push({...product, id: uniqueId--})
       const newProduct = await api.post<ProductType>(product)
-      lastErrorMessage.value = ''
       revertOptimisticAdd(product)
       productList.value.push(newProduct) // new product with the new id
     } catch (error) {
       revertOptimisticAdd(product)
       console.log('Post error: ' + JSON.stringify(error, null, 2))
-      lastErrorMessage.value = convertErrorToMessage(error)
+      lastWriteErrorMsg.value = convertErrorToMessage(error)
     } finally {
-      loading.value = false
+      writing.value = false
     }
+    if (deferFetch) fetchProducts()
   }
 
-  function getProductIndex(product: ProductType): number {
+  function getProductIndexById(product: ProductType): number {
     return productList.value.findIndex(p => p.id === product.id)
   }
 
   async function updateProduct(product: ProductType) {
     if (process.server) return; // during SSR, no api calls. Wait for client-side rendering
-    loading.value = true
-
-    let productIndex = getProductIndex(product)
-    if (productIndex === -1) return; // cannot change deleted product
-    const oldProduct = productList.value[productIndex] as ProductType
-    try {
-      productList.value.splice(productIndex, 1, product) // optimistic change
-      const changedProduct = await api.patch<ProductType>(product.id, product)
-      lastErrorMessage.value = ''
-      // lookup index again, situation may have changed while waiting.
-      productIndex = getProductIndex(product)
-      if (productIndex !== -1) productList.value.splice(productIndex, 1, changedProduct)
-    } catch (error) {
-      // lookup index again, situation may have changed while waiting.
-      productIndex = getProductIndex(product)
-      if (productIndex !== -1) productList.value.splice(productIndex, 1, oldProduct) // revert optimistic change
-      console.log('Patch error: ' + JSON.stringify(error, null, 2))
-      lastErrorMessage.value = convertErrorToMessage(error)
-    } finally {
-      loading.value = false
+    if (writing.value) {
+      // user has to wait until previous write action is ready
+      lastWriteErrorMsg.value = 'System is busy'
+      return
     }
+    writing.value = true
+    lastWriteErrorMsg.value = ''
+    const productIndex = getProductIndexById(product)
+    if (productIndex === -1) {
+      writing.value = false
+      return; // cannot change deleted product
+    }
+    const oldProduct = productList.value[productIndex] as ProductType
+    productList.value.splice(productIndex, 1, product) // optimistic change
+    try {
+      const changedProduct = await api.patch<ProductType>(product.id, product)
+      productList.value.splice(productIndex, 1, changedProduct)
+    } catch (error) {
+      productList.value.splice(productIndex, 1, oldProduct) // revert optimistic change
+      console.log('Patch error: ' + JSON.stringify(error, null, 2))
+      lastWriteErrorMsg.value = convertErrorToMessage(error)
+    } finally {
+      writing.value = false
+    }
+    if (deferFetch) fetchProducts()
   }
 
   async function deleteProduct(product: ProductType) {
     if (process.server) return; // during SSR, no api calls. Wait for client-side rendering
-    console.log('delete ' + product.productName)
-    loading.value = true
-    const productIndex = getProductIndex(product)
-    if (productIndex === -1) return; // cannot delete deleted product
+    if (writing.value) {
+      // user has to wait until previous write action is ready
+      lastWriteErrorMsg.value = 'System is busy'
+      return
+    }
+    writing.value = true
+    lastWriteErrorMsg.value = ''
+    const productIndex = getProductIndexById(product)
+    if (productIndex === -1) {
+      writing.value = false
+      return; // cannot delete deleted product
+    }
+    productList.value.splice(productIndex, 1) // optimistic delete
     try {
-      productList.value.splice(productIndex, 1) // optimistic delete
       await api.delete<ProductType>(product.id)
-      lastErrorMessage.value = ''
     } catch (error) {
       productList.value.splice(productIndex, 0, product) // revert optimistic delete
       console.log('Delete error: ' + JSON.stringify(error, null, 2))
-      lastErrorMessage.value = convertErrorToMessage(error)
+      lastWriteErrorMsg.value = convertErrorToMessage(error)
     } finally {
-      loading.value = false
+      writing.value = false
     }
+    if (deferFetch) fetchProducts()
   }
 
-  return { addProduct, updateProduct, deleteProduct, productList, fetchProducts, loading, lastErrorMessage }
+  return { addProduct, updateProduct, deleteProduct, fetchProducts
+          ,productList, reading, writing, lastReadErrorMsg, lastWriteErrorMsg }
 })

@@ -5,7 +5,7 @@
    import { Icon } from '@iconify/vue'
 
    const productStore = useProductStore()
-   const { productList, lastErrorMessage } = storeToRefs(productStore)
+   const { productList, lastReadErrorMsg, lastWriteErrorMsg } = storeToRefs(productStore)
    const searchKey = ref('')
 
    const filteredProducts = computed(() => {
@@ -27,7 +27,9 @@
 <template>
   <section>
     <div class="errors">
-       {{ lastErrorMessage }}
+       {{ lastWriteErrorMsg }}
+       <p />
+       {{ lastReadErrorMsg }}
     </div>
     <div class="actions">
       <NuxtLink class="btn btn-default" to="/add-product" no-rel>

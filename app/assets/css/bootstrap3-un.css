@@ -57,7 +57,11 @@ table {
 }
 
 td,th {
-    padding: 0;
+    padding: 0
+}
+
+td {
+    overflow-wrap: anywhere
 }
 
 td * {

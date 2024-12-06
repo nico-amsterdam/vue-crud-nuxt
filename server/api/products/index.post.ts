@@ -21,9 +21,16 @@ export default eventHandler(async (event) => {
   const product = await useDB().insert(tables.products).values(newProduct).returning().get().catch(() => {
     throw createError({
       statusCode: 400,
-      message: 'Product already exists'
+      message: `Product '${productName}' already exists`
     })
   })
+
+  if (!product) {
+    throw createError({
+      statusCode: 400,
+      message: `Could not create '${productName}'`
+    })
+  }
 
   return product
 })

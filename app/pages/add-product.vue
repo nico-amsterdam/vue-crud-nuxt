@@ -25,6 +25,7 @@
 
 <template>
     <section>
+    <div v-if="productAlreadyExists" class="error">Product already exists</div>
     <h2>Add new product</h2>
     <form v-on:submit.prevent="createProduct">
       <ProductForm v-model:the-product="product"></ProductForm>
@@ -33,3 +34,9 @@
     </form>
   </section>
 </template>
+
+<style>
+.error {
+  color: red
+}
+</style>
