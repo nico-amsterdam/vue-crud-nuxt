@@ -15,7 +15,7 @@ type ProductBaseType = {
 type ProductType = {id: number} & ProductBaseType
 type AddProductType = {id: number | null} & ProductBaseType
 
-function convertErrorToMessage(error: any): string {
+function convertErrorToMessage(error: any, failedToFetchMsg: string): string {
   let errorMessage = 'An unknown error occurred'
   if ('body' in error) {
     let mandeErrorBody = (error as MandeError).body
@@ -26,7 +26,7 @@ function convertErrorToMessage(error: any): string {
   } else {
     errorMessage = String(error)
   }
-  if (errorMessage === 'Failed to fetch') errorMessage = 'Connection failed. Network offline?'
+  if (errorMessage === 'Failed to fetch') errorMessage = failedToFetchMsg
   return errorMessage
 }
 
@@ -62,7 +62,7 @@ export const useProductStore = defineStore('productStore', () => {
       }
     } catch (error) {
       console.log('Get error: ' + JSON.stringify(error, null, 2))
-      lastReadErrorMsg.value = convertErrorToMessage(error)
+      lastReadErrorMsg.value = convertErrorToMessage(error,  'Cannot refresh product list. The connection failed. Network offline?')
     } finally {
       reading.value = false
     }
@@ -79,7 +79,7 @@ export const useProductStore = defineStore('productStore', () => {
     if (process.server) return; // during SSR, no api calls. Wait for client-side rendering
     if (writing.value) {
       // user has to wait until previous write action is ready
-      lastWriteErrorMsg.value = 'System is busy'
+      lastWriteErrorMsg.value = `System is busy. Cannot create '${product.productName}'`
       return
     }
     writing.value = true
@@ -93,7 +93,7 @@ export const useProductStore = defineStore('productStore', () => {
     } catch (error) {
       revertOptimisticAdd(product)
       console.log('Post error: ' + JSON.stringify(error, null, 2))
-      lastWriteErrorMsg.value = convertErrorToMessage(error)
+      lastWriteErrorMsg.value = convertErrorToMessage(error,  `Cannot create '${product.productName}'. The connection failed. Network offline?`)
     } finally {
       writing.value = false
     }
@@ -108,7 +108,7 @@ export const useProductStore = defineStore('productStore', () => {
     if (process.server) return; // during SSR, no api calls. Wait for client-side rendering
     if (writing.value) {
       // user has to wait until previous write action is ready
-      lastWriteErrorMsg.value = 'System is busy'
+      lastWriteErrorMsg.value = `System is busy. Cannot update '${product.productName}'`
       return
     }
     writing.value = true
@@ -126,7 +126,7 @@ export const useProductStore = defineStore('productStore', () => {
     } catch (error) {
       productList.value.splice(productIndex, 1, oldProduct) // revert optimistic change
       console.log('Patch error: ' + JSON.stringify(error, null, 2))
-      lastWriteErrorMsg.value = convertErrorToMessage(error)
+      lastWriteErrorMsg.value = convertErrorToMessage(error, `Cannot update '${product.productName}'. The connection failed. Network offline?`)
     } finally {
       writing.value = false
     }
@@ -137,7 +137,7 @@ export const useProductStore = defineStore('productStore', () => {
     if (process.server) return; // during SSR, no api calls. Wait for client-side rendering
     if (writing.value) {
       // user has to wait until previous write action is ready
-      lastWriteErrorMsg.value = 'System is busy'
+      lastWriteErrorMsg.value = `System is busy. Cannot delete '${product.productName}'`
       return
     }
     writing.value = true
@@ -153,7 +153,7 @@ export const useProductStore = defineStore('productStore', () => {
     } catch (error) {
       productList.value.splice(productIndex, 0, product) // revert optimistic delete
       console.log('Delete error: ' + JSON.stringify(error, null, 2))
-      lastWriteErrorMsg.value = convertErrorToMessage(error)
+      lastWriteErrorMsg.value = convertErrorToMessage(error, `Cannot delete '${product.productName}'. The connection failed. Network offline?`)
     } finally {
       writing.value = false
     }

@@ -12,11 +12,5 @@ export default eventHandler(async (event) => {
     eq(tables.products.id, id)
   ).returning().get()
 
-  if (!deletedProduct) {
-    throw createError({
-      statusCode: 404,
-      message: 'Product not found'
-    })
-  }
   return deletedProduct
 })

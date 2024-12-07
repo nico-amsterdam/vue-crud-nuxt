@@ -3,8 +3,8 @@ import { useValidatedBody, z } from 'h3-zod'
 export default eventHandler(async (event) => {
 
   const { productName, description, price } = await useValidatedBody(event, {
-    productName: z.string().min(1).max(20),
-    description: z.string().min(1).max(300),
+    productName: z.string().trim().min(1).max(20),
+    description: z.string().trim().min(1).max(300),
     price: z.union([z.literal("").transform(() => null), z.number().positive()]).nullable()
   })
 

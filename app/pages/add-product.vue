@@ -7,7 +7,7 @@
     const product = ref({id: null, productName: '', description: '', price: null})
 
     const productAlreadyExists = computed(() => {
-      return productList.findIndex(p => p.productName === product.value.productName) >= 0
+      return productList.findIndex(p => p.productName === product.value.productName.trim()) >= 0
     })
 
     function createProduct () {
