@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { Icon } from '@iconify/vue'
+
 const { loggedIn, user, clear } = useUserSession()
 </script>
 
@@ -7,7 +9,9 @@ const { loggedIn, user, clear } = useUserSession()
     <header class="page-header">
       <div class="branding">
         <img src="https://vuejs.org/images/logo.png" alt="Logo" title="Home page" class="logo"/>
-        <button v-if="loggedIn" @click="clear" :title="user?.name" class="btn btn-default logout">Logout</button>
+        <button v-if="loggedIn" @click="clear" :title="user?.name" class="btn btn-default logout">
+          <Icon icon="tabler:logout" title="Logout" class="exit-run"/>Logout
+        </button>
         <h1>Vue CRUD Nuxt</h1>
       </div>
     </header>
@@ -28,5 +32,9 @@ const { loggedIn, user, clear } = useUserSession()
 
 .logout {
   float:right
+}
+
+.exit-run {
+  margin-right: 10px
 }
 </style>

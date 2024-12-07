@@ -58,8 +58,8 @@ useHead({
         <section class="authenticate">
             <header class="row titlebar">
                 <h1 class="column">Vue CRUD Nuxt demo</h1>
-                <Icon v-if="!darkmode" icon="tabler:sun" :ssr="true" title="Dark mode swith" class="darkmode" @click="toggleDark"/>
-                <Icon v-if="darkmode" icon="tabler:moon" :ssr="true" title="Dark mode swith" class="darkmode" @click="toggleDark"/>
+                <Icon v-if="!darkmode" icon="tabler:sun" title="Dark mode swith" class="darkmode" @click="toggleDark"/>
+                <Icon v-if="darkmode" icon="tabler:moon" title="Dark mode swith" class="darkmode" @click="toggleDark"/>
             </header>
             <ul class="errors flash">
                 <li v-for="error in errors">

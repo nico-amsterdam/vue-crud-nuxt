@@ -5,7 +5,7 @@
    import { Icon } from '@iconify/vue'
 
    const productStore = useProductStore()
-   const { productList, lastReadErrorMsg, lastWriteErrorMsg } = storeToRefs(productStore)
+   const { productList, lastReadErrorMsg, lastWriteErrorMsg, reading } = storeToRefs(productStore)
    const searchKey = ref('')
 
    const filteredProducts = computed(() => {
@@ -19,7 +19,11 @@
       layout: 'vue-crud'
    })
 
-   productStore.fetchProducts() // do not wait with await
+   function refresh() {
+      productStore.fetchProducts() // do not wait with await
+   }
+
+   refresh() // initial load
 
    useHead({ link: [{rel: 'stylesheet', href: '/_nuxt/assets/css/bootstrap3-un.css'}] })
 </script>
@@ -36,6 +40,7 @@
         <Icon icon="tabler:plus" title="+" class="plussign" />
         Add product
       </NuxtLink>
+      <Icon icon="tabler:refresh" :disabled="reading" title="Refresh" class="refresh" @click="refresh"/>
     </div>
     <div class="filters row">
       <div class="form-group col-sm-3">
@@ -58,9 +63,11 @@
           <NuxtLink v-if="product.id >= 0" :to="`/product/${product.id}/edit`" no-rel no-prefetch>{{ product.productName }}</NuxtLink>
           <span v-if="product.id < 0">{{ product.productName }}</span>
         </td>
-        <td>{{ product.description }}</td>
         <td>
-          {{ product.price }} €
+            {{ product.description }}
+        </td>
+        <td>
+            {{ product.price }} €
         </td>
         <td>
           <NuxtLink v-if="product.id >= 0" class="btn btn-warning btn-xs" :to="`/product/${product.id}/edit`" no-rel no-prefetch>Edit</NuxtLink>
@@ -88,5 +95,11 @@
 
 .errors {
   color: red
+}
+
+.refresh {
+  font-size: 24px;
+  float: right;
+  margin-right: 5px
 }
 </style>
