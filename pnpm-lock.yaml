@@ -61,7 +61,7 @@ importers:
         specifier: ^2.1.10
         version: 2.1.10(typescript@5.6.3)
       wrangler:
-        specifier: ^3.91.0
+        specifier: ^3.96.0
         version: 3.96.0(@cloudflare/workers-types@4.20241218.0)
 
 packages:

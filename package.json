@@ -17,7 +17,7 @@
     "@nuxthub/core": "^0.8.10",
     "nuxt": "^3.14.1592",
     "vue-tsc": "^2.1.10",
-    "wrangler": "^3.91.0"
+    "wrangler": "^3.96.0"
   },
   "dependencies": {
     "@libsql/client": "^0.14.0",

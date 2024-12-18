@@ -49,7 +49,7 @@ useHead({
                           return darkmode.value ? 'dark' : ''
                         })
     }
-  , link: [{ rel: 'stylesheet', href: '/_nuxt/assets/css/auth.css' }]
+  , link: [{ rel: 'stylesheet', href: '/css/auth.css' }]
 })
 </script>
 
