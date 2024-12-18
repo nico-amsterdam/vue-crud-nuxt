@@ -32,6 +32,7 @@ Remove the api calls in the Pinia store if you don't want database persistence.
 
 Run with NuxtHub:
 - run locally with:
+  - npx nuxt build
   - npx nuxthub preview
 - deploy on Cloudflare:
   - Required is a [NuxtHub](https://hub.nuxt.com/docs/getting-started) and a linked [Cloudflare](https://dash.cloudflare.com/login) account. There is a free tier
