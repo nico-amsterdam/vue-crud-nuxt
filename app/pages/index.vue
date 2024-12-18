@@ -100,6 +100,6 @@
 .refresh {
   font-size: 24px;
   float: right;
-  margin-right: 5px
+  margin: 5px
 }
 </style>
