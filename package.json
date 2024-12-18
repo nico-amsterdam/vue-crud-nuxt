@@ -29,7 +29,7 @@
     "drizzle-orm": "^0.38.2",
     "h3-zod": "^0.5.3",
     "mande": "^2.0.9",
-    "nuxt-auth-utils": "^0.5.7",
+    "nuxt-auth-utils": "0.5.1",
     "pinia": "^2.3.0",
     "zod": "^3.24.1"
   },
