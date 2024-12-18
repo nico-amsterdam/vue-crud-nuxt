@@ -25,7 +25,7 @@ Remove the api calls in the Pinia store if you don't want database persistence.
 - install pnpm
 - git clone this repostory, or download the source from github
 - cd vue-crud-nuxt
-- pnpm install
+- pnpm install --frozen-lockfile
 - pnpm run db:generate
 - pnpm run dev
 - open browser http://localhost:3000/
