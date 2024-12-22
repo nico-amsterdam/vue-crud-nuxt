@@ -18,6 +18,12 @@ Remove `middleware: 'auth'` from the Vue pages if you don't want authentication.
 
 Remove the api calls in the Pinia store if you don't want database persistence.
 
+## Video: install, run, and deploy on Cloudflare
+
+The video has no sound
+
+https://github.com/user-attachments/assets/6e4c69ed-763f-4273-aaa0-81006b74e7c4
+
 
 ## Instructions
 
