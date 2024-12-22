@@ -22,7 +22,7 @@ Remove the api calls in the Pinia store if you don't want database persistence.
 
 The video has no sound
 
-https://github.com/user-attachments/assets/6e4c69ed-763f-4273-aaa0-81006b74e7c4
+https://github.com/user-attachments/assets/a5a04338-5e3c-483b-addb-9486b466f9ee
 
 
 ## Instructions
