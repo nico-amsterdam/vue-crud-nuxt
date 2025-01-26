@@ -5,3 +5,4 @@ dist/
 .data
 .wrangler
 server/database/migrations
+coverage

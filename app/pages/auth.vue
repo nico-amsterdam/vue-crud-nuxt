@@ -7,7 +7,7 @@ type ErrorType = {
 }
 
 const isPreferredDark = useMediaQuery('(prefers-color-scheme: dark)')
-const username = ref(''), name = ref(''), darkmode = ref(isPreferredDark)
+const username = ref(''), name = ref(''), darkmode = ref(isPreferredDark.value)
 const errors = ref<ErrorType[]>([])
 const { fetch } = useUserSession()
 const { register, authenticate } = useWebAuthn()
