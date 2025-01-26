@@ -44,7 +44,7 @@
         <Icon icon="tabler:plus" title="+" class="plussign" />
         Add product
       </NuxtLink>
-      <button class="btn refresh" title="Refresh" @click="refresh"><Icon icon="tabler:refresh" /></button>
+      <button class="btn refresh" title="Refresh" @click="refresh"><Icon flip="horizontal" icon="tabler:refresh" /></button>
     </div>
     <div class="filters row">
       <div class="form-group col-sm-3">
@@ -119,7 +119,7 @@
 
 @keyframes spin { 
     100% { 
-        transform:rotate(-360deg); 
+        transform:rotate(360deg); 
     } 
 }
 
