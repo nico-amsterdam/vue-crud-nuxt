@@ -1,6 +1,6 @@
 <script setup lang="ts">
  // auto import:   import { useProductStore } from '@stores/product'
-   import { ref, computed } from 'vue'
+   import { ref, computed, onMount } from 'vue'
    import { storeToRefs } from 'pinia'
    import { Icon } from '@iconify/vue'
 
@@ -19,8 +19,12 @@
       layout: 'vue-crud'
    })
 
+   onMounted(() => {
+      document.getElementById('search-element')?.focus()
+   })
+
    function refresh() {
-      productStore.fetchProducts() // do not wait with await
+      if (!reading.value) productStore.fetchProducts() // do not wait with await
    }
 
    refresh() // initial load
@@ -40,7 +44,7 @@
         <Icon icon="tabler:plus" title="+" class="plussign" />
         Add product
       </NuxtLink>
-      <Icon icon="tabler:refresh" :disabled="reading" title="Refresh" class="refresh" @click="refresh"/>
+      <button class="btn refresh" title="Refresh" @click="refresh"><Icon icon="tabler:refresh" /></button>
     </div>
     <div class="filters row">
       <div class="form-group col-sm-3">
@@ -98,8 +102,34 @@
 }
 
 .refresh {
-  font-size: 24px;
   float: right;
-  margin: 5px
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+.btn.refresh:active {
+  box-shadow: none
+}
+
+.refresh svg {
+  font-size: 24px;
+  margin: 5px 5px 0 5px;
+}
+
+@keyframes spin { 
+    100% { 
+        transform:rotate(-360deg); 
+    } 
+}
+
+.refresh:active svg {
+    color: lightblue;
+    animation: spin 500ms linear 1;
+}
+
+.refresh:not(:active) svg {
+    /* keep color for 0.5 seconds */
+    transition: color 500ms step-end;
 }
 </style>

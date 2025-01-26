@@ -1,5 +1,10 @@
 <script setup lang="ts">
+  import { onMounted } from 'vue'
   defineProps(['theProduct'])
+
+  onMounted(() => {
+    document.getElementById('edit-name')?.focus()
+  })
 </script>
 
 <template>
