@@ -42,4 +42,5 @@ Run with NuxtHub:
   - npx nuxthub preview
 - deploy on Cloudflare:
   - Required is a [NuxtHub](https://hub.nuxt.com/docs/getting-started) and a linked [Cloudflare](https://dash.cloudflare.com/login) account. There is a free tier
+  - npx nuxthub deploy --preview
   - npx nuxthub deploy

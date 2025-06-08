@@ -1,6 +1,6 @@
 <script setup lang="ts">
  // auto import:   import { useProductStore } from '@stores/product'
-   import { ref, computed, onMount } from 'vue'
+   import { ref, computed, onMounted } from 'vue'
    import { storeToRefs } from 'pinia'
    import { Icon } from '@iconify/vue'
 
