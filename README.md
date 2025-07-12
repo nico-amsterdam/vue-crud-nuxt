@@ -1,5 +1,11 @@
 # Vue CRUD Nuxt
 
+## Latest news
+
+This project uses Nuxthub to deploy to Cloudflare. [Nuxtlabs](https://nuxtlabs.com/) announced that they are joining Vercel. The hosted NuxtHub Admin can be used until December 31, 2025.
+Some transition has to be done for this project, but it is unclear now how that will look like.
+
+
 ## About this project
 
 Rebuild of this [Vue CRUD application](https://github.com/shershen08/vue.js-v2-crud-application) with [Nuxt 3](https://nuxtjs.org), [Pinia](https://pinia.vuejs.org) and [NuxtHub](https://hub.nuxt.com/).
