@@ -1,6 +1,8 @@
 import { drizzle } from 'drizzle-orm/d1'
 import * as schema from '../database/schema'
 
+// Files in server/utils are auto imported by Nuxt in the source files,
+// so these do not have to be imported again:
 export { sql, eq, and, or, asc } from 'drizzle-orm'
 
 export const tables = schema

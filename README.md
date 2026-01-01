@@ -23,21 +23,29 @@ Remove the api calls in the Pinia store if you don't want database persistence.
 - install bun. Other package managers like pnpm can also be used, but the bun package manager is faster. Use the `bunx` command instead of `npx` 
 - git clone this repostory, or download the source from github
 - cd vue-crud-nuxt
+- cp wrangler.jsonc.example wrangler.jsonc
+- Fill in your Cloudflare ID in wrangler.jsonc
+- cp .env.example .env
+- Fill in the details in .env
 - bun install
 - bun run update:types
 - bun run build
-- bun run create:db    # interactive. Fill in DB for the database binding
-- bun run create:kv
+- bun run create:db    # interactive. Fill in DB for the database binding. Adds the binding in wrangler.jsonc
+- bun run create:kv    # Adds the binding in wrangler.jsonc
 - bun run db:generate
 - bun run migrate:dev
-- bun run dev
-- open browser http://localhost:3000/
+- bun run dev          
+- open browser http://localhost:3000/    # Nuxt DevTools is available at the bottom of the page
 
 After code changes run:
 - bun run typecheck
 
+Preview mode:
+- bun run preview                        # A preview is without Nuxt DevTools
+- open browser http://localhost:8787/    # Uses the same local database as with `bun run dev`
+
 Deploy on Cloudflare:
   - Required is a [Cloudflare](https://dash.cloudflare.com/login) account. There is a free tier
   - bun run migrate
-  - bun run secret:nuxt
+  - bun run secret:nuxt                  # Use a random 32 bytes hex string
   - bun run deploy:app

@@ -4,8 +4,8 @@
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
-    "preview": "nuxt preview",
-    "preview2": "wrangler dev",
+    "preview": "wrangler dev",
+    "nuxt:preview": "nuxt preview",
     "update:types": "wrangler types",
     "postinstall": "nuxt prepare",
     "typecheck": "nuxt typecheck",
