@@ -1,4 +1,3 @@
-import { eq } from 'drizzle-orm'
 import { useValidatedParams, zh } from 'h3-zod'
 
 export default eventHandler(async (event) => {

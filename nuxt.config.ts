@@ -1,4 +1,4 @@
-import {Nitro} from "nitropack";
+import type {Nitro} from "nitropack";
 
 export default defineNuxtConfig({
   srcDir: 'app',

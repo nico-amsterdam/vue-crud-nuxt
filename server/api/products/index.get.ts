@@ -1,5 +1,3 @@
-import { asc } from 'drizzle-orm'
-
 export default eventHandler(async (event) => {
   await requireUserSession(event)
 

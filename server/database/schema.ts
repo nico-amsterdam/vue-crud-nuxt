@@ -1,5 +1,4 @@
 import { sqliteTable, text, integer, unique } from 'drizzle-orm/sqlite-core'
-import { relations } from 'drizzle-orm'
 import type { WebAuthnCredential } from '#auth-utils'
 
 export const users = sqliteTable('users', {
@@ -17,9 +16,9 @@ export const credentials = sqliteTable('credentials', {
   counter: integer('counter').notNull(),
   backedUp: integer('backed_up', { mode: 'boolean' }).notNull(),
   transports: text('transports', { mode: 'json' }).notNull().$type<WebAuthnCredential['transports']>()
-}, table => ({
-  pk: unique().on(table.userId, table.id)
-}))
+}, table => [
+  unique().on(table.userId, table.id)
+])
 
 export const products = sqliteTable('products', {
   id: integer('id').primaryKey(),
