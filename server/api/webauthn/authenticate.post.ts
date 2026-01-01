@@ -1,22 +1,27 @@
 export default defineWebAuthnAuthenticateEventHandler({
   async storeChallenge(event, challenge, attemptId) {
-    await hubKV().set(`auth:challenge:${attemptId}`, challenge, { ttl: 60 })
+    const env = event.context.cloudflare.env as unknown as Env
+
+    await env.KV.put(`auth:challenge:${attemptId}`, challenge, { expirationTtl: 60 })
   },
   async getChallenge(event, attemptId) {
-    const challenge = await hubKV().get<string>(`auth:challenge:${attemptId}`)
+
+    const env = event.context.cloudflare.env as unknown as Env
+
+    const challenge = await env.KV.get<string>(`auth:challenge:${attemptId}`)
     if (!challenge) {
       throw createError({
         statusCode: 400,
         message: 'Challenge not found or expired'
       })
     }
-    await hubKV().del(`auth:challenge:${attemptId}`)
+    await env.KV.delete(`auth:challenge:${attemptId}`)
     return challenge
   },
   async allowCredentials(event, userName) {
-    const db = useDB()
+    const env = event.context.cloudflare.env as unknown as Env
 
-    const user = await db.query.users.findFirst({
+    const user = await useDB(env).query.users.findFirst({
       where: eq(tables.users.username, userName),
       with: {
         credentials: true
@@ -26,7 +31,9 @@ export default defineWebAuthnAuthenticateEventHandler({
     return user?.credentials || []
   },
   async getCredential(event, credentialID) {
-    const credential = await useDB().query.credentials.findFirst({
+    const env = event.context.cloudflare.env as unknown as Env
+
+    const credential = await useDB(env).query.credentials.findFirst({
       where: eq(tables.credentials.id, credentialID),
       with: {
         user: true

@@ -2,17 +2,21 @@ import { z } from 'zod'
 
 export default defineWebAuthnRegisterEventHandler({
   async storeChallenge(event, challenge, attemptId) {
-    await hubKV().set(`auth:challenge:${attemptId}`, challenge, { ttl: 60 })
+    const env = event.context.cloudflare.env as unknown as Env
+
+    await env.KV.put(`auth:challenge:${attemptId}`, challenge, { expirationTtl: 60 })
   },
   async getChallenge(event, attemptId) {
-    const challenge = await hubKV().get<string>(`auth:challenge:${attemptId}`)
+    const env = event.context.cloudflare.env as unknown as Env
+
+    const challenge = await env.KV.get<string>(`auth:challenge:${attemptId}`)
     if (!challenge) {
       throw createError({
         statusCode: 400,
         message: 'Challenge not found or expired'
       })
     }
-    await hubKV().del(`auth:challenge:${attemptId}`)
+    await env.KV.delete(`auth:challenge:${attemptId}`)
     return challenge
   },
   validateUser: user => z.object({
@@ -20,7 +24,9 @@ export default defineWebAuthnRegisterEventHandler({
     displayName: z.string().min(1).trim()
   }).parseAsync(user),
   async onSuccess(event, { user, credential }) {
-    const db = useDB()
+    const env = event.context.cloudflare.env as unknown as Env
+
+    const db = useDB(env)
 
     const dbUser = await db.insert(tables.users).values({
       username: user.userName,
@@ -52,7 +58,9 @@ export default defineWebAuthnRegisterEventHandler({
     })
   },
   async excludeCredentials(event, userName) {
-    return useDB()
+     const env = event.context.cloudflare.env as unknown as Env
+
+    return useDB(env)
       .select({
         id: tables.credentials.id,
         transports: tables.credentials.transports

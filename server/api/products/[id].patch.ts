@@ -8,7 +8,7 @@ export default eventHandler(async (event) => {
   })
 
   const { productName, description, price } = await useValidatedBody(event, {
-      productName: z.string().trim().min(1).max(20)
+    productName: z.string().trim().min(1).max(20)
     , description: z.string().trim().min(1).max(300)
     , price: z.union([z.literal("").transform(() => null), z.number().positive()]).nullable()
     // To prevent overwriting somebody else's update, compare modifiedAt in the where-clause of the update
@@ -19,17 +19,19 @@ export default eventHandler(async (event) => {
 
   const modifiedProduct = {
     productName
-  , description
-  , price
-  , modifiedBy: user.username
-  , modifiedAt: new Date()
+    , description
+    , price
+    , modifiedBy: user.username
+    , modifiedAt: new Date()
   }
 
+  const env = event.context.cloudflare.env as unknown as Env
+
   // Update product
-  const product = await useDB().update(tables.products)
-  .set(modifiedProduct).where(and(
-    eq(tables.products.id, id)
-  )).returning().get()
+  const product = await useDB(env).update(tables.products)
+    .set(modifiedProduct).where(and(
+      eq(tables.products.id, id)
+    )).returning().get()
 
   if (!product) {
     throw createError({

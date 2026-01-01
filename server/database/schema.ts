@@ -1,5 +1,5 @@
 import { sqliteTable, text, integer, unique } from 'drizzle-orm/sqlite-core'
-import { relations, sql } from 'drizzle-orm'
+import { relations } from 'drizzle-orm'
 import type { WebAuthnCredential } from '#auth-utils'
 
 export const users = sqliteTable('users', {

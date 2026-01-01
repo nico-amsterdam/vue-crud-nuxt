@@ -117,10 +117,10 @@
   margin: 5px 5px 0 5px;
 }
 
-@keyframes spin { 
-    100% { 
-        transform:rotate(360deg); 
-    } 
+@keyframes spin {
+    100% {
+        transform:rotate(360deg);
+    }
 }
 
 .refresh:active svg {

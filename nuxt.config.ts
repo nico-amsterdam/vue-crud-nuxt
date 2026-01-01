@@ -1,3 +1,5 @@
+import {Nitro} from "nitropack";
+
 export default defineNuxtConfig({
   srcDir: 'app',
   devtools: {
@@ -17,7 +19,8 @@ export default defineNuxtConfig({
         ['defineStore', 'definePiniaStore'], // import { defineStore as definePiniaStore } from 'pinia'
       ],
     },
-  ], '@nuxthub/core'
+  ]
+   , 'nitro-cloudflare-dev'
    , 'nuxt-auth-utils'],
 
   app: {
@@ -32,21 +35,29 @@ export default defineNuxtConfig({
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-        { hid: 'description', name: 'description', content: 'Vue CRUD Nuxt.js project' }
+        { name: 'description', content: 'Vue CRUD Nuxt.js project' }
       ]
     }
   },
   auth: {
     webAuthn: true
   },
-  hub: {
-    database: true,
-    kv: true
-  },
-
   imports: {
     dirs: ['stores']
   },
 
-  compatibilityDate: '2024-09-17'
+  nitro: {
+    preset: "cloudflare_module",
+    cloudflare: {
+      deployConfig: true,
+      nodeCompat: true
+    }
+  },
+  hooks: {
+        'nitro:build:before': (nitro: Nitro) => {
+            nitro.options.moduleSideEffects.push('reflect-metadata')
+        }
+  },
+
+  compatibilityDate: '2025-12-15'
 });

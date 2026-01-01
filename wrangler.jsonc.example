@@ -1,0 +1,28 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "vue-crud-nuxt",
+  "main": "./.output/server/index.mjs",
+  "compatibility_date": "2025-12-15",
+  "account_id": "<fill in your cloudflare id>",
+  "assets": {
+    "directory": "./.output/public/",
+    "binding": "ASSETS"
+  },
+  "observability": {
+    "enabled": true
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "vue-crud-nuxt",
+      "database_id": "<fill in your database id>",
+      "migrations_dir": "server/database/migrations"
+    }
+  ],
+  "kv_namespaces": [
+    {
+      "binding": "KV",
+      "id": "<fill in your kv id>"
+    }
+  ]
+}

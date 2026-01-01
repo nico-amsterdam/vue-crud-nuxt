@@ -12,13 +12,15 @@ export default eventHandler(async (event) => {
 
   const newProduct = {
     productName
-  , description
-  , price
-  , createdBy: user.username
+    , description
+    , price
+    , createdBy: user.username
   }
 
+  const env = event.context.cloudflare.env as unknown as Env
+
   // Insert product
-  const product = await useDB().insert(tables.products).values(newProduct).returning().get().catch(() => {
+  const product = await useDB(env).insert(tables.products).values(newProduct).returning().get().catch(() => {
     throw createError({
       statusCode: 400,
       message: `Product '${productName}' already exists`

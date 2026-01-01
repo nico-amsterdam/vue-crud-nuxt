@@ -8,8 +8,8 @@ Some transition has to be done for this project, but it is unclear now how that 
 
 ## About this project
 
-Rebuild of this [Vue CRUD application](https://github.com/shershen08/vue.js-v2-crud-application) with [Nuxt 3](https://nuxtjs.org), [Pinia](https://pinia.vuejs.org) and [NuxtHub](https://hub.nuxt.com/).
-There is a demo on https://vue-crud-nuxt.nuxt.dev/. This online demo does not require authentication and does not store changes. The change to NuxtHub was inspired by this [NuxtHub todo app](https://github.com/atinux/nuxt-todo-passkeys).
+Rebuild of this [Vue CRUD application](https://github.com/shershen08/vue.js-v2-crud-application) with [Nuxt 4](https://nuxtjs.org) and [Pinia](https://pinia.vuejs.org).
+There is a demo on https://vue-crud-nuxt.nuxt.dev/. This online demo does not require authentication and does not store changes.
 
 You can use this project as a starter and for demo's.
 Download, clone or fork the source from https://github.com/nico-amsterdam/vue-crud-nuxt.
@@ -18,35 +18,31 @@ For authentication webauthn passwordless access is used. Currently the signup on
 
 [Sqlite](https://www.sqlite.org/index.html) is the central database.
 
-Thanks to NuxtHub you can easily deploy to Cloudflare with the [D1](https://developers.cloudflare.com/d1/) database, so everything can run on the edge in the cloud.
+Deploy easily to Cloudflare with the [D1](https://developers.cloudflare.com/d1/) database, so everything can run on the edge in the cloud.
 
-Remove `middleware: 'auth'` from the Vue pages if you don't want authentication.
+Remove `middleware: 'auth'` from the Vue pages and `requireUserSession` from the server api if you don't want authentication.
 
 Remove the api calls in the Pinia store if you don't want database persistence.
 
-## Video: install, run, and deploy on Cloudflare
-
-The video has no sound
-
-https://github.com/user-attachments/assets/a5a04338-5e3c-483b-addb-9486b466f9ee
-
-
 ## Instructions
 
-- install node v23 or newer (https://nodejs.org/). This also installs npx
-- install pnpm
+- install bun. Other package managers like pnpm can also be used, but the bun package manager is faster. Use the `bunx` command instead of `npx` 
 - git clone this repostory, or download the source from github
 - cd vue-crud-nuxt
-- pnpm install --frozen-lockfile
-- pnpm run db:generate
-- pnpm run dev
+- bun install
+- bun run build
+- bun run create:db
+- bun run create:kv
+- bun run migrate:dev
+- bun run update:types
+- bun run dev
 - open browser http://localhost:3000/
 
-Run with NuxtHub:
-- run locally with:
-  - npx nuxt build
-  - npx nuxthub preview
+After code changes run:
+- bun run typecheck
+
 - deploy on Cloudflare:
-  - Required is a [NuxtHub](https://hub.nuxt.com/docs/getting-started) and a linked [Cloudflare](https://dash.cloudflare.com/login) account. There is a free tier
-  - npx nuxthub deploy --preview
-  - npx nuxthub deploy
+  - Required is a linked [Cloudflare](https://dash.cloudflare.com/login) account. There is a free tier
+  - bun run migrate
+  - bun run secret:nuxt
+  - bun run deploy:app
