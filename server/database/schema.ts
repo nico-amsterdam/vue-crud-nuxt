@@ -1,5 +1,6 @@
 import { sqliteTable, text, integer, unique } from 'drizzle-orm/sqlite-core'
 import type { WebAuthnCredential } from '#auth-utils'
+import { relations } from "drizzle-orm"
 
 export const users = sqliteTable('users', {
   id: integer('id').primaryKey(),
@@ -11,14 +12,15 @@ export const users = sqliteTable('users', {
 
 export const credentials = sqliteTable('credentials', {
   userId: integer('user_id').references(() => users.id, { onDelete: 'cascade' }).notNull(),
-  id: text('id').notNull().unique(),
+  id: text('id').notNull().primaryKey(),
   publicKey: text('public_key').notNull(),
   counter: integer('counter').notNull(),
   backedUp: integer('backed_up', { mode: 'boolean' }).notNull(),
   transports: text('transports', { mode: 'json' }).notNull().$type<WebAuthnCredential['transports']>()
 }, table => [
   unique().on(table.userId, table.id)
-])
+]
+)
 
 export const products = sqliteTable('products', {
   id: integer('id').primaryKey(),

@@ -24,11 +24,12 @@ Remove the api calls in the Pinia store if you don't want database persistence.
 - git clone this repostory, or download the source from github
 - cd vue-crud-nuxt
 - bun install
-- bun run build
-- bun run create:db
-- bun run create:kv
-- bun run migrate:dev
 - bun run update:types
+- bun run build
+- bun run create:db    # interactive. Fill in DB for the database binding
+- bun run create:kv
+- bun run db:generate
+- bun run migrate:dev
 - bun run dev
 - open browser http://localhost:3000/
 

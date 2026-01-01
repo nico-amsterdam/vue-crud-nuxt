@@ -1,4 +1,4 @@
-import type {Nitro} from "nitropack";
+import type { Nitro } from "nitropack";
 
 export default defineNuxtConfig({
   srcDir: 'app',
@@ -20,8 +20,8 @@ export default defineNuxtConfig({
       ],
     },
   ]
-   , 'nitro-cloudflare-dev'
-   , 'nuxt-auth-utils'],
+    , 'nitro-cloudflare-dev'
+    , 'nuxt-auth-utils'],
 
   app: {
     /*
@@ -54,9 +54,9 @@ export default defineNuxtConfig({
     }
   },
   hooks: {
-        'nitro:build:before': (nitro: Nitro) => {
-            nitro.options.moduleSideEffects.push('reflect-metadata')
-        }
+    'nitro:build:before': (nitro: Nitro) => {
+      nitro.options.moduleSideEffects.push('reflect-metadata')
+    }
   },
 
   compatibilityDate: '2025-12-15'
