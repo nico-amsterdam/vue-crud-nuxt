@@ -35,8 +35,8 @@ Remove the api calls in the Pinia store if you don't want database persistence.
 After code changes run:
 - bun run typecheck
 
-- deploy on Cloudflare:
-  - Required is a linked [Cloudflare](https://dash.cloudflare.com/login) account. There is a free tier
+Deploy on Cloudflare:
+  - Required is a [Cloudflare](https://dash.cloudflare.com/login) account. There is a free tier
   - bun run migrate
   - bun run secret:nuxt
   - bun run deploy:app
