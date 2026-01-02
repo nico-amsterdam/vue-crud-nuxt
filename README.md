@@ -20,7 +20,7 @@ Remove the api calls in the Pinia store if you don't want database persistence.
 
 ## Instructions
 
-- install bun. Other package managers like pnpm can also be used, but the bun package manager is faster. Use the `bunx` command instead of `npx` 
+- install [bun](bun.com). Other package managers like pnpm can also be used, but the bun package manager is faster. Use the `bunx` command instead of `npx` 
 - git clone this repostory, or download the source from github
 - cd vue-crud-nuxt
 - cp wrangler.jsonc.example wrangler.jsonc
@@ -32,9 +32,9 @@ Remove the api calls in the Pinia store if you don't want database persistence.
 - bun run build
 - bun run create:db    # interactive. Fill in DB for the database binding. Adds the binding in wrangler.jsonc
 - bun run create:kv    # Adds the binding in wrangler.jsonc
-- bun run db:generate
+- bun run generate:db
 - bun run migrate:dev
-- bun run dev          
+- bun run dev
 - open browser http://localhost:3000/    # Nuxt DevTools is available at the bottom of the page
 
 After code changes run:
@@ -52,7 +52,7 @@ Deploy on Cloudflare:
 
 ## Tips
 
-- Run `bun run logtail:remote` to view the log of the application running on Cloudflare
+- Run `bun run logtail` to view the log of the application running on Cloudflare
 - If the remote database is deleted (`bun wrangler d1 delete vue-crud-nuxt`) and created again, and there are errors (like: `Error: 7500: You do not have permission to perform this operation`) when doing queries then reconnect the worker with the correct database in the (Cloudflare dashboard)[dash.cloudflare.com]:
 
 <img width="495" height="273" alt="image" src="https://github.com/user-attachments/assets/4cfb4dfa-cdb7-4e0e-aaeb-4b4d65d33dec" />
