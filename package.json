@@ -28,7 +28,9 @@
     "studio:db:dev": "cross-env LOCAL_DB_PATH=$(find .wrangler/state/v3/d1/miniflare-D1DatabaseObject -type f -name '*.sqlite' -print0 | xargs -0 ls -t | head -1) drizzle-kit studio --config=drizzle.config.local.ts",
     "studio:kv:dev": "cross-env LOCAL_DB_PATH=$(find .wrangler/state/v3/kv/miniflare-KVNamespaceObject -type f -name '*.sqlite' -print0 | xargs -0 ls -t | head -1) drizzle-kit studio --config=drizzle.config.local.ts",
     "generate:db": "drizzle-kit generate",
-    "introspect:db": "drizzle-kit introspect"
+    "introspect:db": "drizzle-kit introspect",
+    "dbcat:db:dev": "cross-env find .wrangler/state/v3/d1/miniflare-D1DatabaseObject -type f -name '*.sqlite' -print0 | xargs -0 ls -t | head -1 | xargs bunx dbcat",
+    "dbcat:kv:dev": "cross-env find .wrangler/state/v3/kv/miniflare-KVNamespaceObject -type f -name '*.sqlite' -print0 | xargs -0 ls -t | head -1 | xargs bunx dbcat"
   },
   "dependencies": {
     "@cloudflare/workers-types": "^4.20260101.0",
@@ -37,7 +39,6 @@
     "@simplewebauthn/browser": "^13.2.2",
     "@simplewebauthn/server": "^13.2.2",
     "@vueuse/core": "^14.1.0",
-    "cross-env": "^10.1.0",
     "drizzle-orm": "^0.45.1",
     "h3-zod": "^0.5.3",
     "mande": "^2.0.9",
@@ -60,6 +61,7 @@
     "jsdom": "^27.4.0",
     "vitest": "^4.0.16",
     "vue-tsc": "^3.2.1",
-    "wrangler": "^4.54.0"
+    "wrangler": "^4.54.0",
+    "cross-env": "^10.1.0"
   }
 }
