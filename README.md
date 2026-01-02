@@ -53,7 +53,7 @@ Deploy on Cloudflare:
 ## Tips
 
 - Run `bun run logtail` to view the log of the application running on Cloudflare
-- If the remote database is deleted (`bun wrangler d1 delete vue-crud-nuxt`) and created again, and there are errors (like: `Error: 7500: You do not have permission to perform this operation`) when doing queries then reconnect the worker with the correct database in the (Cloudflare dashboard)[dash.cloudflare.com]:
+- If the remote database is deleted (`bun wrangler d1 delete vue-crud-nuxt`) and created again, and there are errors (like: `Error: 7500: You do not have permission to perform this operation`) when doing queries then reconnect the worker with the correct database in the [Cloudflare dashboard](dash.cloudflare.com):
 
 <img width="495" height="273" alt="image" src="https://github.com/user-attachments/assets/4cfb4dfa-cdb7-4e0e-aaeb-4b4d65d33dec" />
 
