@@ -34,9 +34,3 @@
     </form>
   </section>
 </template>
-
-<style>
-.error {
-  color: red
-}
-</style>

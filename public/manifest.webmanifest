@@ -1,0 +1,38 @@
+{
+  "name": "Vue CRUD Nuxt demo - on Cloudflare with WebAuthn authentication",
+  "short_name": "Vue CRUD Nuxt demo",
+  "description": "CRUD demo hosted on Cloudflare. Authenticate with WebAuthn.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#00d4ff",
+  "orientation": "portrait-primary",
+  "categories": ["productivity", "utilities"],
+  "lang": "en",
+  "icons": [
+    {
+      "src": "image/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "image/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "image/4koma.png",
+      "sizes": "261x374",
+      "type": "image/png",
+      "label": "Elysia Chan"
+    }
+  ],
+  "features": [
+    "cross-platform",
+    "touch-optimized"
+  ]
+}

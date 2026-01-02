@@ -1,13 +1,13 @@
 import { sqliteTable, text, integer, unique } from 'drizzle-orm/sqlite-core'
 import type { WebAuthnCredential } from '#auth-utils'
-import { relations } from "drizzle-orm"
+import { sql, relations } from "drizzle-orm"
 
 export const users = sqliteTable('users', {
   id: integer('id').primaryKey(),
   username: text('username').notNull().unique(),
   name: text('name').notNull(),
-  createdAt: integer('created_at', { mode: 'timestamp' }).notNull(),
-  lastLoginAt: integer('last_login_at', { mode: 'timestamp' }).notNull()
+  createdAt: integer('created_at', { mode: 'timestamp_ms' }).notNull(),
+  lastLoginAt: integer('last_login_at', { mode: 'timestamp_ms' }).notNull()
 })
 
 export const credentials = sqliteTable('credentials', {
@@ -28,9 +28,11 @@ export const products = sqliteTable('products', {
   description: text('description').notNull(),
   price: integer('price'),
   createdBy: text('created_by').notNull(),
-  createdAt: integer('created_at', { mode: 'timestamp' }).notNull().defaultNow(),
+  createdAt: integer("created_at", { mode: "timestamp_ms" })
+    .default(sql`(cast(unixepoch('subsecond') * 1000 as integer))`)
+    .notNull(),
   modifiedBy: text('modified_by'),
-  modifiedAt: integer('modified_at', { mode: 'timestamp' })
+  modifiedAt: integer("modified_at", { mode: "timestamp_ms" })
 })
 
 /**

@@ -9,9 +9,12 @@ const { loggedIn, user, clear } = useUserSession()
     <header class="page-header">
       <div class="branding">
         <img src="https://vuejs.org/images/logo.png" alt="Logo" title="Home page" class="logo"/>
-        <button v-if="loggedIn" @click="clear" :title="user?.name" class="btn btn-default logout">
-          <Icon icon="tabler:logout" title="Logout" class="exit-run"/>Logout
-        </button>
+        <span class="user">
+          {{user?.name}}
+          <button v-if="loggedIn" @click="clear" title="Logout" class="btn btn-default logout">
+            <Icon icon="tabler:logout" title="Logout" class="exit-run"/>Logout
+          </button>
+        </span>
         <h1>Vue CRUD Nuxt</h1>
       </div>
     </header>
@@ -26,12 +29,12 @@ const { loggedIn, user, clear } = useUserSession()
   margin-right: 15px;
 }
 
-.btn {
-  margin-right: 5px
+.branding .user {
+  float:right;
 }
 
 .logout {
-  float:right
+  margin-left: 8px
 }
 
 .exit-run {
