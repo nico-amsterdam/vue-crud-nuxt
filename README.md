@@ -28,6 +28,7 @@ Remove the api calls in the Pinia store if you don't want database persistence.
 - Fill in the NUXT_SESSION_PASSWORD in the .env file. You can use a random 32 hex string (`xxd -p -l 32 -c 32 /dev/urandom`).
 - `bun install`
 - `cp wrangler.jsonc.example wrangler.jsonc`
+- `bunx wrangler login`  # or use npx instead of bunx, or install wrangler globally
 - `bun update:types`
 - `bun migrate:create`  # run this again after making changes in schema.ts
 - `bun migrate:dev`
@@ -50,6 +51,7 @@ Deploy on Cloudflare:
   - Remove double binding entries from wrangler.jsonc, but do not delete the `migrations_dir` property
   - `bun migrate`
   - `bun secret:nuxt`                  # Use a random 32 bytes hex string
+  - `bun run build`
   - `bun deploy:app`
 
 ## Tips
