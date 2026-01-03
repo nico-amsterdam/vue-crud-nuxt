@@ -12,6 +12,7 @@
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
     "create:db": "wrangler d1 create vue-crud-nuxt",
+    "migrate:create": "drizzle-kit generate",
     "migrate:dev": "wrangler d1 migrations apply vue-crud-nuxt --local",
     "migrate": "wrangler d1 migrations apply vue-crud-nuxt --remote",
     "test:db:dev": "wrangler d1 execute vue-crud-nuxt --local --command \"select * from products\";",
@@ -27,13 +28,12 @@
     "studio:db": "drizzle-kit studio",
     "studio:db:dev": "cross-env LOCAL_DB_PATH=$(find .wrangler/state/v3/d1/miniflare-D1DatabaseObject -type f -name '*.sqlite' -print0 | xargs -0 ls -t | head -1) drizzle-kit studio --config=drizzle.config.local.ts",
     "studio:kv:dev": "cross-env LOCAL_DB_PATH=$(find .wrangler/state/v3/kv/miniflare-KVNamespaceObject -type f -name '*.sqlite' -print0 | xargs -0 ls -t | head -1) drizzle-kit studio --config=drizzle.config.local.ts",
-    "generate:db": "drizzle-kit generate",
     "introspect:db": "drizzle-kit introspect",
     "dbcat:db:dev": "cross-env find .wrangler/state/v3/d1/miniflare-D1DatabaseObject -type f -name '*.sqlite' -print0 | xargs -0 ls -t | head -1 | xargs bunx dbcat",
     "dbcat:kv:dev": "cross-env find .wrangler/state/v3/kv/miniflare-KVNamespaceObject -type f -name '*.sqlite' -print0 | xargs -0 ls -t | head -1 | xargs bunx dbcat"
   },
   "dependencies": {
-    "@cloudflare/workers-types": "^4.20260101.0",
+    "@cloudflare/workers-types": "^4.20260103.0",
     "@libsql/client": "^0.15.15",
     "@pinia/nuxt": "^0.11.3",
     "@simplewebauthn/browser": "^13.2.2",
