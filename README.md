@@ -76,7 +76,7 @@ Preview mode:
 Deploy on Cloudflare:
   - Required is a [Cloudflare](https://dash.cloudflare.com/login) account. There is a free tier
   - Fill in your Cloudflare ID in wrangler.jsonc and in the .env file
-  - `bunx wrangler login` # or install wrangler globally
+  - `bunx wrangler login`
   - `bun create:db`       # interactive. Fill in DB for the database binding. Adds the binding in wrangler.jsonc
   - `bun create:kv`       # Adds the binding in wrangler.jsonc
   - Remove double binding entries from wrangler.jsonc, but do not delete the `migrations_dir` property
@@ -88,7 +88,7 @@ Deploy on Cloudflare:
 ## Tips
 
 - Run `bun logtail` to view the log of the application running on Cloudflare
-- Run `bun studio:db` to view the production database with Drizzle Studio. Needs the Cloudflare details in the .env file. Create the Cloudflare token with the following additional account permissions: D1:Edit, Workers KV Storage:Edit
+- Run `bun studio:db` to view the production database with Drizzle Studio. Needs the Cloudflare environment settings in the .env file. Create the Cloudflare token with the following additional account permissions: D1:Edit, Workers KV Storage:Edit
 - The content of the local database can be quickly viewed with `bun dbcat:db:dev` and the Key-Value store with `bun dbcat:kv:dev`
 - If you define a CLOUDFLARE_API_TOKEN environment variable in the .env file, wrangler will use automatically this token (instead of `wrangler login`). Make sure that the token has enough permissions.
   
