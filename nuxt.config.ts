@@ -1,29 +1,20 @@
 import type { Nitro } from "nitropack";
 
 export default defineNuxtConfig({
+  srcDir: 'app',
   ssr: false,
   css: ['@@/public/css/auth.css', '@@/public/css/bootstrap3-un.css'],
-  srcDir: 'app',
   devtools: {
     enabled: true
   },
   typescript: {
     strict: true
   },
-  modules: [[
-    "@pinia/nuxt",
-    {
-      autoImports: [
-        // automatically imports `defineStore`
-        'defineStore', // import { defineStore } from 'pinia'
-        // automatically imports `defineStore` as `definePiniaStore`
-        ['defineStore', 'definePiniaStore'], // import { defineStore as definePiniaStore } from 'pinia'
-      ],
-    },
-  ]
-    , 'nitro-cloudflare-dev'
-    , 'nuxt-auth-utils'],
-
+  modules: [
+    '@pinia/nuxt',
+    'nitro-cloudflare-dev',
+    'nuxt-auth-utils'
+  ],
   app: {
     /*
     ** Headers of the page

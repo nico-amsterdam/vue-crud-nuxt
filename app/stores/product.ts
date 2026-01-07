@@ -3,8 +3,6 @@ import { ref } from 'vue'
 import { mande } from 'mande'
 import type { MandeError } from 'mande'
 
-const api = mande('/api/products')
-
 type ProductBaseType = {
   productName: string;
   description: string;
@@ -31,6 +29,7 @@ function convertErrorToMessage(error: any, failedToFetchMsg: string): string {
 
 export const useProductStore = defineStore('productStore', () => {
 
+  const api = mande('/api/products')
   const productList = ref<ProductType[]>([])
   const writing = ref(false)
   const reading = ref(false)
