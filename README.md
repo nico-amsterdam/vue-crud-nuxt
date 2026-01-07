@@ -63,10 +63,11 @@ Remove the api calls in the Pinia store if you don't want database persistence.
 - `bun migrate:create`  # run this again after making changes in schema.ts
 - `bun migrate:dev`
 - `bun dev`
-- open browser http://localhost:3000/    # Nuxt DevTools is available at the bottom of the page
+- open browser http://localhost:3000/  # Nuxt DevTools is available at the bottom of the page
 
 After code changes run:
 - `bun typecheck`
+- `bun test`                           # For coverage report: `bun test --coverage`. Fancy test ui: `bun vitest:ui`
 
 Preview mode:
 - `bun run build`
