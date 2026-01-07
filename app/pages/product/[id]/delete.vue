@@ -19,7 +19,7 @@
       layout: 'vue-crud'
     })
 
-    useHead({ link: [{rel: 'stylesheet', href: '/css/bootstrap3-un.css'}] })
+    useHead({ htmlAttrs: { class: 'retro' } })
 </script>
 
 <template>

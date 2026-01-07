@@ -30,10 +30,8 @@ function refresh() {
 refresh() // initial load
 
 useHead({
-  link: [
-    { rel: 'stylesheet', href: '/css/bootstrap3-un.css' },
-    { rel: 'manifest', href: '/manifest.webmanifest' }
-  ]
+  htmlAttrs: { class: 'retro' },
+  link: [{ rel: 'manifest', href: '/manifest.webmanifest' }, { rel: 'apple-touch-icon', href: '/image/icon-192.png' }]
 })
 </script>
 

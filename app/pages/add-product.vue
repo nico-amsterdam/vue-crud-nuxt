@@ -1,30 +1,30 @@
 <script setup lang="ts">
- // auto-import import ProductForm from '../components/product-form.vue'
- // auto-import import { useProductStore } from '@stores/product'
+// auto-import import ProductForm from '../components/product-form.vue'
+// auto-import import { useProductStore } from '@stores/product'
 
-    const productStore = useProductStore()
-    const { addProduct, productList } = productStore
-    const product = ref({id: null, productName: '', description: '', price: null})
+const productStore = useProductStore()
+const { addProduct, productList } = productStore
+const product = ref({ id: null, productName: '', description: '', price: null })
 
-    const productAlreadyExists = computed(() => {
-      return productList.findIndex(p => p.productName === product.value.productName.trim()) >= 0
-    })
+const productAlreadyExists = computed(() => {
+  return productList.findIndex(p => p.productName === product.value.productName.trim()) >= 0
+})
 
-    function createProduct () {
-      addProduct(product.value)
-      navigateTo('/')
-    }
+function createProduct() {
+  addProduct(product.value)
+  navigateTo('/')
+}
 
-    definePageMeta({
-      middleware: 'auth',
-      layout: 'vue-crud'
-    })
+definePageMeta({
+  middleware: 'auth',
+  layout: 'vue-crud'
+})
 
-    useHead({ link: [{rel: 'stylesheet', href: '/css/bootstrap3-un.css'}] })
+useHead({ htmlAttrs: { class: 'retro' } })
 </script>
 
 <template>
-    <section>
+  <section>
     <div v-if="productAlreadyExists" class="error">Product already exists</div>
     <h2>Add new product</h2>
     <form v-on:submit.prevent="createProduct">

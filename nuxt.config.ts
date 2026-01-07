@@ -1,11 +1,12 @@
 import type { Nitro } from "nitropack";
 
 export default defineNuxtConfig({
+  ssr: false,
+  css: ['@@/public/css/auth.css', '@@/public/css/bootstrap3-un.css'],
   srcDir: 'app',
   devtools: {
     enabled: true
   },
-  future: { compatibilityVersion: 4 },
   typescript: {
     strict: true
   },
@@ -28,14 +29,15 @@ export default defineNuxtConfig({
     ** Headers of the page
     */
     head: {
-      title: 'starter',
+      title: 'Vue CRUD Nuxt',
       htmlAttrs: {
         lang: 'en'
       },
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-        { name: 'description', content: 'Vue CRUD Nuxt.js project' }
+        { name: 'description', content: 'Vue CRUD Nuxt.js project' },
+        { name: 'theme-color', content: '#fddcd0' }
       ]
     }
   },
@@ -45,7 +47,6 @@ export default defineNuxtConfig({
   imports: {
     dirs: ['stores']
   },
-
   nitro: {
     preset: "cloudflare_module",
     cloudflare: {
@@ -58,6 +59,5 @@ export default defineNuxtConfig({
       nitro.options.moduleSideEffects.push('reflect-metadata')
     }
   },
-
   compatibilityDate: '2025-12-15'
 });

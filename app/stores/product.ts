@@ -3,7 +3,6 @@ import { ref } from 'vue'
 import { mande } from 'mande'
 import type { MandeError } from 'mande'
 
-
 const api = mande('/api/products')
 
 type ProductBaseType = {
@@ -42,7 +41,7 @@ export const useProductStore = defineStore('productStore', () => {
 
   async function fetchProducts() {
     // I did not provide the full url in the .env, which is needed to do api calls during SSR
-    if (process.server) return; // during SSR, no api calls. Wait for client-side rending
+    if (import.meta.server) return; // during SSR, no api calls. Wait for client-side rending
     if (reading.value) return;
     // do not interfere with the optimistic write actions. They changed the product list, keep it unchanged.
     if (writing.value) {
@@ -76,7 +75,7 @@ export const useProductStore = defineStore('productStore', () => {
   }
 
   async function addProduct(product: AddProductType) {
-    if (process.server) return; // during SSR, no api calls. Wait for client-side rendering
+    if (import.meta.server) return; // during SSR, no api calls. Wait for client-side rendering
     if (writing.value) {
       // user has to wait until previous write action is ready
       lastWriteErrorMsg.value = `System is busy. Cannot create '${product.productName}'`
@@ -105,7 +104,7 @@ export const useProductStore = defineStore('productStore', () => {
   }
 
   async function updateProduct(product: ProductType) {
-    if (process.server) return; // during SSR, no api calls. Wait for client-side rendering
+    if (import.meta.server) return; // during SSR, no api calls. Wait for client-side rendering
     if (writing.value) {
       // user has to wait until previous write action is ready
       lastWriteErrorMsg.value = `System is busy. Cannot update '${product.productName}'`
@@ -134,7 +133,7 @@ export const useProductStore = defineStore('productStore', () => {
   }
 
   async function deleteProduct(product: ProductType) {
-    if (process.server) return; // during SSR, no api calls. Wait for client-side rendering
+    if (import.meta.server) return; // during SSR, no api calls. Wait for client-side rendering
     if (writing.value) {
       // user has to wait until previous write action is ready
       lastWriteErrorMsg.value = `System is busy. Cannot delete '${product.productName}'`
