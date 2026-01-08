@@ -8,7 +8,6 @@
     "postinstall": "nuxt prepare",
     "vitest": "vitest run",
     "vitest:ui": "vitest --ui",
-    "vitest:coverage": "vitest run --coverage",
     "create:db": "wrangler d1 create vue-crud-nuxt",
     "migrate:create": "drizzle-kit generate",
     "migrate:dev": "wrangler d1 migrations apply vue-crud-nuxt --local",
