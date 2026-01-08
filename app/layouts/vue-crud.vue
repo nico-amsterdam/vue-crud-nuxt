@@ -8,7 +8,7 @@ const { loggedIn, user, clear } = useUserSession()
   <div class="container">
     <header class="page-header">
       <div class="branding">
-        <img src="https://vuejs.org/images/logo.png" alt="Logo" title="Home page" class="logo"/>
+        <img src="https://vuejs.org/images/logo.png" alt="Logo" title="Vue logo" class="logo"/>
         <span class="user">
           {{user?.name}}
           <button v-if="loggedIn" @click="clear" title="Logout" class="btn btn-default logout">

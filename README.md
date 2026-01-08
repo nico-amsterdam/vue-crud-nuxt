@@ -9,7 +9,7 @@ You can use this project as a starter for your Nuxt application. Nuxt offers fea
 Download, clone or fork the source from https://github.com/nico-amsterdam/vue-crud-nuxt.
 
 For authentication WebAuthn passwordless access is used. Currently the signup only asks for a username, but in practice you probably want to ask for an email address and do email verification before granting access.
-This functionality is powered by [nuxt-auth-utils](https://nuxt.com/modules/auth-utils). Nuxt-auth-utils also supports OAuth/OIDC for many providers, so with a bit of work you can use this as well.
+This functionality is powered by [nuxt-auth-utils](https://nuxt.com/modules/auth-utils). Nuxt-auth-utils also supports OAuth/OIDC for many providers, so with a bit of work you can use those as well.
 
 [Sqlite](https://www.sqlite.org/index.html) is the central database. More specifically [Cloudflare D1](https://developers.cloudflare.com/d1/worker-api/d1-database/).
 D1 is a managed database with automatic backups (Time Travel).
@@ -60,29 +60,29 @@ Remove the api calls in the Pinia store if you don't want database persistence.
 - `bun install`
 - `cp wrangler.jsonc.example wrangler.jsonc`
 - `bun update:types`
-- `bun migrate:create`  # run this again after making changes in schema.ts
+- `bun migrate:create`                  # run this again after making changes in schema.ts
 - `bun migrate:dev`
 - `bun dev`
-- open browser http://localhost:3000/  # Nuxt DevTools is available at the bottom of the page
+- open browser http://localhost:3000/   # Nuxt DevTools is available at the bottom of the page
 
 After code changes run:
 - `bun typecheck`
-- `bun test`                           # For coverage report: `bun test --coverage`. Fancy test ui: `bun vitest:ui`
+- `bun test`                            # For coverage report: `bun test --coverage`. Fancy test ui: `bun vitest:ui`
 
 Preview mode:
 - `bun run build`
-- `bun preview`                          # A preview is without Nuxt DevTools
-- open browser http://localhost:8787/    # Uses the same local database as with `bun dev`
+- `bun preview`                         # A preview is without Nuxt DevTools
+- open browser http://localhost:8787/   # Uses the same local database as with `bun dev`
 
 Deploy on Cloudflare:
   - Required is a [Cloudflare](https://dash.cloudflare.com/login) account. There is a free tier
   - Fill in your Cloudflare ID in wrangler.jsonc and in the .env file
-  - `bunx wrangler login`
+  - `bun wrangler login`
   - `bun create:db`       # interactive. Fill in DB for the database binding. Adds the binding in wrangler.jsonc
   - `bun create:kv`       # Adds the binding in wrangler.jsonc
   - Remove double binding entries from wrangler.jsonc, but do not delete the `migrations_dir` property
   - `bun migrate`
-  - `bun secret:nuxt`                  # Use a random 32 bytes hex string
+  - `bun secret:nuxt`     # Use a random 32 bytes hex string
   - `bun run build`
   - `bun deploy:app`
 
@@ -92,7 +92,7 @@ Deploy on Cloudflare:
 - Run `bun studio:db` to view the production database with Drizzle Studio. Needs the Cloudflare environment settings in the .env file. Create the Cloudflare token with the following additional account permissions: D1:Edit, Workers KV Storage:Edit
 - The content of the local database can be quickly viewed with `bun dbcat:db:dev` and the Key-Value store with `bun dbcat:kv:dev`
 - If you define a CLOUDFLARE_API_TOKEN environment variable in the .env file, wrangler will use automatically this token (instead of `wrangler login`). Make sure that the token has enough permissions.
-  
+
 <img width="358" height="177" alt="image" src="https://github.com/user-attachments/assets/b9a2d706-d591-4eaf-9202-7965f91988f5" />
 
 - If the remote database is deleted (`bun wrangler d1 delete vue-crud-nuxt`) and created again, and there are errors (like: `Error: 7500: You do not have permission to perform this operation`) when doing queries then reconnect the worker with the correct database in the [Cloudflare dashboard](https://dash.cloudflare.com/):
