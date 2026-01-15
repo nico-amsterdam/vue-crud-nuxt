@@ -36,6 +36,7 @@ export default defineNuxtConfig({
     webAuthn: true
   },
   imports: {
+    // Auto-import pinia stores defined in `~/stores`
     dirs: ['stores']
   },
   nitro: {

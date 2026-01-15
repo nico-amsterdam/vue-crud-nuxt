@@ -4,6 +4,7 @@
   "scripts": {
     "update:types": "wrangler types",
     "typecheck": "nuxt typecheck",
+    "typecheck:watch": "vue-tsc --noEmit --watch",
     "build": "nuxt build",
     "postinstall": "nuxt prepare",
     "vitest": "vitest run",

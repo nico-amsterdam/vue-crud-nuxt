@@ -1,0 +1,17 @@
+{
+  "extends": "../.nuxt/tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "types": ["vitest/globals", "node", "@nuxt/test-utils"]
+  },
+  "include": [
+    "**/*",
+    "../app/**/*"
+  ],
+  "exclude": [
+    "../node_modules",
+    "../dist"
+  ]
+}
