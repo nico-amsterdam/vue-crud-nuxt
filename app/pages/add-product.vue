@@ -1,6 +1,6 @@
 <script setup lang="ts">
 // auto-import import ProductForm from '../components/product-form.vue'
-// auto-import import { useProductStore } from '@stores/product'
+// auto-import import { useProductStore } from '@/stores/product'
 
 const productStore = useProductStore()
 const { addProduct, productList } = productStore

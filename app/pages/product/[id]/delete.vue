@@ -1,5 +1,5 @@
 <script setup lang="ts">
-    // auto-import import { useProductStore } from '@stores/product'
+    // auto-import import { useProductStore } from '@/stores/product'
     import { useRoute } from 'vue-router'
 
     const productStore = useProductStore()

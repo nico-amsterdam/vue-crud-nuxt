@@ -1,5 +1,5 @@
 <script setup lang="ts">
-// auto import:   import { useProductStore } from '@stores/product'
+// auto import:   import { useProductStore } from '@/stores/product'
 import { ref, computed, onMounted } from 'vue'
 import { storeToRefs } from 'pinia'
 import { Icon } from '@iconify/vue'
@@ -47,7 +47,7 @@ useHead({
         <Icon icon="tabler:plus" title="+" class="plussign" />
         Add product
       </NuxtLink>
-      <button class="btn refresh" title="Refresh" @click="refresh">
+      <button type="button" class="btn refresh" title="Refresh" @click="refresh">
         <Icon flip="horizontal" icon="tabler:refresh" />
       </button>
     </div>

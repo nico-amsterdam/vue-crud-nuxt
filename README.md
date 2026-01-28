@@ -51,6 +51,7 @@ Remove the api calls in the Pinia store if you don't want database persistence.
 ## Instructions
 
 - install [Bun](https://bun.com/). Other package managers like Pnpm can also be used, but the Bun package manager is faster.
+- install [Node](https://nodejs.org/en/download). I recommend using nvm for the installation of Node.
 - git clone this repostory, or download the source from github.
 
   `git clone https://github.com/nico-amsterdam/vue-crud-nuxt.git`
