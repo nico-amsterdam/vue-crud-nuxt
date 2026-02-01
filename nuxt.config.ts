@@ -12,7 +12,6 @@ export default defineNuxtConfig({
   },
   modules: [
     '@pinia/nuxt',
-    'nitro-cloudflare-dev',
     'nuxt-auth-utils'
   ],
   app: {
