@@ -42,7 +42,8 @@
 
     header,
     section {
-        display: block
+        display: block;
+        margin-top: 15px
     }
 
     a:active,
@@ -194,7 +195,7 @@
 
     .page-header {
         padding-bottom: 9px;
-        margin: 40px 0 20px;
+        margin: 0;
         border-bottom: 1px solid #eee
     }
 

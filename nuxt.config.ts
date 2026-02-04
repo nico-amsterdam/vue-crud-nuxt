@@ -13,7 +13,7 @@ export default defineNuxtConfig({
   modules: [
     '@pinia/nuxt',
     'nuxt-auth-utils',
-    'nuxt-i18n-micro'
+    '@nuxtjs/i18n'
   ],
   app: {
     /*
@@ -53,16 +53,19 @@ export default defineNuxtConfig({
   },
   i18n: {
     locales: [
-      { code: 'en', iso: 'en-US', dir: 'ltr', displayName: "English" },
-      { code: 'fr', iso: 'fr-FR', dir: 'ltr', displayName: "Français" },
-      { code: 'de', iso: 'de-DE', dir: 'ltr', displayName: "Deutsch" },
-      { code: 'es', iso: 'es-ES', dir: 'ltr', displayName: "Español" }
+      { code: 'en', iso: 'en-US', dir: 'ltr', name: "English", file: 'en.json' },
+      { code: 'fr', iso: 'fr-FR', dir: 'ltr', name: "Français", file: 'fr.json' },
+      { code: 'de', iso: 'de-DE', dir: 'ltr', name: "Deutsch", file: 'de.json' },
+      { code: 'es', iso: 'es-ES', dir: 'ltr', name: "Español", file: 'es.json' }
     ],
     defaultLocale: 'en',
-    translationDir: 'locales',
-    meta: true,
-    disablePageLocales: false,
-    autoDetectLanguage: true
+    lazy: false,
+    langDir: 'locales/',
+    strategy: 'no_prefix',
+    detectBrowserLanguage: false,
+    bundle: {
+      optimizeTranslationDirective: false
+    }
   },
   compatibilityDate: '2026-02-01'
 });

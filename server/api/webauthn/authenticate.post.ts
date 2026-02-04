@@ -5,14 +5,14 @@ export default defineWebAuthnAuthenticateEventHandler({
     await env.KV.put(`auth:challenge:${attemptId}`, challenge, { expirationTtl: 60 })
   },
   async getChallenge(event, attemptId) {
-
     const env = event.context.cloudflare.env as unknown as Env
+    const t = getServerTranslation(event)
 
     const challenge = await env.KV.get<string>(`auth:challenge:${attemptId}`)
     if (!challenge) {
       throw createError({
         statusCode: 400,
-        message: 'Challenge not found or expired'
+        message: t('server.api.webauthn.authenticate.post.challenge_not_found')
       })
     }
     await env.KV.delete(`auth:challenge:${attemptId}`)
@@ -32,6 +32,7 @@ export default defineWebAuthnAuthenticateEventHandler({
   },
   async getCredential(event, credentialID) {
     const env = event.context.cloudflare.env as unknown as Env
+    const t = getServerTranslation(event)
 
     const credential = await useDB(env).query.credentials.findFirst({
       where: eq(tables.credentials.id, credentialID),
@@ -43,7 +44,7 @@ export default defineWebAuthnAuthenticateEventHandler({
     if (!credential) {
       throw createError({
         statusCode: 404,
-        statusMessage: 'Credential not found'
+        statusMessage: t('server.api.webauthn.authenticate.post.credential_not_found')
       })
     }
 

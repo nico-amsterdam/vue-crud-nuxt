@@ -8,12 +8,13 @@ export default defineWebAuthnRegisterEventHandler({
   },
   async getChallenge(event, attemptId) {
     const env = event.context.cloudflare.env as unknown as Env
+    const t = getServerTranslation(event)
 
     const challenge = await env.KV.get<string>(`auth:challenge:${attemptId}`)
     if (!challenge) {
       throw createError({
         statusCode: 400,
-        message: 'Challenge not found or expired'
+        message: t('server.api.webauthn.register.post.challenge_not_found')
       })
     }
     await env.KV.delete(`auth:challenge:${attemptId}`)
@@ -25,6 +26,7 @@ export default defineWebAuthnRegisterEventHandler({
   }).parseAsync(user),
   async onSuccess(event, { user, credential }) {
     const env = event.context.cloudflare.env as unknown as Env
+    const t = getServerTranslation(event)
 
     const db = useDB(env)
 
@@ -36,7 +38,7 @@ export default defineWebAuthnRegisterEventHandler({
     }).returning().get().catch(() => {
       throw createError({
         statusCode: 400,
-        message: 'User already exists'
+        message: t('server.api.webauthn.register.post.user_already_exists')
       })
     })
 

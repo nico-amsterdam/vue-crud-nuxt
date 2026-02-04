@@ -1,6 +1,7 @@
 <script setup lang="ts">
-    // auto import import { useProductStore } from '@stores/product'
     import { useRoute } from 'vue-router'
+
+    const { t } = useI18n()
 
     const productStore = useProductStore()
     const { productList, updateProduct } = productStore
@@ -28,11 +29,11 @@
 
 <template>
   <section>
-    <h2>Edit product</h2>
+    <h2>{{ t('pages.product-id-edit.title') }}</h2>
     <form v-on:submit.prevent="update">
       <ProductForm v-model:the-product="product" v-if="!!product"></ProductForm>
-      <button type="submit" class="btn btn-primary" v-if="!!product && product.id >= 0">Save</button>
-      <NuxtLink to="/" class="btn btn-default">Cancel</NuxtLink>
+      <button type="submit" class="btn btn-primary" v-if="!!product && product.id >= 0">{{ t('app.button.save') }}</button>
+      <NuxtLink to="/" class="btn btn-default">{{ t('pages.product-id-edit.button.cancel') }}</NuxtLink>
     </form>
   </section>
 </template>

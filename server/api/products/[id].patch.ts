@@ -32,10 +32,12 @@ export default eventHandler(async (event) => {
       eq(tables.products.id, id)
     )).returning().get()
 
+  const t = getServerTranslation(event)
+
   if (!product) {
     throw createError({
       statusCode: 400,
-      message: `Could not update '${productName}'`
+      message: t('server.api.products.patch.product_update_failed', {productName: productName})
     })
   }
 

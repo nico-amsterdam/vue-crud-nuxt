@@ -1,6 +1,7 @@
 <script setup lang="ts">
-    // auto-import import { useProductStore } from '@/stores/product'
     import { useRoute } from 'vue-router'
+
+    const { t } = useI18n()
 
     const productStore = useProductStore()
     const { productList, deleteProduct } = productStore
@@ -24,11 +25,11 @@
 
 <template>
   <section>
-    <h2>Delete product {{product?.productName}}</h2>
+    <h2>{{ t('pages.product-id-delete.title', { productName: product?.productName ?? "???" }) }}</h2>
     <form v-on:submit.prevent="remove">
-      <p>The action cannot be undone.</p>
-      <button type="submit" class="btn btn-danger" v-if="!!product && product.id >= 0">Delete</button>
-      <NuxtLink to="/" class="btn btn-default">Cancel</NuxtLink>
+      <p>{{ t('pages.product-id-delete.warning') }}</p>
+      <button type="submit" class="btn btn-danger" v-if="!!product && product.id >= 0">{{ t('app.button.delete') }}</button>
+      <NuxtLink to="/" class="btn btn-default">{{ t('pages.product-id-delete.button.cancel') }}</NuxtLink>
     </form>
   </section>
 </template>

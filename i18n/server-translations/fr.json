@@ -1,0 +1,9 @@
+{
+  "server.api.products.post.product_already_exists": "Le produit '{productName}' existe déjà",
+  "server.api.products.post.product_create_failed": "Impossible de créer '{productName}'",
+  "server.api.products.patch.product_update_failed": "Impossible de mettre à jour '{productName}'",
+  "server.api.webauthn.register.post.challenge_not_found": "Défi introuvable ou expiré",
+  "server.api.webauthn.register.post.user_already_exists": "L'utilisateur existe déjà",
+  "server.api.webauthn.authenticate.post.challenge_not_found": "Défi introuvable ou expiré",
+  "server.api.webauthn.authenticate.post.credential_not_found": "Identifiant introuvable"
+}

@@ -3,6 +3,18 @@ import { ref } from 'vue'
 import { mande } from 'mande'
 import type { MandeError } from 'mande'
 
+// Helper function to get translations - works in both client and server environments
+function getTranslation(key: string, params?: Record<string, unknown>): string {
+  if (import.meta.client) {
+    // Client-side: use Nuxt i18n
+    const { t } = useI18n()
+    return params ? t(key, params) : t(key)
+  } else {
+    // Server-side: return key (server will handle translations separately)
+    return key
+  }
+}
+
 type ProductBaseType = {
   productName: string;
   description: string;
@@ -13,7 +25,7 @@ type ProductType = {id: number} & ProductBaseType
 type AddProductType = {id: number | null} & ProductBaseType
 
 function convertErrorToMessage(error: any, failedToFetchMsg: string): string {
-  let errorMessage = 'An unknown error occurred'
+  let errorMessage = getTranslation('stores.product.unknown_error')
   if ('body' in error) {
     let mandeErrorBody = (error as MandeError).body
     // body.data may contain a ZodError
@@ -60,7 +72,7 @@ export const useProductStore = defineStore('productStore', () => {
       }
     } catch (error) {
       console.log('Get error: ' + JSON.stringify(error, null, 2))
-      lastReadErrorMsg.value = convertErrorToMessage(error,  'Cannot refresh product list. The connection failed. Network offline?')
+      lastReadErrorMsg.value = convertErrorToMessage(error, getTranslation('stores.product.cannot_refresh_list'))
     } finally {
       reading.value = false
     }
@@ -77,7 +89,7 @@ export const useProductStore = defineStore('productStore', () => {
     if (import.meta.server) return; // during SSR, no api calls. Wait for client-side rendering
     if (writing.value) {
       // user has to wait until previous write action is ready
-      lastWriteErrorMsg.value = `System is busy. Cannot create '${product.productName}'`
+      lastWriteErrorMsg.value = getTranslation('stores.product.system_busy_create', { productName: product.productName })
       return
     }
     writing.value = true
@@ -91,7 +103,7 @@ export const useProductStore = defineStore('productStore', () => {
     } catch (error) {
       revertOptimisticAdd(product)
       console.log('Post error: ' + JSON.stringify(error, null, 2))
-      lastWriteErrorMsg.value = convertErrorToMessage(error,  `Cannot create '${product.productName}'. The connection failed. Network offline?`)
+      lastWriteErrorMsg.value = convertErrorToMessage(error, getTranslation('stores.product.cannot_create', { productName: product.productName }))
     } finally {
       writing.value = false
     }
@@ -106,7 +118,7 @@ export const useProductStore = defineStore('productStore', () => {
     if (import.meta.server) return; // during SSR, no api calls. Wait for client-side rendering
     if (writing.value) {
       // user has to wait until previous write action is ready
-      lastWriteErrorMsg.value = `System is busy. Cannot update '${product.productName}'`
+      lastWriteErrorMsg.value = getTranslation('stores.product.system_busy_update', { productName: product.productName })
       return
     }
     writing.value = true
@@ -124,7 +136,7 @@ export const useProductStore = defineStore('productStore', () => {
     } catch (error) {
       productList.value.splice(productIndex, 1, oldProduct) // revert optimistic change
       console.log('Patch error: ' + JSON.stringify(error, null, 2))
-      lastWriteErrorMsg.value = convertErrorToMessage(error, `Cannot update '${product.productName}'. The connection failed. Network offline?`)
+      lastWriteErrorMsg.value = convertErrorToMessage(error, getTranslation('stores.product.cannot_update', { productName: product.productName }))
     } finally {
       writing.value = false
     }
@@ -135,7 +147,7 @@ export const useProductStore = defineStore('productStore', () => {
     if (import.meta.server) return; // during SSR, no api calls. Wait for client-side rendering
     if (writing.value) {
       // user has to wait until previous write action is ready
-      lastWriteErrorMsg.value = `System is busy. Cannot delete '${product.productName}'`
+      lastWriteErrorMsg.value = getTranslation('stores.product.system_busy_delete', { productName: product.productName })
       return
     }
     writing.value = true
@@ -151,7 +163,7 @@ export const useProductStore = defineStore('productStore', () => {
     } catch (error) {
       productList.value.splice(productIndex, 0, product) // revert optimistic delete
       console.log('Delete error: ' + JSON.stringify(error, null, 2))
-      lastWriteErrorMsg.value = convertErrorToMessage(error, `Cannot delete '${product.productName}'. The connection failed. Network offline?`)
+      lastWriteErrorMsg.value = convertErrorToMessage(error, getTranslation('stores.product.cannot_delete', { productName: product.productName }))
     } finally {
       writing.value = false
     }

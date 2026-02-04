@@ -1,0 +1,9 @@
+{
+  "server.api.products.post.product_already_exists": "El producto '{productName}' ya existe",
+  "server.api.products.post.product_create_failed": "No se pudo crear '{productName}'",
+  "server.api.products.patch.product_update_failed": "No se pudo actualizar '{productName}'",
+  "server.api.webauthn.register.post.challenge_not_found": "Desafío no encontrado o expirado",
+  "server.api.webauthn.register.post.user_already_exists": "El usuario ya existe",
+  "server.api.webauthn.authenticate.post.challenge_not_found": "Desafío no encontrado o expirado",
+  "server.api.webauthn.authenticate.post.credential_not_found": "Credencial no encontrada"
+}

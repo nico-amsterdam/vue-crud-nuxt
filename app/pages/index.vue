@@ -1,21 +1,15 @@
 <script setup lang="ts">
-// auto import:   import { useProductStore } from '@/stores/product'
+// auto-import import { useProductStore } from '@/stores/product'
+// auto-import import { useI18n } from '#imports'
 import { ref, computed, onMounted } from 'vue'
 import { storeToRefs } from 'pinia'
 import { Icon } from '@iconify/vue'
-// import { useI18n } from '#imports'
-import { useNuxtApp } from '#imports'
 
-const { $getLocale, $switchLocale, $getLocales, $t } = useNuxtApp()
-
-// const currentLocale = $getLocale()
-
-// const { $t, locale, $getLocales, $switchLocale } = useI18n()
+const { locale, setLocale, locales, t } = useI18n()
 
 const productStore = useProductStore()
 const { productList, lastReadErrorMsg, lastWriteErrorMsg, reading } = storeToRefs(productStore)
 const searchKey = ref('')
-const currentLocale = ref($getLocale())
 
 const filteredProducts = computed(() => {
   return productList.value.filter(product =>
@@ -37,52 +31,57 @@ function refresh() {
 }
 
 function onChangeLange() {
-  console.log('Change to ' + currentLocale.value)
-  $switchLocale(currentLocale.value)
+  setLocale(locale.value)
 }
 
 refresh() // initial load
 
 useHead({
   htmlAttrs: { class: 'retro' },
+  bodyAttrs: {
+    class: computed(() => {
+      return 'lang-' + locale.value
+    })
+  },
   link: [{ rel: 'manifest', href: '/manifest.webmanifest' }, { rel: 'apple-touch-icon', href: '/image/icon-192.png' }]
 })
 </script>
 
 <template>
-  <section>
+  <main class="product-list">
     <div class="errors">
       {{ lastWriteErrorMsg }}
       <p />
       {{ lastReadErrorMsg }}
     </div>
-    <div class="actions">
-      <select v-model="currentLocale" @change="onChangeLange" id="choose-lang" name="language" class="form-control language-switcher" aria-label="Choose site language">
-        <option v-for="locale in $getLocales()" :key="locale.code" :value="locale.code" lang="`locale.code`">
-          {{ locale.displayName ?? locale.code }}
+    <div class="form-actions">
+      <select v-model="locale" @change="onChangeLange" id="choose-lang" name="language"
+        class="form-control language-switcher" :aria-label="t('pages.index.language_selector_label')">
+        <option v-for="loc in locales" :key="loc.code" :value="loc.code" :lang="loc.code">
+          {{ loc.name ?? loc.code }}
         </option>
       </select>
       <NuxtLink class="btn btn-default" to="/add-product" no-rel>
-        <Icon icon="tabler:plus" title="+" class="plussign" />
-        Add product
+        <Icon icon="tabler:plus" :title="t('pages.index.add_product_icon_title')" class="plussign" />
+        {{ t('pages.index.add_product') }}
       </NuxtLink>
-      <button type="button" class="btn refresh" title="Refresh" @click="refresh">
+      <button type="button" class="btn refresh" :title="t('pages.index.refresh_button_title')" @click="refresh">
         <Icon flip="horizontal" icon="tabler:refresh" />
       </button>
     </div>
     <div class="filters row">
-      <div class="form-group col-sm-3">
-        <label for="search-element">Search product</label>
+      <div class="form-group product-search">
+        <label for="search-element">{{ t('pages.index.search_label') }}</label>
         <input v-model="searchKey" class="form-control" id="search-element" requred />
       </div>
     </div>
     <table class="table">
       <thead>
         <tr>
-          <th>Name</th>
-          <th>Description</th>
-          <th>Price</th>
-          <th class="col-sm-2">Actions</th>
+          <th scope="col">{{ t('pages.index.table.header.name') }}</th>
+          <th scope="col">{{ t('pages.index.table.header.description') }}</th>
+          <th scope="col" class="price">{{ t('pages.index.table.header.price') }}</th>
+          <th scope="col" class="table-actions">{{ t('pages.index.table.header.actions') }}</th>
         </tr>
       </thead>
       <tbody>
@@ -95,28 +94,49 @@ useHead({
           <td>
             {{ product.description }}
           </td>
-          <td>
+          <td class="price">
             {{ product.price }} €
           </td>
-          <td>
+          <td class="table-actions">
             <NuxtLink v-if="product.id >= 0" class="btn btn-warning btn-xs" :to="`/product/${product.id}/edit`" no-rel
-              no-prefetch>Edit</NuxtLink>
+              no-prefetch>{{ t('pages.index.table.actions.edit') }}</NuxtLink>
             <NuxtLink v-if="product.id >= 0" class="btn btn-danger btn-xs" :to="`/product/${product.id}/delete`" no-rel
-              no-prefetch>Delete</NuxtLink>
+              no-prefetch>{{ t('pages.index.table.actions.delete') }}</NuxtLink>
           </td>
         </tr>
       </tbody>
     </table>
-  </section>
+  </main>
 </template>
 
 <style>
-.form-group {
-  max-width: 500px;
+/* Skip link for accessibility - WCAG 2.4.1 Bypass Blocks */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: #000;
+  color: #fff;
+  padding: 8px 16px;
+  z-index: 10000;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 14px;
+  transition: top 0.2s ease-in-out
 }
 
-.actions {
-  padding: 10px 0;
+.skip-link:focus {
+  top: 0;
+  outline: 2px solid #fff;
+  outline-offset: 2px
+}
+
+.form-group {
+  max-width: 500px
+}
+
+.form-actions {
+  padding: 10px 0
 }
 
 .plussign {
@@ -128,7 +148,13 @@ useHead({
   float: right;
   background: none;
   border: none;
-  padding: 0;
+  padding: 0
+}
+
+.form-actions .language-switcher {
+  width: auto;
+  margin-top: -41px;
+  float: right
 }
 
 .btn.refresh:active {
@@ -137,7 +163,7 @@ useHead({
 
 .refresh svg {
   font-size: 24px;
-  margin: 5px 5px 0 5px;
+  margin: 5px 5px 0 5px
 }
 
 @keyframes spin {
@@ -148,11 +174,56 @@ useHead({
 
 .refresh:active svg {
   color: lightblue;
-  animation: spin 500ms linear 1;
+  animation: spin 500ms linear 1
 }
 
 .refresh:not(:active) svg {
   /* keep color for 0.5 seconds */
-  transition: color 500ms step-end;
+  transition: color 500ms step-end
+}
+
+@media (min-width: 992px) {
+
+  body .product-list .table .price {
+    padding-right: 28px;
+    width: 130px
+  }
+}
+
+@media (min-width: 1200px) {
+
+  body .product-list .table .price {
+    padding-right: 58px;
+    width: 160px
+  }
+}
+
+.lang-en .table-actions {
+  width: 112px
+}
+
+.lang-es .table-actions {
+  width: 132px
+}
+
+.product-list .table .price {
+  width: 102px;
+  text-align: right
+}
+
+.table-actions,
+.product-search {
+  position: relative;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px
+}
+
+.product-search {
+  max-width: 450px;
+}
+
+.table-actions {
+  width: 164px;
 }
 </style>
