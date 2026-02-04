@@ -1,5 +1,6 @@
 :root {
     --text-color: #333;
+    --text-error-color: red;
     --background: white;
     --btn-border: #dbdbdb;
     --btn-active: #e0e0e0;
@@ -39,11 +40,9 @@
     color: var(--text-color);
     background-color: var(--background);
 
-
     header,
     section {
-        display: block;
-        margin-top: 15px
+        display: block
     }
 
     a:active,
@@ -182,11 +181,11 @@
 
     h1 {
         margin: .67em 0;
-        font-size: 36px
+        font-size: 28px
     }
 
     h2 {
-        font-size: 30px
+        font-size: 20px
     }
 
     p {
@@ -195,7 +194,7 @@
 
     .page-header {
         padding-bottom: 9px;
-        margin: 0;
+        margin: 40px 0 20px;
         border-bottom: 1px solid #eee
     }
 
@@ -218,17 +217,29 @@
         }
     }
 
+    .error {
+        color: var(--text-error-color)
+    }
+
     .row {
         margin-right: -15px;
         margin-left: -15px
     }
 
-    .col-sm-2,
-    .col-sm-3 {
+    .table-actions,
+    .product-search {
         position: relative;
         min-height: 1px;
         padding-right: 15px;
         padding-left: 15px
+    }
+
+    .product-search {
+        max-width: 450px;
+    }
+
+    .table-actions {
+        width: 164px;
     }
 
     @media (min-width: 768px) {
@@ -236,17 +247,8 @@
             width: 750px
         }
 
-        .col-sm-2,
-        .col-sm-3 {
-            float: left
-        }
-
-        .col-sm-3 {
-            width: 25%
-        }
-
-        .col-sm-2 {
-            width: 16.66666667%
+        .product-search {
+            width: 60%
         }
     }
 
@@ -257,7 +259,8 @@
     .table {
         width: 100%;
         max-width: 100%;
-        margin-bottom: 20px
+        margin-bottom: 20px;
+        border-collapse: collapse
     }
 
     .table>tbody>tr>td,
@@ -268,7 +271,7 @@
         border-top: 1px solid #ddd
     }
 
-    .table>thead>tr>th {
+    .table>thead>tr {
         vertical-align: bottom;
         border-bottom: 2px solid #ddd
     }
@@ -563,4 +566,8 @@
     .error {
         color: red
     }
+}
+
+.hide {
+    display: none
 }

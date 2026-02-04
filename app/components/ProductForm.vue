@@ -1,26 +1,29 @@
 <script setup lang="ts">
-  import { onMounted } from 'vue'
-const { t: $t } = useI18n()
-  defineProps(['theProduct'])
+import { onMounted } from 'vue'
 
-  onMounted(() => {
-    document.getElementById('edit-name')?.focus()
-  })
+const { t } = useI18n()
+
+defineProps(['theProduct'])
+
+onMounted(() => {
+  document.getElementById('edit-name')?.focus()
+})
 </script>
 
 <template>
   <span>
     <div class="form-group">
-      <label for="edit-name">{{ $t('components.product-form.name_label') }}</label>
-      <input class="form-control" id="edit-name" v-model="theProduct.productName" required maxlength="20"/>
+      <label for="edit-name">{{ t('components.product-form.name_label') }}</label>
+      <input class="form-control" id="edit-name" v-model="theProduct.productName" required maxlength="20" />
     </div>
     <div class="form-group">
-      <label for="edit-description">{{ $t('components.product-form.description_label') }}</label>
-      <textarea class="form-control" id="edit-description" rows="3" v-model="theProduct.description" required maxlength="300"></textarea>
+      <label for="edit-description">{{ t('components.product-form.description_label') }}</label>
+      <textarea class="form-control" id="edit-description" rows="3" v-model="theProduct.description" required
+        maxlength="300"></textarea>
     </div>
     <div class="form-group">
-      <label for="edit-price">{{ $t('components.product-form.price_label') }}</label>
-      <input type="number" class="form-control" id="edit-price" v-model="theProduct.price" max="99999999999"/>
+      <label for="edit-price">{{ t('components.product-form.price_label') }}</label>
+      <input type="number" class="form-control" id="edit-price" v-model="theProduct.price" max="99999999999" />
     </div>
   </span>
 </template>

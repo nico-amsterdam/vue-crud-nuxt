@@ -153,7 +153,7 @@ useHead({
 
 .form-actions .language-switcher {
   width: auto;
-  margin-top: -41px;
+  margin-top: -48px;
   float: right
 }
 
@@ -209,21 +209,5 @@ useHead({
 .product-list .table .price {
   width: 102px;
   text-align: right
-}
-
-.table-actions,
-.product-search {
-  position: relative;
-  min-height: 1px;
-  padding-right: 15px;
-  padding-left: 15px
-}
-
-.product-search {
-  max-width: 450px;
-}
-
-.table-actions {
-  width: 164px;
 }
 </style>
