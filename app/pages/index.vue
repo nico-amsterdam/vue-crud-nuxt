@@ -3,10 +3,19 @@
 import { ref, computed, onMounted } from 'vue'
 import { storeToRefs } from 'pinia'
 import { Icon } from '@iconify/vue'
+// import { useI18n } from '#imports'
+import { useNuxtApp } from '#imports'
+
+const { $getLocale, $switchLocale, $getLocales, $t } = useNuxtApp()
+
+// const currentLocale = $getLocale()
+
+// const { $t, locale, $getLocales, $switchLocale } = useI18n()
 
 const productStore = useProductStore()
 const { productList, lastReadErrorMsg, lastWriteErrorMsg, reading } = storeToRefs(productStore)
 const searchKey = ref('')
+const currentLocale = ref($getLocale())
 
 const filteredProducts = computed(() => {
   return productList.value.filter(product =>
@@ -27,6 +36,11 @@ function refresh() {
   if (!reading.value) productStore.fetchProducts() // do not wait with await
 }
 
+function onChangeLange() {
+  console.log('Change to ' + currentLocale.value)
+  $switchLocale(currentLocale.value)
+}
+
 refresh() // initial load
 
 useHead({
@@ -43,6 +57,11 @@ useHead({
       {{ lastReadErrorMsg }}
     </div>
     <div class="actions">
+      <select v-model="currentLocale" @change="onChangeLange" id="choose-lang" name="language" class="form-control language-switcher" aria-label="Choose site language">
+        <option v-for="locale in $getLocales()" :key="locale.code" :value="locale.code" lang="`locale.code`">
+          {{ locale.displayName ?? locale.code }}
+        </option>
+      </select>
       <NuxtLink class="btn btn-default" to="/add-product" no-rel>
         <Icon icon="tabler:plus" title="+" class="plussign" />
         Add product

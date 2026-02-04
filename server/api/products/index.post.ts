@@ -10,6 +10,8 @@ export default eventHandler(async (event) => {
 
   const { user } = await requireUserSession(event)
 
+  const t = await useTranslationServerMiddleware(event)
+
   const newProduct = {
     productName
     , description
@@ -23,14 +25,14 @@ export default eventHandler(async (event) => {
   const product = await useDB(env).insert(tables.products).values(newProduct).returning().get().catch(() => {
     throw createError({
       statusCode: 400,
-      message: `Product '${productName}' already exists`
+      message: t('product_already_exists', {productName: productName}) // `Product '${productName}' already exists`
     })
   })
 
   if (!product) {
     throw createError({
       statusCode: 400,
-      message: `Could not create '${productName}'`
+      message: t('product_create_failed', {productName: productName}) // `Could not create '${productName}'`
     })
   }
 

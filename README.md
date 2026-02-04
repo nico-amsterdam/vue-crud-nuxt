@@ -50,7 +50,7 @@ Remove the api calls in the Pinia store if you don't want database persistence.
 
 ## Instructions
 
-- install [Bun](https://bun.com/). Other package managers like Pnpm can also be used, but the Bun package manager is faster.
+- install [Bun](https://bun.com/). Other package managers like pnpm can also be used, but the Bun package manager is faster.
 - install [Node](https://nodejs.org/en/download). I recommend using nvm for the installation of Node.
 - git clone this repostory, or download the source from github.
 
@@ -96,7 +96,13 @@ Deploy on Cloudflare:
 
 <img width="358" height="177" alt="image" src="https://github.com/user-attachments/assets/b9a2d706-d591-4eaf-9202-7965f91988f5" />
 
+
+## Troubleshooting
+
+### Database reconnection
+
 - If the remote database is deleted (`bun wrangler d1 delete vue-crud-nuxt`) and created again, and there are errors (like: `Error: 7500: You do not have permission to perform this operation`) when doing queries then reconnect the worker with the correct database in the [Cloudflare dashboard](https://dash.cloudflare.com/):
 
 <img width="495" height="273" alt="image" src="https://github.com/user-attachments/assets/4cfb4dfa-cdb7-4e0e-aaeb-4b4d65d33dec" />
+
 

@@ -34,7 +34,7 @@
     "dbcat:kv:dev": "cross-env find .wrangler/state/v3/kv/miniflare-KVNamespaceObject -type f -name '*.sqlite' -print0 | xargs -0 ls -t | head -1 | xargs bunx dbcat"
   },
   "dependencies": {
-    "@cloudflare/workers-types": "^4.20260131.0",
+    "@cloudflare/workers-types": "^4.20260203.0",
     "@libsql/client": "^0.17.0",
     "@pinia/nuxt": "^0.11.3",
     "@simplewebauthn/browser": "^13.2.2",
@@ -45,6 +45,7 @@
     "mande": "^2.0.9",
     "nuxt": "^4.3.0",
     "nuxt-auth-utils": "^0.5.28",
+    "nuxt-i18n-micro": "^2.20.1",
     "pinia": "^3.0.4",
     "vue": "^3.5.27",
     "vue-router": "^4.6.4",
@@ -60,10 +61,10 @@
     "@vitest/ui": "4.0.16",
     "cross-env": "^10.1.0",
     "drizzle-kit": "^0.31.8",
-    "happy-dom": "^20.4.0",
+    "happy-dom": "^20.5.0",
     "nitro": "^3.0.1-alpha.2",
     "vitest": "^4.0.18",
     "vue-tsc": "^3.2.4",
-    "wrangler": "^4.61.1"
+    "wrangler": "^4.62.0"
   }
 }

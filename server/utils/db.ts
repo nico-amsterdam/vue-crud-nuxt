@@ -17,5 +17,8 @@ export function useDB(env: Env) {
       { statusCode: 500, statusMessage: 'Database not found in environment' })
   }
 
-  return drizzle(env.DB, { schema })
+  // Use Cloudflare sessions to support read replication. Cast D1DatabaseSession type.
+  const cloudflareDB = env.DB.withSession() as unknown as D1Database
+
+  return drizzle(cloudflareDB, { schema })
 }

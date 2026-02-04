@@ -12,7 +12,8 @@ export default defineNuxtConfig({
   },
   modules: [
     '@pinia/nuxt',
-    'nuxt-auth-utils'
+    'nuxt-auth-utils',
+    'nuxt-i18n-micro'
   ],
   app: {
     /*
@@ -50,5 +51,18 @@ export default defineNuxtConfig({
       nitro.options.moduleSideEffects.push('reflect-metadata')
     }
   },
-  compatibilityDate: '2025-12-15'
+  i18n: {
+    locales: [
+      { code: 'en', iso: 'en-US', dir: 'ltr', displayName: "English" },
+      { code: 'fr', iso: 'fr-FR', dir: 'ltr', displayName: "Français" },
+      { code: 'de', iso: 'de-DE', dir: 'ltr', displayName: "Deutsch" },
+      { code: 'es', iso: 'es-ES', dir: 'ltr', displayName: "Español" }
+    ],
+    defaultLocale: 'en',
+    translationDir: 'locales',
+    meta: true,
+    disablePageLocales: false,
+    autoDetectLanguage: true
+  },
+  compatibilityDate: '2026-02-01'
 });
