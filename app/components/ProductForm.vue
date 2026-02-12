@@ -1,13 +1,22 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
 
+/*
+ * Variables
+ */
+
 const { t } = useI18n()
 
 defineProps(['theProduct'])
 
+/*
+ * Inits
+ */
+
 onMounted(() => {
   document.getElementById('edit-name')?.focus()
 })
+
 </script>
 
 <template>

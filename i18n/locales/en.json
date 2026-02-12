@@ -54,7 +54,6 @@
   "pages.auth.username_label": "Username",
   "pages.auth.display_name_label": "Display Name",
 
-  "stores.product.unknown_error": "An unknown error occurred",
   "stores.product.cannot_refresh_list": "Cannot refresh product list. The connection failed. Network offline?",
   "stores.product.system_busy_create": "System is busy. Cannot create '{productName}'",
   "stores.product.cannot_create": "Cannot create '{productName}'. The connection failed. Network offline?",

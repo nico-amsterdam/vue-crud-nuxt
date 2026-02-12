@@ -23,6 +23,9 @@
     --btn-warning-focus: #985f0d;
 }
 
+.hide {
+    display: none
+}
 
 .retro {
     /*!
@@ -327,7 +330,6 @@
         display: inline-block;
         padding: 6px 12px;
         margin-bottom: 0;
-        margin-right: 5px;
         font-size: 14px;
         font-weight: 400;
         line-height: 1.42857143;
@@ -566,8 +568,4 @@
     .error {
         color: red
     }
-}
-
-.hide {
-    display: none
 }

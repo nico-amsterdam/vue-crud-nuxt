@@ -54,7 +54,6 @@
   "pages.auth.username_label": "Benutzername",
   "pages.auth.display_name_label": "Anzeigename",
 
-  "stores.product.unknown_error": "Ein unbekannter Fehler ist aufgetreten",
   "stores.product.cannot_refresh_list": "Produktliste kann nicht aktualisiert werden. Die Verbindung ist fehlgeschlagen. Netzwerk offline?",
   "stores.product.system_busy_create": "System ist beschäftigt. '{productName}' kann nicht erstellt werden",
   "stores.product.cannot_create": "'{productName}' kann nicht erstellt werden. Die Verbindung ist fehlgeschlagen. Netzwerk offline?",

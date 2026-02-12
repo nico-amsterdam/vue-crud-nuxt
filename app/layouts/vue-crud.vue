@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { Icon } from '@iconify/vue'
-const { t } = useI18n()
 
+const { t } = useI18n()
 const { loggedIn, user, clear } = useUserSession()
+
 </script>
 
 <template>

@@ -54,7 +54,6 @@
   "pages.auth.username_label": "Nombre de usuario",
   "pages.auth.display_name_label": "Nombre para mostrar",
 
-  "stores.product.unknown_error": "Ocurrió un error desconocido",
   "stores.product.cannot_refresh_list": "No se puede actualizar la lista de productos. La conexión falló. ¿Red sin conexión?",
   "stores.product.system_busy_create": "El sistema está ocupado. No se puede crear '{productName}'",
   "stores.product.cannot_create": "No se puede crear '{productName}'. La conexión falló. ¿Red sin conexión?",

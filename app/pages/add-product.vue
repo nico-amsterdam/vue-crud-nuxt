@@ -3,20 +3,30 @@
 // auto-import import { useProductStore } from '@/stores/product'
 // auto-import import { useI18n } from '#imports'
 
-const { t } = useI18n()
+/*
+ * Variables
+ */
 
+const { t } = useI18n()
 const productStore = useProductStore()
 const { addProduct, productList } = productStore
 const product = ref({ id: null, productName: '', description: '', price: null })
-
 const productAlreadyExists = computed(() => {
   return productList.findIndex(p => p.productName === product.value.productName.trim()) >= 0
 })
+
+/*
+ * Functions
+ */
 
 function createProduct() {
   addProduct(product.value)
   navigateTo('/')
 }
+
+/*
+ * Page settings
+ */
 
 definePageMeta({
   middleware: 'auth',
@@ -24,6 +34,7 @@ definePageMeta({
 })
 
 useHead({ htmlAttrs: { class: 'retro' } })
+
 </script>
 
 <template>

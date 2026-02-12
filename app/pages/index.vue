@@ -5,26 +5,23 @@ import { ref, computed, onMounted } from 'vue'
 import { storeToRefs } from 'pinia'
 import { Icon } from '@iconify/vue'
 
-const { locale, setLocale, locales, t } = useI18n()
+/*
+ * Variables
+ */
 
+const { locale, setLocale, locales, t } = useI18n()
 const productStore = useProductStore()
 const { productList, lastReadErrorMsg, lastWriteErrorMsg, reading } = storeToRefs(productStore)
 const searchKey = ref('')
-
 const filteredProducts = computed(() => {
   return productList.value.filter(product =>
     product.productName.toLowerCase().indexOf(searchKey.value.toLowerCase()) !== -1
     || product.description.toLowerCase().indexOf(searchKey.value.toLowerCase()) !== -1)
 })
 
-definePageMeta({
-  middleware: 'auth',
-  layout: 'vue-crud'
-})
-
-onMounted(() => {
-  document.getElementById('search-element')?.focus()
-})
+/*
+ * Functions
+ */
 
 function refresh() {
   if (!reading.value) productStore.fetchProducts() // do not wait with await
@@ -34,7 +31,24 @@ function onChangeLange() {
   setLocale(locale.value)
 }
 
+/*
+ * Inits
+ */
+
 refresh() // initial load
+
+onMounted(() => {
+  document.getElementById('search-element')?.focus()
+})
+
+/*
+ * Page settings
+ */
+
+definePageMeta({
+  middleware: 'auth',
+  layout: 'vue-crud'
+})
 
 useHead({
   htmlAttrs: { class: 'retro' },
@@ -45,6 +59,7 @@ useHead({
   },
   link: [{ rel: 'manifest', href: '/manifest.webmanifest' }, { rel: 'apple-touch-icon', href: '/image/icon-192.png' }]
 })
+
 </script>
 
 <template>
@@ -100,6 +115,7 @@ useHead({
           <td class="table-actions">
             <NuxtLink v-if="product.id >= 0" class="btn btn-warning btn-xs" :to="`/product/${product.id}/edit`" no-rel
               no-prefetch>{{ t('pages.index.table.actions.edit') }}</NuxtLink>
+            {{ ' ' }}
             <NuxtLink v-if="product.id >= 0" class="btn btn-danger btn-xs" :to="`/product/${product.id}/delete`" no-rel
               no-prefetch>{{ t('pages.index.table.actions.delete') }}</NuxtLink>
           </td>

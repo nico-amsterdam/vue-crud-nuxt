@@ -54,7 +54,6 @@
   "pages.auth.username_label": "Nom d'utilisateur",
   "pages.auth.display_name_label": "Nom d'affichage",
 
-  "stores.product.unknown_error": "Une erreur inconnue s'est produite",
   "stores.product.cannot_refresh_list": "Impossible d'actualiser la liste des produits. La connexion a échoué. Réseau hors ligne ?",
   "stores.product.system_busy_create": "Le système est occupé. Impossible de créer '{productName}'",
   "stores.product.cannot_create": "Impossible de créer '{productName}'. La connexion a échoué. Réseau hors ligne ?",
