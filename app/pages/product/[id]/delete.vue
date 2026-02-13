@@ -41,7 +41,8 @@ useHead({ htmlAttrs: { class: 'retro' } })
     <form v-on:submit.prevent="remove">
       <p>{{ t('pages.product-id-delete.warning') }}</p>
       <button type="submit" class="btn btn-danger" v-if="!!product && product.id >= 0">{{ t('app.button.delete')
-        }}</button>
+      }}</button>
+      {{ ' ' }}
       <NuxtLink to="/" class="btn btn-default">{{ t('pages.product-id-delete.button.cancel') }}</NuxtLink>
     </form>
   </section>

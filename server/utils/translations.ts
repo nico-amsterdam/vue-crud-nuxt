@@ -16,9 +16,12 @@ const serverTranslations: Record<string, any> = {
 
 export function getServerTranslation(event: H3Event) {
   // Get locale from header, cookie, or default
-  const locale = getHeader(event, 'accept-language')?.split(',')[0]?.substring(0, 2) ||
-                getCookie(event, 'i18n_locale') ||
-                'en'
+  const query = getQuery(event)
+  const lang = query.lang?.toString()
+  const locale = lang ||
+    getHeader(event, 'accept-language')?.split(',')[0]?.substring(0, 2) ||
+    getCookie(event, 'i18n_locale') ||
+    'en'
 
   const supportedLocales = ['en', 'fr', 'de', 'es'] as const
   const effectiveLocale = supportedLocales.includes(locale as any) ? locale : 'en'

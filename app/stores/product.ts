@@ -145,7 +145,7 @@ export const useProductStore = defineStore('productStore', () => {
     const oldProduct = productList.value[productIndex] as ProductType
     productList.value.splice(productIndex, 1, product) // optimistic change
     try {
-      const changedProduct = await api.patch<ProductType>(product.id, product)
+      const changedProduct = await api.patch<ProductType>(product.id, product, { query: { 'lang': getLocale() } })
       productList.value.splice(productIndex, 1, changedProduct)
     } catch (error) {
       productList.value.splice(productIndex, 1, oldProduct) // revert optimistic change
@@ -173,7 +173,7 @@ export const useProductStore = defineStore('productStore', () => {
     }
     productList.value.splice(productIndex, 1) // optimistic delete
     try {
-      await api.delete<ProductType>(product.id)
+      await api.delete<ProductType>(product.id, { query: { 'lang': getLocale() } })
     } catch (error) {
       productList.value.splice(productIndex, 0, product) // revert optimistic delete
       console.log('Delete error: ' + JSON.stringify(error, null, 2))

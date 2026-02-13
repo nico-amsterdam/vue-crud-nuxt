@@ -45,7 +45,8 @@ useHead({ htmlAttrs: { class: 'retro' } })
     <form v-on:submit.prevent="update">
       <ProductForm v-model:the-product="product" v-if="!!product"></ProductForm>
       <button type="submit" class="btn btn-primary" v-if="!!product && product.id >= 0">{{ t('app.button.save')
-      }}</button>
+        }}</button>
+      {{ ' ' }}
       <NuxtLink to="/" class="btn btn-default">{{ t('pages.product-id-edit.button.cancel') }}</NuxtLink>
     </form>
   </section>

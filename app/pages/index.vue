@@ -64,7 +64,7 @@ useHead({
 
 <template>
   <main class="product-list">
-    <div class="errors">
+    <div class="error">
       {{ lastWriteErrorMsg }}
       <p />
       {{ lastReadErrorMsg }}

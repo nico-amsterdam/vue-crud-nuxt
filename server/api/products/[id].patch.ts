@@ -16,6 +16,8 @@ export default eventHandler(async (event) => {
 
   const { user } = await requireUserSession(event)
 
+  const t = getServerTranslation(event)
+
   const modifiedProduct = {
     productName
     , description
@@ -27,17 +29,19 @@ export default eventHandler(async (event) => {
   const env = event.context.cloudflare.env as unknown as Env
 
   // Update product
-  const product = await useDB(env).update(tables.products)
-    .set(modifiedProduct).where(and(
-      eq(tables.products.id, id)
-    )).returning().get()
-
-  const t = getServerTranslation(event)
+  const product = await useDB(env).update(tables.products).set(modifiedProduct).where(and(
+    eq(tables.products.id, id)
+  )).returning().get().catch(() => {
+    throw createError({
+      statusCode: 400,
+      message: t('server.api.products.patch.product_already_exists', { productName: productName })
+    })
+  })
 
   if (!product) {
     throw createError({
       statusCode: 400,
-      message: t('server.api.products.patch.product_update_failed', {productName: productName})
+      message: t('server.api.products.patch.product_update_failed', { productName: productName })
     })
   }
 

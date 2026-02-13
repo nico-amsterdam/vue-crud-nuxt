@@ -566,6 +566,6 @@
     }
 
     .error {
-        color: red
+        color: var(--text-error-color)
     }
 }
