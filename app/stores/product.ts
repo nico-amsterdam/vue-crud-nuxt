@@ -11,6 +11,7 @@ type ProductBaseType = {
   productName: string;
   description: string;
   price: number | null;
+  modifiedAt: Date | null;
 }
 
 type ProductType = { id: number } & ProductBaseType
@@ -26,6 +27,7 @@ export const useProductStore = defineStore('productStore', () => {
   const productList = ref<ProductType[]>([])
   const writing = ref(false)
   const reading = ref(false)
+  const darkmode = ref(false)
   const lastWriteErrorMsg = ref('')
   const lastReadErrorMsg = ref('')
   let uniqueId = -1
@@ -184,8 +186,13 @@ export const useProductStore = defineStore('productStore', () => {
     if (deferFetch) fetchProducts()
   }
 
+  function clearErrors() {
+    if (!reading.value) lastReadErrorMsg.value = ''
+    if (!writing.value) lastWriteErrorMsg.value = ''
+  }
+
   return {
-    addProduct, updateProduct, deleteProduct, fetchProducts
-    , productList, reading, writing, lastReadErrorMsg, lastWriteErrorMsg
+    addProduct, updateProduct, deleteProduct, fetchProducts, clearErrors
+    , productList, reading, writing, lastReadErrorMsg, lastWriteErrorMsg, darkmode
   }
 })

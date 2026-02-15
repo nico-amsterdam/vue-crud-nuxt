@@ -11,7 +11,7 @@ const { t } = useI18n()
 const productStore = useProductStore()
 const { addProduct, productList } = productStore
 const { writing } = storeToRefs(productStore)
-const product = ref({ id: null, productName: '', description: '', price: null })
+const product = ref({ id: null, productName: '', description: '', price: null, modifiedAt: null })
 const productAlreadyExists = computed(() => {
   return !writing.value && productList.findIndex(p => p.productName === product.value.productName.trim()) >= 0
 })
@@ -34,8 +34,6 @@ definePageMeta({
   layout: 'vue-crud'
 })
 
-useHead({ htmlAttrs: { class: 'retro' } })
-
 </script>
 
 <template>
@@ -48,7 +46,7 @@ useHead({ htmlAttrs: { class: 'retro' } })
       <button type="submit" :disabled="writing" class="btn btn-primary">{{
         t('pages.add-product.button.create') }}</button>
       {{ ' ' }}
-      <NuxtLink to="/" class="btn btn-default">{{ t('pages.add-product.button.cancel') }}</NuxtLink>
+      <NuxtLink to="/" class="btn btn-default" @click="productStore.clearErrors()">{{ t('pages.add-product.button.cancel') }}</NuxtLink>
     </form>
   </section>
 </template>

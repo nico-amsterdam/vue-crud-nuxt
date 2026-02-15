@@ -21,6 +21,11 @@
     --btn-warning-active: #eb9316;
     --btn-warning-background-active: #d58512;
     --btn-warning-focus: #985f0d;
+    --dark-mode-background: rgb(104, 103, 103);
+    --dark-mode-text-color: white;
+    --dark-mode-text-background-color: black;
+    --dark-mode-error-text-color: white;
+    --dark-mode-error-background-color: red;
 }
 
 .hide {
@@ -41,7 +46,7 @@
     font-size: 14px;
     line-height: 1.42857143;
     color: var(--text-color);
-    background-color: var(--background);
+  /*  background-color: var(--background); */
 
     header,
     section {
@@ -202,10 +207,8 @@
     }
 
     .container {
-        padding-right: 15px;
-        padding-left: 15px;
-        margin-right: auto;
-        margin-left: auto
+        padding: 5px 15px;
+        margin: 0 auto 0 auto
     }
 
     @media (min-width: 992px) {
@@ -221,7 +224,8 @@
     }
 
     .error {
-        color: var(--text-error-color)
+        color: var(--text-error-color);
+        margin: -25px 120px 10px 0px
     }
 
     .row {
@@ -565,7 +569,46 @@
         background-image: none
     }
 
-    .error {
-        color: var(--text-error-color)
+    body.dark input,
+    body.dark select,
+    body.dark textarea,
+    body.dark search button {
+        background-color: var(--dark-mode-text-background-color);
+        color: var(--dark-mode-text-color)
     }
+
+    body.dark .color-scheme .moon,
+    body.dark .user,
+    body.dark button.refresh,
+    body.dark dialog button,
+    body.dark h1,
+    body.dark h2,
+    body.dark h3,
+    body.dark p,
+    body.dark label,
+    body.dark table button,
+    body.dark table a,
+    body.dark table th,
+    body.dark table td {
+        color: var(--dark-mode-text-color)
+    }
+
+    body.dark #main,
+    body.dark button,
+    body.dark dialog,
+    body.dark {
+        background-color: var(--dark-mode-background)
+    }
+
+    body.dark .error {
+        color: var(--dark-mode-error-text-color);
+        background-color: var(--dark-mode-error-background-color);
+        border: 5px solid var(--dark-mode-error-background-color)
+    }
+
+    body.dark .htmx-logo svg path,
+    body.dark .htmx-logo svg polygon {
+        fill: var(--dark-mode-text-color)
+    }
+
 }

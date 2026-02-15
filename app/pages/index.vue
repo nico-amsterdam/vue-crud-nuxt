@@ -11,23 +11,26 @@ import { Icon } from '@iconify/vue'
 
 const { locale, setLocale, locales, t } = useI18n()
 const productStore = useProductStore()
-const { productList, lastReadErrorMsg, lastWriteErrorMsg, reading } = storeToRefs(productStore)
+const { productList, lastReadErrorMsg, lastWriteErrorMsg, darkmode } = storeToRefs(productStore)
 const searchKey = ref('')
 const filteredProducts = computed(() => {
   return productList.value.filter(product =>
     product.productName.toLowerCase().indexOf(searchKey.value.toLowerCase()) !== -1
-    || product.description.toLowerCase().indexOf(searchKey.value.toLowerCase()) !== -1)
+    || product.description.toLowerCase().indexOf(searchKey.value.toLowerCase()) !== -1
+    || (product.price && product.price.toString().indexOf(searchKey.value) !== -1))
 })
 
 /*
  * Functions
  */
 
-function refresh() {
-  if (!reading.value) productStore.fetchProducts() // do not wait with await
+function refresh(clearErrors: boolean) {
+  if (clearErrors) productStore.clearErrors()
+  productStore.fetchProducts() // do not wait with await
 }
 
-function onChangeLange() {
+function onChangeLang() {
+  productStore.clearErrors()
   setLocale(locale.value)
 }
 
@@ -35,7 +38,7 @@ function onChangeLange() {
  * Inits
  */
 
-refresh() // initial load
+refresh(false) // initial load
 
 onMounted(() => {
   document.getElementById('search-element')?.focus()
@@ -50,37 +53,27 @@ definePageMeta({
   layout: 'vue-crud'
 })
 
-useHead({
-  htmlAttrs: { class: 'retro' },
-  bodyAttrs: {
-    class: computed(() => {
-      return 'lang-' + locale.value
-    })
-  },
-  link: [{ rel: 'manifest', href: '/manifest.webmanifest' }, { rel: 'apple-touch-icon', href: '/image/icon-192.png' }]
-})
-
 </script>
 
 <template>
   <main class="product-list">
-    <div class="error">
-      {{ lastWriteErrorMsg }}
-      <p />
-      {{ lastReadErrorMsg }}
-    </div>
     <div class="form-actions">
-      <select v-model="locale" @change="onChangeLange" id="choose-lang" name="language"
+      <select v-model="locale" @change="onChangeLang" id="choose-lang" name="language"
         class="form-control language-switcher" :aria-label="t('pages.index.language_selector_label')">
         <option v-for="loc in locales" :key="loc.code" :value="loc.code" :lang="loc.code">
           {{ loc.name ?? loc.code }}
         </option>
       </select>
+      <div class="error" v-if="lastReadErrorMsg !== '' || lastWriteErrorMsg !== ''">
+        {{ lastWriteErrorMsg }}
+        <p v-if="lastReadErrorMsg !== '' && lastWriteErrorMsg !== ''" />
+        {{ lastReadErrorMsg }}
+      </div>
       <NuxtLink class="btn btn-default" to="/add-product" no-rel>
         <Icon icon="tabler:plus" :title="t('pages.index.add_product_icon_title')" class="plussign" />
         {{ t('pages.index.add_product') }}
       </NuxtLink>
-      <button type="button" class="btn refresh" :title="t('pages.index.refresh_button_title')" @click="refresh">
+      <button type="button" class="btn refresh" :title="t('pages.index.refresh_button_title')" @click="refresh(true)">
         <Icon flip="horizontal" icon="tabler:refresh" />
       </button>
     </div>
@@ -169,7 +162,7 @@ useHead({
 
 .form-actions .language-switcher {
   width: auto;
-  margin-top: -38px;
+  margin-top: -28px;
   float: right
 }
 

@@ -35,8 +35,6 @@ definePageMeta({
   layout: 'vue-crud'
 })
 
-useHead({ htmlAttrs: { class: 'retro' } })
-
 </script>
 
 <template>
@@ -47,7 +45,7 @@ useHead({ htmlAttrs: { class: 'retro' } })
       <button type="submit" class="btn btn-primary" v-if="!!product && product.id >= 0">{{ t('app.button.save')
         }}</button>
       {{ ' ' }}
-      <NuxtLink to="/" class="btn btn-default">{{ t('pages.product-id-edit.button.cancel') }}</NuxtLink>
+      <NuxtLink to="/" class="btn btn-default" @click="productStore.clearErrors()">{{ t('pages.product-id-edit.button.cancel') }}</NuxtLink>
     </form>
   </section>
 </template>

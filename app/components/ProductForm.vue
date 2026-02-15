@@ -21,6 +21,7 @@ onMounted(() => {
 
 <template>
   <span>
+    <input type="hidden" id="modifiedAt" v-model="theProduct.modifiedAt" />
     <div class="form-group">
       <label for="edit-name">{{ t('components.product-form.name_label') }}</label>
       <input class="form-control" id="edit-name" v-model="theProduct.productName" required maxlength="20" />

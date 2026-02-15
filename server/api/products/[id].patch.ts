@@ -6,12 +6,11 @@ export default eventHandler(async (event) => {
     id: zh.intAsString
   })
 
-  const { productName, description, price } = await useValidatedBody(event, {
+  const { productName, description, price, modifiedAt } = await useValidatedBody(event, {
     productName: z.string().trim().min(1).max(20)
     , description: z.string().trim().min(1).max(300)
     , price: z.union([z.literal("").transform(() => null), z.number().positive()]).nullable()
-    // To prevent overwriting somebody else's update, compare modifiedAt in the where-clause of the update
-    // modifiedAt: z.string().nullable()
+    , modifiedAt: z.coerce.date().nullable()
   })
 
   const { user } = await requireUserSession(event)
@@ -19,7 +18,8 @@ export default eventHandler(async (event) => {
   const t = getServerTranslation(event)
 
   const modifiedProduct = {
-    productName
+    id: +id
+    , productName
     , description
     , price
     , modifiedBy: user.username
@@ -29,21 +29,26 @@ export default eventHandler(async (event) => {
   const env = event.context.cloudflare.env as unknown as Env
 
   // Update product
-  const product = await useDB(env).update(tables.products).set(modifiedProduct).where(and(
-    eq(tables.products.id, id)
-  )).returning().get().catch(() => {
-    throw createError({
-      statusCode: 400,
-      message: t('server.api.products.patch.product_already_exists', { productName: productName })
+  const updatedProductIds: { updatedId: number }[] = await useDB(env).update(tables.products)
+    .set(modifiedProduct).where(and(
+      eq(tables.products.id, +id),
+      (!modifiedAt ? isNull(tables.products.modifiedAt) : eq(tables.products.modifiedAt, modifiedAt))
+    )).returning({ updatedId: tables.products.id }).catch(() => {
+      throw createError({
+        statusCode: 400,
+        message: t('server.api.products.patch.product_already_exists', { productName: productName })
+      })
     })
-  })
 
-  if (!product) {
+  const countUpdates = updatedProductIds.length
+
+  if (countUpdates === 0) {
     throw createError({
       statusCode: 400,
+      // Product is changed or removed by another user.
       message: t('server.api.products.patch.product_update_failed', { productName: productName })
     })
   }
 
-  return product
+  return modifiedProduct
 })

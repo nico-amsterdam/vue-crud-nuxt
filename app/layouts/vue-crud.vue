@@ -1,8 +1,32 @@
 <script setup lang="ts">
 import { Icon } from '@iconify/vue'
 
-const { t } = useI18n()
+/*
+ * Variables
+ */
+
+const { locale, t } = useI18n()
 const { loggedIn, user, clear } = useUserSession()
+const productStore = useProductStore()
+const { darkmode } = storeToRefs(productStore)
+
+/*
+ * Functions
+ */
+
+function toggleDark() {
+  darkmode.value = !darkmode.value
+}
+
+useHead({
+  htmlAttrs: { class: 'retro' },
+  bodyAttrs: {
+    class: computed(() => {
+      return 'container lang-' + locale.value + (darkmode.value ? ' dark' : '')
+    })
+  },
+  link: [{ rel: 'manifest', href: '/manifest.webmanifest' }, { rel: 'apple-touch-icon', href: '/image/icon-192.png' }]
+})
 
 </script>
 
@@ -18,6 +42,12 @@ const { loggedIn, user, clear } = useUserSession()
           </button>
         </span>
         <h1>{{ t('layouts.vue-crud.page_title') }}</h1>
+        <span class="color-scheme">
+          <Icon v-if="!darkmode" icon="tabler:sun" width="1.5em" :title="t('pages.auth.dark_mode_switch_title')" class="sun"
+            @click="toggleDark" />
+          <Icon v-if="darkmode" icon="tabler:moon" width="1.5em" :title="t('pages.auth.dark_mode_switch_title')" class="moon"
+            @click="toggleDark" />
+        </span>
       </div>
     </header>
     <slot />
@@ -40,6 +70,15 @@ const { loggedIn, user, clear } = useUserSession()
 }
 
 .exit-run {
+  margin-right: 10px
+}
+
+.page-header h1 {
+  display: inline-block
+}
+
+.color-scheme {
+  margin-left: 30px;
   margin-right: 10px
 }
 </style>

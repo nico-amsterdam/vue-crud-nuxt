@@ -19,6 +19,8 @@ Remove `middleware: 'auth'` from the Vue pages and `requireUserSession` from the
 
 Remove the api calls in the Pinia store if you don't want database persistence.
 
+For a safe content-security-policy I am waiting for this [PR](https://github.com/nuxt/nuxt/pull/32242).
+
 ## Directory structure
 
 ```text
@@ -39,6 +41,7 @@ Remove the api calls in the Pinia store if you don't want database persistence.
 │   │   └── webauthn/
 │   ├── database/
 │   │   └── migrations/
+│   ├── middleware/
 │   ├── types/
 │   └── utils/
 ├── shared/
