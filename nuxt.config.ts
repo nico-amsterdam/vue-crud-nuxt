@@ -59,13 +59,9 @@ export default defineNuxtConfig({
       { code: 'es', iso: 'es-ES', dir: 'ltr', name: "Español", file: 'es.json' }
     ],
     defaultLocale: 'en',
-    lazy: false,
     langDir: 'locales/',
     strategy: 'no_prefix',
-    detectBrowserLanguage: false,
-    bundle: {
-      optimizeTranslationDirective: false
-    }
+    detectBrowserLanguage: false
   },
   compatibilityDate: '2026-02-01'
 });
