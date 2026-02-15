@@ -2,7 +2,10 @@ import { describe, it, expect, beforeEach, vi } from 'vitest'
 import { setActivePinia, createPinia } from 'pinia'
 import { useProductStore } from '@/stores/product'
 import { mande } from 'mande'
-import { useI18n } from 'vue-i18n'
+import type { MandeResponse } from 'mande'
+import type { MockInstance } from 'jest-mock'
+
+type MockMandeResponseType = MandeResponse & MockInstance
 
 // Mock mande module - create a consistent API instance
 const mockApi = {
@@ -21,7 +24,8 @@ describe('Product Store', () => {
     id: 1,
     productName: 'Test Product',
     description: 'Test Description',
-    price: 99.99
+    price: 99.99,
+    modifiedAt: new Date()
   }
 
   beforeEach(() => {
@@ -58,8 +62,8 @@ describe('Product Store', () => {
       store.lastWriteErrorMsg = ''
 
       // Mock API error
-      // TODO: mockImplementation Promise.reject(new Error('Network error')))
-      api.delete.mockRejectedValueOnce(new Error('Network error'))
+      const apiDelete = api.delete as unknown as MockMandeResponseType
+      apiDelete.mockRejectedValueOnce(new Error('Network error') as never)
 
       // Call the actual deleteProduct method
       await store.deleteProduct(mockProduct)
@@ -73,7 +77,6 @@ describe('Product Store', () => {
 
     it('should not delete when system is busy', async () => {
       const store = useProductStore()
-      const api = mande('/api/products')
 
       // Set up initial state with system busy
       store.productList = [mockProduct]
@@ -91,7 +94,6 @@ describe('Product Store', () => {
 
     it('should handle product not found', async () => {
       const store = useProductStore()
-      const api = mande('/api/products')
 
       // Set up initial state with empty list
       store.productList = []
@@ -116,12 +118,14 @@ describe('Product Store', () => {
         id: null,
         productName: 'New Product',
         description: 'New Description',
-        price: 49.99
+        price: 49.99,
+        modifiedAt: new Date()
       }
       const savedProduct = { ...newProduct, id: 2 }
 
       // Mock successful API call
-      api.post.mockResolvedValueOnce(savedProduct)
+      const apiPost = api.post as unknown as MockMandeResponseType
+      apiPost.mockResolvedValueOnce(savedProduct as never)
 
       // Call the actual addProduct method
       await store.addProduct(newProduct)
@@ -140,11 +144,13 @@ describe('Product Store', () => {
         id: null,
         productName: 'New Product',
         description: 'New Description',
-        price: 49.99
+        price: 49.99,
+        modifiedAt: new Date()
       }
 
       // Mock API error
-      api.post.mockRejectedValueOnce(new Error('Network error'))
+      const apiPost = api.post as unknown as MockMandeResponseType
+      apiPost.mockRejectedValueOnce(new Error('Network error') as never)
 
       // Call the actual addProduct method
       await store.addProduct(newProduct)
@@ -171,7 +177,8 @@ describe('Product Store', () => {
       store.lastWriteErrorMsg = ''
 
       // Mock successful API call
-      api.patch.mockResolvedValueOnce(updatedProduct)
+      const apiPatch = api.patch as unknown as MockMandeResponseType
+      apiPatch.mockResolvedValueOnce(updatedProduct as never)
 
       // Call the actual updateProduct method
       await store.updateProduct(updatedProduct)
@@ -197,7 +204,8 @@ describe('Product Store', () => {
       store.lastWriteErrorMsg = ''
 
       // Mock API error
-      api.patch.mockRejectedValueOnce(new Error('Network error'))
+      const apiPatch = api.patch as unknown as MockMandeResponseType
+      apiPatch.mockRejectedValueOnce(new Error('Network error') as never)
 
       // Call the actual updateProduct method
       await store.updateProduct(updatedProduct)
@@ -225,7 +233,8 @@ describe('Product Store', () => {
       store.lastReadErrorMsg = ''
 
       // Mock successful API call
-      api.get.mockResolvedValueOnce(mockProducts)
+      const apiGet = api.get as unknown as MockMandeResponseType
+      apiGet.mockResolvedValueOnce(mockProducts as never)
 
       // Call the actual fetchProducts method
       await store.fetchProducts()
@@ -246,7 +255,8 @@ describe('Product Store', () => {
       store.lastReadErrorMsg = ''
 
       // Mock API error
-      api.get.mockRejectedValueOnce(new Error('Network error'))
+      const apiGet = api.get as unknown as MockMandeResponseType
+      apiGet.mockRejectedValueOnce(new Error('Network error') as never)
 
       // Call the actual fetchProducts method
       await store.fetchProducts()
