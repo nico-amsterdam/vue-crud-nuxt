@@ -14,6 +14,8 @@
   "pages.index.language_selector_label": "Seitensprache wählen",
   "pages.index.add_product_icon_title": "+",
   "pages.index.refresh_button_title": "Aktualisieren",
+  "pages.index.results.no_products_available": "Keine Produkte verfügbar",
+  "pages.index.results.no_search_results_found": "Keine Suchergebnisse gefunden",
   "pages.index.search_label": "Produkt suchen",
   "pages.index.table.header.name": "Name",
   "pages.index.table.header.description": "Beschreibung",

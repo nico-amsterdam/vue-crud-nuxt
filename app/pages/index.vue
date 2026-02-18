@@ -4,6 +4,7 @@
 import { ref, computed, onMounted } from 'vue'
 import { storeToRefs } from 'pinia'
 import { Icon } from '@iconify/vue'
+import { length } from 'zod'
 
 /*
  * Variables
@@ -56,7 +57,7 @@ definePageMeta({
 </script>
 
 <template>
-  <main class="product-list">
+  <main id="main" class="product-list">
     <div class="form-actions">
       <select v-model="locale" @change="onChangeLang" id="choose-lang" name="language"
         class="form-control language-switcher" :aria-label="t('pages.index.language_selector_label')">
@@ -114,6 +115,12 @@ definePageMeta({
           </td>
         </tr>
       </tbody>
+      <tfoot id="search-results-footer">
+        <tr id="announceResults" aria-live="assertive" aria-atomic="true">
+          <td v-if="productList.length === 0" id="noResults" colspan="4">{{ t('pages.index.results.no_products_available') }}</td>
+          <td v-else-if="filteredProducts.length === 0" id="noResults" colspan="4">{{ t('pages.index.results.no_search_results_found') }}</td>
+        </tr>
+      </tfoot>
     </table>
   </main>
 </template>
