@@ -81,7 +81,8 @@ definePageMeta({
     <div class="filters row">
       <div class="form-group product-search">
         <label for="search-element">{{ t('pages.index.search_label') }}</label>
-        <input v-model="searchKey" class="form-control" id="search-element" requred />
+        <input v-model="searchKey" class="form-control" id="search-element"
+          aria-description="t('pages.index.search_description')" requred />
       </div>
     </div>
     <table class="table">
@@ -117,8 +118,10 @@ definePageMeta({
       </tbody>
       <tfoot id="search-results-footer">
         <tr id="announceResults" aria-live="assertive" aria-atomic="true">
-          <td v-if="productList.length === 0" id="noResults" colspan="4">{{ t('pages.index.results.no_products_available') }}</td>
-          <td v-else-if="filteredProducts.length === 0" id="noResults" colspan="4">{{ t('pages.index.results.no_search_results_found') }}</td>
+          <td v-if="productList.length === 0" id="noResults" colspan="4">{{
+            t('pages.index.results.no_products_available') }}</td>
+          <td v-else-if="filteredProducts.length === 0" id="noResults" colspan="4">{{
+            t('pages.index.results.no_search_results_found') }}</td>
         </tr>
       </tfoot>
     </table>

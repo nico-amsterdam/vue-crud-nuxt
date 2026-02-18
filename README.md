@@ -55,7 +55,7 @@ For a safe content-security-policy I am waiting for this [PR](https://github.com
 
 - install [Bun](https://bun.com/). Other package managers like pnpm can also be used, but the Bun package manager is faster.
 - install [Node](https://nodejs.org/en/download). I recommend using nvm for the installation of Node.
-- git clone this repostory, or download the source from github.
+- [Create a GitHub project with this template](https://github.com/nico-amsterdam/vue-crud-nuxt/generate) and get the project without git history. Or download, clone or fork the source code.
 
   `git clone https://github.com/nico-amsterdam/vue-crud-nuxt.git`
 - `cd vue-crud-nuxt`

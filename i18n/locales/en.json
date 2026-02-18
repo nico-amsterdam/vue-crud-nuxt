@@ -1,8 +1,9 @@
 {
-  "layouts.vue-crud.logo_alt": "Logo",
   "layouts.vue-crud.logout_title": "Logout",
   "layouts.vue-crud.logout_text": "Logout",
   "layouts.vue-crud.page_title": "Vue CRUD Nuxt",
+  "layouts.vue-crud.skip_link": "Skip to main content",
+  "layouts.vue-crud.vue_logo_alt": "Vue logo",
 
   "components.product-form.name_label": "Name",
   "components.product-form.description_label": "Description",
@@ -16,6 +17,7 @@
   "pages.index.refresh_button_title": "Refresh",
   "pages.index.results.no_products_available": "No products available",
   "pages.index.results.no_search_results_found": "No search results found",
+  "pages.index.search_description": "Results will update as you type",
   "pages.index.search_label": "Search product",
   "pages.index.table.header.name": "Name",
   "pages.index.table.header.description": "Description",

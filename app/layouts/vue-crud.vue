@@ -31,21 +31,22 @@ useHead({
 </script>
 
 <template>
+  <a href="#main" id="skip-link" class="skip-link">{{ t('layouts.vue-crud.skip_link') }}</a>
   <div class="container">
     <header class="page-header">
       <div class="branding">
-        <img src="https://vuejs.org/images/logo.png" :alt="t('layouts.vue-crud.logo_alt')" title="Vue logo" class="logo"/>
+        <img src="https://vuejs.org/images/logo.png" :alt="t('layouts.vue-crud.vue_logo_alt')" class="logo"/>
         <span class="user">
           {{user?.name}}
-          <button type="button" v-if="loggedIn" @click="clear" :title="t('layouts.vue-crud.logout_title')" class="btn btn-default logout">
+          <button type="button" v-if="loggedIn" @click="clear" class="btn btn-default logout">
             <Icon icon="tabler:logout" :title="t('layouts.vue-crud.logout_title')" class="exit-run"/>{{ t('layouts.vue-crud.logout_text') }}
           </button>
         </span>
         <h1>{{ t('layouts.vue-crud.page_title') }}</h1>
         <span class="color-scheme">
-          <Icon v-if="!darkmode" icon="tabler:sun" width="1.5em" :title="t('pages.auth.dark_mode_switch_title')" class="sun"
+          <Icon v-if="!darkmode" aria-hidden="false" role="button" icon="tabler:sun" width="1.5em" :title="t('pages.auth.dark_mode_switch_title')" class="sun"
             @click="toggleDark" />
-          <Icon v-if="darkmode" icon="tabler:moon" width="1.5em" :title="t('pages.auth.dark_mode_switch_title')" class="moon"
+          <Icon v-if="darkmode" aria-hidden="false" role="button" icon="tabler:moon" width="1.5em" :title="t('pages.auth.dark_mode_switch_title')" class="moon"
             @click="toggleDark" />
         </span>
       </div>
