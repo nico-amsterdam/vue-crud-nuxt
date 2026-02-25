@@ -34,12 +34,12 @@
     "dbcat:kv:dev": "cross-env find .wrangler/state/v3/kv/miniflare-KVNamespaceObject -type f -name '*.sqlite' -print0 | xargs -0 ls -t | head -1 | xargs bunx dbcat"
   },
   "dependencies": {
-    "@cloudflare/workers-types": "^4.20260218.0",
+    "@cloudflare/workers-types": "^4.20260304.0",
     "@libsql/client": "^0.17.0",
     "@nuxtjs/i18n": "^10.2.3",
     "@pinia/nuxt": "^0.11.3",
     "@simplewebauthn/browser": "^13.2.2",
-    "@simplewebauthn/server": "^13.2.2",
+    "@simplewebauthn/server": "^13.2.3",
     "@vueuse/core": "^14.2.1",
     "drizzle-orm": "^0.45.1",
     "h3-zod": "^0.5.3",
@@ -47,22 +47,22 @@
     "nuxt": "^4.3.1",
     "nuxt-auth-utils": "^0.5.29",
     "pinia": "^3.0.4",
-    "vue": "^3.5.28",
+    "vue": "^3.5.29",
     "zod": "^4.3.6"
   },
   "devDependencies": {
     "@iconify/vue": "^5.0.0",
-    "@nuxt/devtools": "^3.2.1",
+    "@nuxt/devtools": "^3.2.2",
     "@nuxt/test-utils": "^4.0.0",
     "@testing-library/vue": "^8.1.0",
-    "@types/node": "^25.2.3",
+    "@types/node": "^25.3.0",
     "@vitest/coverage-v8": "^4.0.18",
     "@vitest/ui": "^4.0.18",
     "cross-env": "^10.1.0",
     "drizzle-kit": "^0.31.9",
-    "happy-dom": "^20.6.2",
+    "happy-dom": "^20.7.0",
     "nitro": "^3.0.1-alpha.2",
-    "vue-tsc": "^3.2.4",
-    "wrangler": "^4.66.0"
+    "vue-tsc": "^3.2.5",
+    "wrangler": "^4.68.1"
   }
 }
