@@ -51,6 +51,17 @@ export default defineNuxtConfig({
       nitro.options.moduleSideEffects.push('reflect-metadata')
     }
   },
+  vite: {
+    optimizeDeps: {
+      include: [
+        '@vue/devtools-core',
+        '@vue/devtools-kit',
+        '@iconify/vue',
+        'zod',
+        'mande',
+      ]
+    }
+  },
   i18n: {
     locales: [
       { code: 'en', iso: 'en-US', dir: 'ltr', name: "English", file: 'en.json' },
