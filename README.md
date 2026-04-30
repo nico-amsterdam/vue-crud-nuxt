@@ -20,7 +20,7 @@
 
 ```text
 +-------------------------------------------------------------+
-| Vue CRUD Nux             ☼☽       [User] [Log Out] [Lang ▼] |
+| Vue CRUD Nuxt            ☼☽       [User] [Log Out] [Lang ▼] |
 +-------------------------------------------------------------+
 | [+ Add product]                                 [↻ Refresh] |
 | Search: [_________________________] (updates as you type)   |
