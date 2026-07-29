@@ -81,7 +81,7 @@ For a safe content-security-policy I am waiting for this [PR](https://github.com
 │   ├── middleware/           # middleware: security headers handler
 │   ├── types/                # server types: Env
 │   └── utils/                # auto imported functions
-├── shared/types/             # shareed types: User
+├── shared/types/             # shared types: User
 └── tests/                    # unit tests
 ```
 
