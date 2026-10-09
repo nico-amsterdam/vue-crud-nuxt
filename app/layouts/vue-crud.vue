@@ -7,15 +7,15 @@ import { Icon } from '@iconify/vue'
 
 const { locale, t } = useI18n()
 const { loggedIn, user, clear } = useUserSession()
-const productStore = useProductStore()
-const { darkmode } = storeToRefs(productStore)
+const themeStore = useThemeStore()
+const { darkmode } = storeToRefs(themeStore)
 
 /*
  * Functions
  */
 
 function toggleDark() {
-  darkmode.value = !darkmode.value
+  themeStore.toggleDark()
 }
 
 useHead({

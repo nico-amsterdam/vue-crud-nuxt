@@ -27,7 +27,6 @@ export const useProductStore = defineStore('productStore', () => {
   const productList = ref<ProductType[]>([])
   const writing = ref(false)
   const reading = ref(false)
-  const darkmode = ref(false)
   const lastWriteErrorMsg = ref('')
   const lastReadErrorMsg = ref('')
   let uniqueId = -1
@@ -193,6 +192,6 @@ export const useProductStore = defineStore('productStore', () => {
 
   return {
     addProduct, updateProduct, deleteProduct, fetchProducts, clearErrors
-    , productList, reading, writing, lastReadErrorMsg, lastWriteErrorMsg, darkmode
+    , productList, reading, writing, lastReadErrorMsg, lastWriteErrorMsg
   }
 })

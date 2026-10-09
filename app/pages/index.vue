@@ -12,7 +12,7 @@ import { length } from 'zod'
 
 const { locale, setLocale, locales, t } = useI18n()
 const productStore = useProductStore()
-const { productList, lastReadErrorMsg, lastWriteErrorMsg, darkmode } = storeToRefs(productStore)
+const { productList, lastReadErrorMsg, lastWriteErrorMsg } = storeToRefs(productStore)
 const searchKey = ref('')
 const filteredProducts = computed(() => {
   return productList.value.filter(product =>

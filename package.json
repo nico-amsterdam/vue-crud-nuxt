@@ -1,6 +1,7 @@
 {
   "name": "vue-crud",
   "private": true,
+  "type": "module",
   "scripts": {
     "update:types": "wrangler types",
     "typecheck": "nuxt typecheck",
@@ -36,34 +37,35 @@
   "dependencies": {
     "@cloudflare/workers-types": "^4.20260702.1",
     "@libsql/client": "^0.17.4",
-    "@nuxtjs/i18n": "^10.5.0",
+    "@nuxtjs/i18n": "^10.6.0",
     "@pinia/nuxt": "^0.11.3",
     "@simplewebauthn/browser": "^13.3.0",
-    "@simplewebauthn/server": "^13.3.2",
+    "@simplewebauthn/server": "^13.3.3",
     "@vueuse/core": "^14.4.0",
-    "drizzle-orm": "^0.45.2",
+    "drizzle-orm": "^0.45.4",
     "h3-zod": "^0.5.3",
     "mande": "^2.0.10",
-    "nuxt": "^4.5.1",
-    "nuxt-auth-utils": "^0.5.29",
+    "nuxt": "^4.6.0",
+    "nuxt-auth-utils": "^0.5.31",
     "pinia": "^3.0.4",
-    "vue": "^3.5.40",
-    "zod": "^4.4.3"
+    "vue": "^3.5.43",
+    "zod": "^4.6.5"
   },
   "devDependencies": {
-    "@iconify/vue": "^5.0.1",
-    "@nuxt/devtools": "^3.4.0",
-    "@nuxt/test-utils": "^4.1.0",
+    "@iconify/vue": "^5.0.3",
+    "@nuxt/devtools": "^3.4.2",
+    "@nuxt/test-utils": "^4.3.3",
     "@testing-library/vue": "^8.1.0",
-    "@types/node": "^25.9.5",
-    "@vitest/coverage-v8": "^4.1.10",
-    "@vitest/ui": "^4.1.10",
+    "@types/node": "^25.9.9",
+    "@vitest/coverage-v8": "^4.1.11",
+    "@vitest/ui": "^4.1.11",
     "cross-env": "^10.1.0",
-    "drizzle-kit": "^0.31.10",
-    "happy-dom": "^20.11.1",
+    "vitest": "^4.1.11",
+    "drizzle-kit": "^0.31.11",
+    "happy-dom": "^20.14.6",
     "nitro": "^3.0.1-alpha.2",
-    "rolldown": "^1.2.0",
-    "vue-tsc": "^3.3.8",
-    "wrangler": "^4.115.0"
+    "rolldown": "^1.2.13",
+    "vue-tsc": "^3.3.12",
+    "wrangler": "^4.149.0"
   }
 }
