@@ -32,7 +32,7 @@ async function signUp() {
     displayName: name.value
   })
     .then(fetch)
-    .then(async () => await navigateTo('/'))
+    .then(async () => await navigateTo(LANDING_PAGE))
     .catch((error) => {
       errors.value.push({
         message: error.data?.message || error.message
@@ -44,7 +44,7 @@ async function signIn() {
   errors.value = []
   await authenticate(username.value)
     .then(fetch)
-    .then(async () => await navigateTo('/'))
+    .then(async () => await navigateTo(LANDING_PAGE))
     .catch((error) => {
       errors.value.push({
         message: error.data?.message || error.message

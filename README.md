@@ -64,8 +64,10 @@ For a safe content-security-policy I am waiting for this [PR](https://github.com
 │   ├── layouts/              # shared layouts
 │   ├── middleware/           # middleware: auth
 │   ├── pages/                # routes with Vue files
-│   │   └── product/[id]/     # edit/delete product
-│   └── stores/               # Pinia stores; cache and interface with backend
+│   │   ├── products/         # product pages
+│   │   └── products/[id]/    # edit/delete product
+│   ├── stores/               # Pinia stores; cache and interface with backend
+│   └── utils/                # auto imported functions/constants
 ├── public/                   # public assets
 │   ├── css/                  # stylesheets
 │   └── image/                # images

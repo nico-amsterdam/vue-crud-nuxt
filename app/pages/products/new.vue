@@ -22,7 +22,7 @@ const productAlreadyExists = computed(() => {
 
 function createProduct() {
   addProduct(product.value)
-  navigateTo('/')
+  navigateTo('/products')
 }
 
 /*
@@ -46,7 +46,7 @@ definePageMeta({
       <button type="submit" :disabled="writing" class="btn btn-primary">{{
         t('pages.add-product.button.create') }}</button>
       {{ ' ' }}
-      <NuxtLink to="/" class="btn btn-default" @click="productStore.clearErrors()">{{ t('pages.add-product.button.cancel') }}</NuxtLink>
+      <NuxtLink to="/products" class="btn btn-default" @click="productStore.clearErrors()">{{ t('pages.add-product.button.cancel') }}</NuxtLink>
     </form>
   </section>
 </template>

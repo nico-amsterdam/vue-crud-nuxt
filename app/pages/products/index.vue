@@ -70,7 +70,7 @@ definePageMeta({
         <p v-if="lastReadErrorMsg !== '' && lastWriteErrorMsg !== ''" />
         {{ lastReadErrorMsg }}
       </div>
-      <NuxtLink class="btn btn-default" to="/add-product" no-rel>
+      <NuxtLink class="btn btn-default" to="/products/new" no-rel>
         <Icon icon="tabler:plus" :title="t('pages.index.add_product_icon_title')" class="plussign" />
         {{ t('pages.index.add_product') }}
       </NuxtLink>
@@ -97,7 +97,7 @@ definePageMeta({
       <tbody>
         <tr v-for="product in filteredProducts">
           <td>
-            <NuxtLink v-if="product.id >= 0" :to="`/product/${product.id}/edit`" no-rel no-prefetch>{{
+            <NuxtLink v-if="product.id >= 0" :to="`/products/${product.id}/edit`" no-rel no-prefetch>{{
               product.productName }}</NuxtLink>
             <span v-if="product.id < 0">{{ product.productName }}</span>
           </td>
@@ -108,10 +108,10 @@ definePageMeta({
             {{ product.price }} €
           </td>
           <td class="table-actions">
-            <NuxtLink v-if="product.id >= 0" class="btn btn-warning btn-xs" :to="`/product/${product.id}/edit`" no-rel
+            <NuxtLink v-if="product.id >= 0" class="btn btn-warning btn-xs" :to="`/products/${product.id}/edit`" no-rel
               no-prefetch>{{ t('pages.index.table.actions.edit') }}</NuxtLink>
             {{ ' ' }}
-            <NuxtLink v-if="product.id >= 0" class="btn btn-danger btn-xs" :to="`/product/${product.id}/delete`" no-rel
+            <NuxtLink v-if="product.id >= 0" class="btn btn-danger btn-xs" :to="`/products/${product.id}/delete`" no-rel
               no-prefetch>{{ t('pages.index.table.actions.delete') }}</NuxtLink>
           </td>
         </tr>

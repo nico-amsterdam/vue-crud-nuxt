@@ -19,7 +19,7 @@ function remove() {
   if (product) {
     deleteProduct(product)
   }
-  navigateTo('/')
+  navigateTo('/products')
 }
 
 /*
@@ -41,7 +41,7 @@ definePageMeta({
       <button type="submit" class="btn btn-danger" v-if="!!product && product.id >= 0">{{ t('app.button.delete')
       }}</button>
       {{ ' ' }}
-      <NuxtLink to="/" class="btn btn-default" @click="productStore.clearErrors()">{{ t('pages.product-id-delete.button.cancel') }}</NuxtLink>
+      <NuxtLink to="/products" class="btn btn-default" @click="productStore.clearErrors()">{{ t('pages.product-id-delete.button.cancel') }}</NuxtLink>
     </form>
   </section>
 </template>

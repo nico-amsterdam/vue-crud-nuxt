@@ -35,6 +35,9 @@ export default defineNuxtConfig({
   auth: {
     webAuthn: true
   },
+  routeRules: {
+    '/': { redirect: '/products' }
+  },
   imports: {
     // Auto-import pinia stores defined in `~/stores`
     dirs: ['stores']

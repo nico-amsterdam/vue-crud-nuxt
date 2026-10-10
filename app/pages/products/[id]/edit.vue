@@ -23,7 +23,7 @@ const product = JSON.parse(JSON.stringify(productList.find(p => '' + p.id === ro
 
 function update() {
   updateProduct(product)
-  navigateTo('/')
+  navigateTo('/products')
 }
 
 /*
@@ -45,7 +45,7 @@ definePageMeta({
       <button type="submit" class="btn btn-primary" v-if="!!product && product.id >= 0">{{ t('app.button.save')
         }}</button>
       {{ ' ' }}
-      <NuxtLink to="/" class="btn btn-default" @click="productStore.clearErrors()">{{ t('pages.product-id-edit.button.cancel') }}</NuxtLink>
+      <NuxtLink to="/products" class="btn btn-default" @click="productStore.clearErrors()">{{ t('pages.product-id-edit.button.cancel') }}</NuxtLink>
     </form>
   </section>
 </template>
