@@ -6,7 +6,7 @@ export default eventHandler(async (event) => {
   })
   await requireUserSession(event)
 
-  const env = event.context.cloudflare.env as unknown as Env
+  const env = useRuntimeEnv(event)
 
   // Delete product
   const deletedProduct = await useDB(env).delete(tables.products).where(

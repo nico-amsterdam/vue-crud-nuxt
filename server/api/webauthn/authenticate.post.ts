@@ -1,11 +1,11 @@
 export default defineWebAuthnAuthenticateEventHandler({
   async storeChallenge(event, challenge, attemptId) {
-    const env = event.context.cloudflare.env as unknown as Env
+    const env = useRuntimeEnv(event)
 
     await env.KV.put(`auth:challenge:${attemptId}`, challenge, { expirationTtl: 60 })
   },
   async getChallenge(event, attemptId) {
-    const env = event.context.cloudflare.env as unknown as Env
+    const env = useRuntimeEnv(event)
     const t = getServerTranslation(event)
 
     const challenge = await env.KV.get<string>(`auth:challenge:${attemptId}`)
@@ -19,7 +19,7 @@ export default defineWebAuthnAuthenticateEventHandler({
     return challenge
   },
   async allowCredentials(event, userName) {
-    const env = event.context.cloudflare.env as unknown as Env
+    const env = useRuntimeEnv(event)
 
     const user = await useDB(env).query.users.findFirst({
       where: eq(tables.users.username, userName),
@@ -31,7 +31,7 @@ export default defineWebAuthnAuthenticateEventHandler({
     return user?.credentials || []
   },
   async getCredential(event, credentialID) {
-    const env = event.context.cloudflare.env as unknown as Env
+    const env = useRuntimeEnv(event)
     const t = getServerTranslation(event)
 
     const credential = await useDB(env).query.credentials.findFirst({

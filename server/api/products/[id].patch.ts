@@ -26,7 +26,7 @@ export default eventHandler(async (event) => {
     , modifiedAt: new Date()
   }
 
-  const env = event.context.cloudflare.env as unknown as Env
+  const env = useRuntimeEnv(event)
 
   // Update product
   const updatedProductIds: { updatedId: number }[] = await useDB(env).update(tables.products)

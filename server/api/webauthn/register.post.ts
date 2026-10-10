@@ -2,12 +2,12 @@ import { z } from 'zod'
 
 export default defineWebAuthnRegisterEventHandler({
   async storeChallenge(event, challenge, attemptId) {
-    const env = event.context.cloudflare.env as unknown as Env
+    const env = useRuntimeEnv(event)
 
     await env.KV.put(`auth:challenge:${attemptId}`, challenge, { expirationTtl: 60 })
   },
   async getChallenge(event, attemptId) {
-    const env = event.context.cloudflare.env as unknown as Env
+    const env = useRuntimeEnv(event)
     const t = getServerTranslation(event)
 
     const challenge = await env.KV.get<string>(`auth:challenge:${attemptId}`)
@@ -25,7 +25,7 @@ export default defineWebAuthnRegisterEventHandler({
     displayName: z.string().min(1).trim()
   }).parseAsync(user),
   async onSuccess(event, { user, credential }) {
-    const env = event.context.cloudflare.env as unknown as Env
+    const env = useRuntimeEnv(event)
     const t = getServerTranslation(event)
 
     const db = useDB(env)
@@ -60,7 +60,7 @@ export default defineWebAuthnRegisterEventHandler({
     })
   },
   async excludeCredentials(event, userName) {
-     const env = event.context.cloudflare.env as unknown as Env
+     const env = useRuntimeEnv(event)
 
     return useDB(env)
       .select({

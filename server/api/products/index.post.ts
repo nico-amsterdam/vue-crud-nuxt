@@ -19,7 +19,7 @@ export default eventHandler(async (event) => {
     , createdBy: user.username
   }
 
-  const env = event.context.cloudflare.env as unknown as Env
+  const env = useRuntimeEnv(event)
 
   // Insert product
   const product = await useDB(env).insert(tables.products).values(newProduct).returning().get().catch(() => {
