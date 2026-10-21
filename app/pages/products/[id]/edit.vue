@@ -41,7 +41,7 @@ definePageMeta({
   <section>
     <h2>{{ t('pages.product-id-edit.title') }}</h2>
     <form v-on:submit.prevent="update">
-      <ProductForm v-model:the-product="product" v-if="!!product"></ProductForm>
+      <ProductForm :the-product="product" v-if="!!product"></ProductForm>
       <button type="submit" class="btn btn-primary" v-if="!!product && product.id >= 0">{{ t('app.button.save')
         }}</button>
       {{ ' ' }}

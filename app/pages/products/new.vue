@@ -42,7 +42,7 @@ definePageMeta({
     </div>
     <h2>{{ t('pages.add-product.title') }}</h2>
     <form v-on:submit.prevent="createProduct">
-      <ProductForm v-model:the-product="product"></ProductForm>
+      <ProductForm :the-product="product"></ProductForm>
       <button type="submit" :disabled="writing" class="btn btn-primary">{{
         t('pages.add-product.button.create') }}</button>
       {{ ' ' }}
