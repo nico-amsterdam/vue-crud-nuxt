@@ -1,4 +1,41 @@
+import { defineRouteMeta } from 'nitro'
 import { useValidatedBody, z } from 'h3-zod'
+
+defineRouteMeta({
+  openAPI: {
+    tags: ['products'],
+    summary: 'Create a product',
+    description: 'Creates a new product owned by the authenticated user. Requires an authenticated session.',
+    requestBody: {
+      required: true,
+      content: {
+        'application/json': {
+          schema: {
+            type: 'object',
+            properties: {
+              productName: { type: 'string', minLength: 1, maxLength: 20 },
+              description: { type: 'string', minLength: 1, maxLength: 300 },
+              price: { type: 'number', exclusiveMinimum: 0, nullable: true }
+            },
+            required: ['productName', 'description']
+          }
+        }
+      }
+    },
+    responses: {
+      200: {
+        description: 'The created product',
+        content: {
+          'application/json': {
+            schema: { $ref: '#/components/schemas/Product' }
+          }
+        }
+      },
+      400: { description: 'Product already exists or creation failed' },
+      401: { description: 'Unauthorized' }
+    }
+  }
+})
 
 export default eventHandler(async (event) => {
 

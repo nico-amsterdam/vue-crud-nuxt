@@ -44,6 +44,16 @@ export default defineNuxtConfig({
   },
   nitro: {
     preset: "cloudflare_module",
+    experimental: {
+      openAPI: true
+    },
+    openAPI: {
+      meta: {
+        title: 'Vue CRUD API',
+        description: 'Products CRUD API',
+        version: '1.0.0'
+      }
+    },
     cloudflare: {
       deployConfig: true,
       nodeCompat: true
