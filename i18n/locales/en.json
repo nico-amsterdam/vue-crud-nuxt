@@ -19,6 +19,7 @@
   "pages.index.results.no_search_results_found": "No search results found",
   "pages.index.search_description": "Results will update as you type",
   "pages.index.search_label": "Search product",
+  "pages.index.search_label_by_name": "Search product by name",
   "pages.index.table.header.name": "Name",
   "pages.index.table.header.description": "Description",
   "pages.index.table.header.price": "Price",

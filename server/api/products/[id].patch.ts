@@ -1,4 +1,3 @@
-import { defineRouteMeta } from 'nitro'
 import { useValidatedParams, useValidatedBody, z, zh } from 'h3-zod'
 
 defineRouteMeta({
@@ -55,7 +54,9 @@ defineRouteMeta({
       400: { description: 'Product already exists, or was changed/removed by another user' },
       401: { description: 'Unauthorized' }
     }
-  }
+    // Cast needed: nitropack's internal OpenAPI 3.1 types do not (yet) include
+    // the JSON Schema validation keywords used in these schemas.
+  } as unknown as Parameters<typeof defineRouteMeta>[0]['openAPI']
 })
 
 export default eventHandler(async (event) => {

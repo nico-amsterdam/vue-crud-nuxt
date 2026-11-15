@@ -19,6 +19,7 @@
   "pages.index.results.no_search_results_found": "Keine Suchergebnisse gefunden",
   "pages.index.search_description": "Ergebnisse werden beim Tippen aktualisiert",
   "pages.index.search_label": "Produkt suchen",
+  "pages.index.search_label_by_name": "Produkt nach Name suchen",
   "pages.index.table.header.name": "Name",
   "pages.index.table.header.description": "Beschreibung",
   "pages.index.table.header.price": "Preis",

@@ -4,6 +4,7 @@ import { useProductStore } from '@/stores/product'
 import { mande } from 'mande'
 import type { MandeResponse } from 'mande'
 import type { MockInstance } from 'jest-mock'
+import { PRODUCT_PAGE_SIZE } from '#shared/utils/products'
 
 type MockMandeResponseType = MandeResponse & MockInstance
 
@@ -268,6 +269,122 @@ describe('Product Store', () => {
     })
   })
 
+  describe('fetchProducts with many rows', () => {
+    it('should switch to server-side search and keep only one page of rows', async () => {
+      const store = useProductStore()
+      const api = mande('/api/products')
+      const mockProducts = Array.from({ length: PRODUCT_PAGE_SIZE + 1 }, (_, i) => ({
+        ...mockProduct,
+        id: i + 1,
+        productName: 'Product ' + String(i + 1).padStart(3, '0')
+      }))
+
+      // Mock successful API call with more rows than the page size
+      const apiGet = api.get as unknown as MockMandeResponseType
+      apiGet.mockResolvedValueOnce(mockProducts as never)
+
+      await store.fetchProducts()
+
+      expect(store.serverSearch).toBe(true)
+      expect(store.hasMore).toBe(true)
+      expect(store.productList).toHaveLength(PRODUCT_PAGE_SIZE)
+      expect(store.lastReadErrorMsg).toBe('')
+      expect(store.reading).toBe(false)
+    })
+
+    it('should filter in the client when all rows fit on one page', async () => {
+      const store = useProductStore()
+      const api = mande('/api/products')
+      const mockProducts = [mockProduct, { ...mockProduct, id: 2, productName: 'Product 2' }]
+
+      const apiGet = api.get as unknown as MockMandeResponseType
+      apiGet.mockResolvedValueOnce(mockProducts as never)
+
+      await store.fetchProducts()
+
+      expect(store.serverSearch).toBe(false)
+      expect(store.hasMore).toBe(false)
+      expect(store.productList).toEqual(mockProducts)
+    })
+  })
+
+  describe('server-side search with findbyname', () => {
+    it('should search by name on the server and replace the list', async () => {
+      const store = useProductStore()
+      const api = mande('/api/products')
+
+      const apiGet = api.get as unknown as MockMandeResponseType
+      apiGet.mockResolvedValueOnce([mockProduct] as never)
+
+      await store.searchProductsByName('Test')
+
+      expect(apiGet).toHaveBeenCalledWith('/findbyname', expect.objectContaining({
+        query: expect.objectContaining({ search: 'Test', from: '' })
+      }))
+      expect(store.searchKey).toBe('Test')
+      expect(store.productList).toEqual([mockProduct])
+      expect(store.lastReadErrorMsg).toBe('')
+    })
+
+    it('should detect more rows when the search returns a full page plus one', async () => {
+      const store = useProductStore()
+      const api = mande('/api/products')
+      const mockProducts = Array.from({ length: PRODUCT_PAGE_SIZE + 1 }, (_, i) => ({
+        ...mockProduct,
+        id: i + 1,
+        productName: 'Product ' + String(i + 1).padStart(3, '0')
+      }))
+
+      const apiGet = api.get as unknown as MockMandeResponseType
+      apiGet.mockResolvedValueOnce(mockProducts as never)
+
+      await store.searchProductsByName('Product')
+
+      expect(store.hasMore).toBe(true)
+      expect(store.productList).toHaveLength(PRODUCT_PAGE_SIZE)
+    })
+  })
+
+  describe('loadMoreProducts', () => {
+    it('should append the next page using the last product name', async () => {
+      const store = useProductStore()
+      const api = mande('/api/products')
+      const firstPage = [mockProduct, { ...mockProduct, id: 2, productName: 'Product 2' }]
+      const nextPage = [{ ...mockProduct, id: 3, productName: 'Product 3' }]
+
+      // Set up initial state: one page loaded with more rows available
+      store.productList = firstPage
+      store.hasMore = true
+      store.searchKey = 'Product'
+
+      const apiGet = api.get as unknown as MockMandeResponseType
+      apiGet.mockResolvedValueOnce(nextPage as never)
+
+      const loaded = await store.loadMoreProducts()
+
+      expect(loaded).toBe(true)
+      expect(apiGet).toHaveBeenCalledWith('/findbyname', expect.objectContaining({
+        query: expect.objectContaining({ search: 'Product', from: 'Product 2' })
+      }))
+      expect(store.productList).toEqual([...firstPage, ...nextPage])
+      expect(store.lastReadErrorMsg).toBe('')
+    })
+
+    it('should do nothing when there are no more rows', async () => {
+      const store = useProductStore()
+      const api = mande('/api/products')
+
+      store.hasMore = false
+      const apiGet = api.get as unknown as MockMandeResponseType
+
+      const loaded = await store.loadMoreProducts()
+
+      expect(loaded).toBe(false)
+      expect(apiGet).not.toHaveBeenCalled()
+      expect(store.productList).toEqual([])
+    })
+  })
+
   describe('store state', () => {
     it('should initialize with correct default values', () => {
       const store = useProductStore()
@@ -277,6 +394,9 @@ describe('Product Store', () => {
       expect(store.reading).toBe(false)
       expect(store.lastWriteErrorMsg).toBe('')
       expect(store.lastReadErrorMsg).toBe('')
+      expect(store.searchKey).toBe('')
+      expect(store.hasMore).toBe(false)
+      expect(store.serverSearch).toBe(false)
     })
   })
 })

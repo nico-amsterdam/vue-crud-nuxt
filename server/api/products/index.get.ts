@@ -1,4 +1,4 @@
-import { defineRouteMeta } from 'nitro'
+import { PRODUCT_PAGE_SIZE } from '#shared/utils/products'
 
 /**
  * Build-time macro: extracted by Nitro when generating the OpenAPI spec.
@@ -10,7 +10,7 @@ defineRouteMeta({
   openAPI: {
     tags: ['products'],
     summary: 'List products',
-    description: 'Returns all products ordered by product name. Requires an authenticated session.',
+    description: 'Returns the first page of products ordered by product name. PRODUCT_PAGE_SIZE + 1 rows are returned, so the client can detect whether more rows are available. Requires an authenticated session.',
     responses: {
       200: {
         description: 'List of products',
@@ -45,7 +45,9 @@ defineRouteMeta({
         }
       }
     }
-  }
+    // Cast needed: nitropack's internal OpenAPI 3.1 types do not (yet) include
+    // the JSON Schema validation keywords used in these schemas.
+  } as unknown as Parameters<typeof defineRouteMeta>[0]['openAPI']
 })
 
 export default eventHandler(async (event) => {
@@ -53,8 +55,13 @@ export default eventHandler(async (event) => {
 
   const env = useRuntimeEnv(event)
 
-  // List all products
-  const products = await useDB(env).select().from(tables.products).orderBy(asc(tables.products.productName)).all()
+  // List the first page of products; the extra row tells the client
+  // if there are more rows, so it can switch to server-side search
+  // and load more rows while scrolling.
+  const products = await useDB(env).select().from(tables.products)
+    .orderBy(asc(tables.products.productName))
+    .limit(PRODUCT_PAGE_SIZE + 1)
+    .all()
 
   return products
 })

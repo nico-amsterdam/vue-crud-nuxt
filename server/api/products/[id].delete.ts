@@ -1,4 +1,3 @@
-import { defineRouteMeta } from 'nitro'
 import { useValidatedParams, zh } from 'h3-zod'
 
 defineRouteMeta({
@@ -31,7 +30,9 @@ defineRouteMeta({
       },
       401: { description: 'Unauthorized' }
     }
-  }
+    // Cast needed: nitropack's internal OpenAPI 3.1 types do not (yet) accept
+    // a nullable schema combined with allOf.
+  } as unknown as Parameters<typeof defineRouteMeta>[0]['openAPI']
 })
 
 export default eventHandler(async (event) => {

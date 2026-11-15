@@ -1,8 +1,11 @@
 node_modules/
 .nuxt/
+.nuxrc
 .env
 dist/
-.data
-.wrangler
+.data/
+.wrangler/
+.output/
+.claude/
 server/database/migrations
-coverage
+coverage/

@@ -1,9 +1,10 @@
 <script setup lang="ts">
 // auto-import import { useProductStore } from '@/stores/product'
 // auto-import import { useI18n } from '#imports'
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
 import { storeToRefs } from 'pinia'
 import { Icon } from '@iconify/vue'
+import { watchDebounced } from '@vueuse/core'
 import { length } from 'zod'
 
 /*
@@ -12,9 +13,13 @@ import { length } from 'zod'
 
 const { locale, setLocale, locales, t } = useI18n()
 const productStore = useProductStore()
-const { productList, lastReadErrorMsg, lastWriteErrorMsg } = storeToRefs(productStore)
-const searchKey = ref('')
+const { productList, lastReadErrorMsg, lastWriteErrorMsg, searchKey, serverSearch, hasMore } = storeToRefs(productStore)
 const filteredProducts = computed(() => {
+  if (productStore.serverSearch) {
+    // Many rows: the server filters the products with findbyname,
+    // the client does not have all rows to filter on.
+    return productList.value
+  }
   return productList.value.filter(product =>
     product.productName.toLowerCase().indexOf(searchKey.value.toLowerCase()) !== -1
     || product.description.toLowerCase().indexOf(searchKey.value.toLowerCase()) !== -1
@@ -41,9 +46,65 @@ function onChangeLang() {
 
 refresh(false) // initial load
 
+// With many rows the search is done on the server (findbyname rest call)
+watchDebounced(searchKey, () => {
+  if (productStore.serverSearch) {
+    productStore.searchProductsByName(searchKey.value)
+  }
+}, { debounce: 300 })
+
+// When the strategy switches to server-side search, apply the typed search phrase
+watch(() => productStore.serverSearch, (serverSearch) => {
+  if (serverSearch && searchKey.value !== '') {
+    productStore.searchProductsByName(searchKey.value)
+  }
+}
+
+)
+
+// Infinite scroll: load more rows when the user has scrolled near the bottom
+// of the product table. Fires the store's loadMoreProducts, and if more pages
+// are available keeps loading until the sentinel moves out of the viewport.
+let scrollThrottle: number | null = null
+const scrollThreshold = 200 // px from bottom before loading more
+
 onMounted(() => {
   document.getElementById('search-element')?.focus()
 })
+
+onUnmounted(() => {
+  if (scrollThrottle !== null) {
+    window.clearTimeout(scrollThrottle)
+    window.removeEventListener('scroll', handleScroll, { passive: true })
+  }
+})
+
+function handleScroll() {
+  // Throttle to ~60Hz to avoid flooding the store
+  if (scrollThrottle !== null) {
+    window.clearTimeout(scrollThrottle)
+  }
+  scrollThrottle = window.setTimeout(() => {
+    const main = document.getElementById('main') as HTMLElement
+    if (!main) return
+    const table = main.querySelector('table') as HTMLTableElement
+    if (!table) return
+    const rect = table.getBoundingClientRect()
+    const scrollBottom = rect.bottom + window.scrollY
+    const viewportBottom = window.innerHeight + window.scrollY
+    // If we're within threshold of the table's bottom, load more
+    if (viewportBottom - scrollBottom < scrollThreshold && !productStore.loadingMore) {
+      productStore.loadMoreProducts().then(loaded => {
+        if (loaded && productStore.hasMore) {
+          // Small delay to let rows render before next scroll check
+          setTimeout(handleScroll, 50)
+        }
+      })
+    }
+  }, 16)
+}
+
+window.addEventListener('scroll', handleScroll, { passive: true })
 
 /*
  * Page settings
@@ -80,7 +141,9 @@ definePageMeta({
     </div>
     <div class="filters row">
       <div class="form-group product-search">
-        <label for="search-element">{{ t('pages.index.search_label') }}</label>
+        <label for="search-element">{{ serverSearch
+          ? t('pages.index.search_label_by_name')
+          : t('pages.index.search_label') }}</label>
         <input v-model="searchKey" class="form-control" id="search-element"
           aria-description="t('pages.index.search_description')" requred />
       </div>
@@ -118,7 +181,7 @@ definePageMeta({
       </tbody>
       <tfoot id="search-results-footer">
         <tr id="announceResults" aria-live="assertive" aria-atomic="true">
-          <td v-if="productList.length === 0" id="noResults" colspan="4">{{
+          <td v-if="productList.length === 0 && searchKey === ''" id="noResults" colspan="4">{{
             t('pages.index.results.no_products_available') }}</td>
           <td v-else-if="filteredProducts.length === 0" id="noResults" colspan="4">{{
             t('pages.index.results.no_search_results_found') }}</td>
