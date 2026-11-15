@@ -14,6 +14,7 @@
 - 🕶 **Accessible**: Follows WCAG and WAI-ARIA standards for accessibility
 - 🌐 **Internationalization**: Switch between different languages
 - 🛡️ **Security**: Secured & sealed cookies, fetch metadata checks
+- 📜 **API**: Rest API documented with OpenAPI specification
 - 🚀 **Ready to launch**: Skip the scaffolding. Get straight to implementing your business ideas
 
 ## Wireframe
